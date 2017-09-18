@@ -167,6 +167,8 @@ TEST (Sort, sortByIncreasingCompactness)
 	Shps.pop_front();
 	ASSERT_EQ(Shps.front()->getShapeName(), "c3");
 	Shps.pop_front();
+	
+	//123
 }
 
 #endif
