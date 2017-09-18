@@ -150,25 +150,30 @@ TEST (Sort, sortByIncreasingCompactness)
 	Shps.push_back(&t1); Shps.push_back(&t2);
 	
 	Sort::sortByIncreasingCompactness(&Shps);
+
+	/*
+	for (std::list<Shape *>::iterator itr = Shps.begin(); itr != Shps.end(); itr++)
+	{
+		std::cout << (*itr)->getShapeName() << (*itr)->compactness() << std::endl;
+	}
+	*/
 	
-	ASSERT_EQ(Shps.front()->getShapeName(), "t2");
-	Shps.pop_front();
-	ASSERT_EQ(Shps.front()->getShapeName(), "t1");
-	Shps.pop_front();
-	ASSERT_EQ(Shps.front()->getShapeName(), "r3");
-	Shps.pop_front();
-	ASSERT_EQ(Shps.front()->getShapeName(), "r1");
-	Shps.pop_front();
-	ASSERT_EQ(Shps.front()->getShapeName(), "r2");
-	Shps.pop_front();
 	ASSERT_EQ(Shps.front()->getShapeName(), "c1");
 	Shps.pop_front();
 	ASSERT_EQ(Shps.front()->getShapeName(), "c2");
 	Shps.pop_front();
 	ASSERT_EQ(Shps.front()->getShapeName(), "c3");
 	Shps.pop_front();
-	
-	//123
+	ASSERT_EQ(Shps.front()->getShapeName(), "r1");
+	Shps.pop_front();
+	ASSERT_EQ(Shps.front()->getShapeName(), "r2");
+	Shps.pop_front();
+	ASSERT_EQ(Shps.front()->getShapeName(), "r3");
+	Shps.pop_front();
+	ASSERT_EQ(Shps.front()->getShapeName(), "t1");
+	Shps.pop_front();
+	ASSERT_EQ(Shps.front()->getShapeName(), "t2");
+	Shps.pop_front();
 }
 
 #endif

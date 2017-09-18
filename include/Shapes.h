@@ -40,7 +40,10 @@ public:
     virtual double area() const = 0;
     virtual double perimeter() const = 0;
     virtual std::string toString() const = 0;
-
+    double compactness()
+    {
+        return pow(perimeter(), 2)/(4*M_PI*area());
+    }
 };
 
 class Rectangle : public Shape {

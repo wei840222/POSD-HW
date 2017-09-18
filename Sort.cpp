@@ -34,9 +34,9 @@ void Sort::sortByDecreasingArea(std::list<Shape *> * shapeList)
   
 void Sort::sortByIncreasingCompactness(std::list<Shape *> * shapeList)
 {
-	//Compactness: 4*PI*area/perimeter^2
+	//Compactness: perimeter^2/(4*PI*area)
 	shapeList->sort([](Shape* s1, Shape* s2)->bool
 	{
-		return 4*M_PI*s1->area()/pow(s1->perimeter(), 2) < 4*M_PI*s2->area()/pow(s2->perimeter(), 2);
+		return s1->compactness() < s2->compactness();
 	});
 }
