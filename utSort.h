@@ -146,23 +146,23 @@ TEST (Sort, sortByIncreasingCompactness)
 	
 	std::list<Shape *> Shps;
 	Shps.push_back(&r1); Shps.push_back(&r2); Shps.push_back(&r3);
-	Shps.push_back(&c3); Shps.push_back(&c2); Shps.push_back(&c1);
+	Shps.push_back(&c1); Shps.push_back(&c2); Shps.push_back(&c3);
 	Shps.push_back(&t1); Shps.push_back(&t2);
 	
 	Sort::sortByIncreasingCompactness(&Shps);
 
-	
+	/*
 	for (std::list<Shape *>::iterator itr = Shps.begin(); itr != Shps.end(); itr++)
 	{
 		std::cout << (*itr)->getShapeName() << (*itr)->compactness() << std::endl;
 	}
+	*/
 	
-	
-	ASSERT_EQ(Shps.front()->getShapeName(), "c3");
+	ASSERT_EQ(Shps.front()->getShapeName(), "c1");
 	Shps.pop_front();
 	ASSERT_EQ(Shps.front()->getShapeName(), "c2");
 	Shps.pop_front();
-	ASSERT_EQ(Shps.front()->getShapeName(), "c1");
+	ASSERT_EQ(Shps.front()->getShapeName(), "c3");
 	Shps.pop_front();
 	ASSERT_EQ(Shps.front()->getShapeName(), "r1");
 	Shps.pop_front();
