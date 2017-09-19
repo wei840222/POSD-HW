@@ -25,4 +25,3 @@ ifeq (${OS}, Windows_NT)
 else
 	rm -f *.o hw1
 endif
-

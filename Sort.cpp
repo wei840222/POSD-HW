@@ -36,6 +36,6 @@ void Sort::sortByIncreasingCompactness(std::list<Shape *> *shapeList)
 {
 	shapeList->sort([](Shape* s1, Shape* s2)->bool
 	{
-		return s1->compactness() > s2->compactness();
+		return s1->compactness() < s2->compactness();
 	});
 }
