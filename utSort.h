@@ -98,4 +98,3 @@ TEST (Sort, sortByIncreasingCompactness)
 }
 
 #endif
-//123
