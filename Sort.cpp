@@ -8,7 +8,7 @@ void Sort::sortByIncreasingPerimeter(std::list<Shape *> *shapeList)
 	});
 }
 
-void Sort::sortByDecreasingPerimeter(std::list<Shape *> * shapeList)
+void Sort::sortByDecreasingPerimeter(std::list<Shape *> *shapeList)
 {
 	shapeList->sort([](Shape* s1, Shape* s2)->bool
 	{
@@ -16,7 +16,7 @@ void Sort::sortByDecreasingPerimeter(std::list<Shape *> * shapeList)
 	});
 }
 
-void Sort::sortByIncreasingArea(std::list<Shape *> * shapeList)
+void Sort::sortByIncreasingArea(std::list<Shape *> *shapeList)
 {
 	shapeList->sort([](Shape* s1, Shape* s2)->bool
 	{
@@ -24,7 +24,7 @@ void Sort::sortByIncreasingArea(std::list<Shape *> * shapeList)
 	});
 }
 
-void Sort::sortByDecreasingArea(std::list<Shape *> * shapeList)
+void Sort::sortByDecreasingArea(std::list<Shape *> *shapeList)
 {
 	shapeList->sort([](Shape* s1, Shape* s2)->bool
 	{
@@ -32,11 +32,10 @@ void Sort::sortByDecreasingArea(std::list<Shape *> * shapeList)
 	});
 }
   
-void Sort::sortByIncreasingCompactness(std::list<Shape *> * shapeList)
+void Sort::sortByIncreasingCompactness(std::list<Shape *> *shapeList)
 {
-	//Compactness: perimeter^2/(4*PI*area)
 	shapeList->sort([](Shape* s1, Shape* s2)->bool
 	{
-		return s1->compactness() < s2->compactness();
+		return s1->compactness() > s2->compactness();
 	});
 }
