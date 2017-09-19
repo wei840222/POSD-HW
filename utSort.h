@@ -1,5 +1,5 @@
-#ifndef EXP_H
-#define EXP_H
+#ifndef UTSORT_H
+#define UTSORT_H
 #include "include/Shapes.h"
 #include "include/Media.h"
 #include "include/Sort.h"
@@ -158,21 +158,21 @@ TEST (Sort, sortByIncreasingCompactness)
 	}
 	*/
 	
-	ASSERT_EQ(Shps.front()->getShapeName(), "c1");
+	ASSERT_EQ(Shps.front()->getShapeName(), "t2");
 	Shps.pop_front();
-	ASSERT_EQ(Shps.front()->getShapeName(), "c2");
+	ASSERT_EQ(Shps.front()->getShapeName(), "t1");
 	Shps.pop_front();
-	ASSERT_EQ(Shps.front()->getShapeName(), "c3");
+	ASSERT_EQ(Shps.front()->getShapeName(), "r3");
 	Shps.pop_front();
 	ASSERT_EQ(Shps.front()->getShapeName(), "r1");
 	Shps.pop_front();
 	ASSERT_EQ(Shps.front()->getShapeName(), "r2");
 	Shps.pop_front();
-	ASSERT_EQ(Shps.front()->getShapeName(), "r3");
+	ASSERT_EQ(Shps.front()->getShapeName(), "c1");
 	Shps.pop_front();
-	ASSERT_EQ(Shps.front()->getShapeName(), "t1");
+	ASSERT_EQ(Shps.front()->getShapeName(), "c2");
 	Shps.pop_front();
-	ASSERT_EQ(Shps.front()->getShapeName(), "t2");
+	ASSERT_EQ(Shps.front()->getShapeName(), "c3");
 	Shps.pop_front();
 }
 

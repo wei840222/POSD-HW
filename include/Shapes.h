@@ -42,7 +42,7 @@ public:
     virtual std::string toString() const = 0;
     double compactness()
     {
-        return pow(perimeter(), 2)/(4*M_PI*area());
+        return 2*sqrt(M_PI*area())/perimeter();
     }
 };
 
