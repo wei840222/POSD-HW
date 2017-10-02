@@ -1,11 +1,11 @@
-CPP = g++ -std=c++11 -c
-INC = ./include
+CPP = g++ -std=c++11
+INC = ./include/
 
 hw2: mainTerm.o
-	g++ -o hw2 mainTerm.o -lgtest -lpthread
+	${CPP} -o hw2 mainTerm.o -lgtest -lpthread
 
-mainTerm.o: utTerm.h mainTerm.cpp
-	${CPP} mainTerm.cpp
+mainTerm.o: mainTerm.cpp
+	${CPP} -c mainTerm.cpp
 
 clean:
 	rm -f *.o hw2

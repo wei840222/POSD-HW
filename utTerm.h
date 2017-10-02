@@ -1,10 +1,15 @@
 #ifndef UTTERM_H
 #define UTTERM_H
 
-//test Number.value()
-TEST (Number,ctor) {
+#include "include/number.h"
 
+//test Number.value()
+TEST (Number,ctor)
+{
+    Number one(1);
+    EXPECT_EQ(one.getValue(), "1");
 }
+
 //test Number.symbol()
 TEST (Number, symbol) {
 
