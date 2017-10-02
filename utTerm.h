@@ -1,44 +1,48 @@
 #ifndef UTTERM_H
 #define UTTERM_H
 
-#include "include/number.h"
+#include "atom.h"
+#include "number.h"
 
 //test Number.value()
 TEST (Number,ctor)
 {
-    Number one("one", 1);
+    Number one("1");
     ASSERT_EQ(one.value(), "1");
 }
 
 //test Number.symbol()
 TEST (Number, symbol)
 {
-    Number two("two", 2);
-    ASSERT_EQ(two.symbol(), "two");
+    Number two("2");
+    ASSERT_EQ(two.symbol(), "2");
 }
 
 //?- 25=25.
 //true.
 TEST (Number, matchSuccess)
 {
-    Number n("n", 25);
-    ASSERT_TRUE(n.match(n));
+    Number twentyFive("25");
+    ASSERT_TRUE(twentyFive.match(twentyFive));
 }
 
 //?- 25=0.
 //false.
 TEST (Number, matchFailureDiffValue)
 {
-    Number n1("n1", 25), n2("n2", 0);
-    ASSERT_FALSE(n1.match(n2));
+    Number twentyFive("25"), zero("0");
+    ASSERT_FALSE(twentyFive.match(zero));
 }
 
 //?- 25=tom.
 //false.
 TEST (Number, matchFailureDiffConstant)
 {
-
+    Atom tom("tom");
+    Number twentyFive("25");
+    ASSERT_FALSE(tom.match(twentyFive));
 }
+
 //?- 25=X.
 //true.
 TEST (Number, matchSuccessToVar)
