@@ -24,12 +24,15 @@ TEST (Number, matchSuccess)
     Number n("n", 25);
     ASSERT_TRUE(n.match(n));
 }
+
 //?- 25=0.
 //false.
 TEST (Number, matchFailureDiffValue)
 {
-
+    Number n1("n1", 25), n2("n2", 0);
+    ASSERT_FALSE(n1.match(n2));
 }
+
 //?- 25=tom.
 //false.
 TEST (Number, matchFailureDiffConstant)
