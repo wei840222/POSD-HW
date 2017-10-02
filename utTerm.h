@@ -3,6 +3,7 @@
 
 #include "atom.h"
 #include "number.h"
+#include "variable.h"
 
 //test Number.value()
 TEST (Number,ctor)
@@ -47,7 +48,9 @@ TEST (Number, matchFailureDiffConstant)
 //true.
 TEST (Number, matchSuccessToVar)
 {
-  
+    Variable X("X");
+    Number twentyFive("25");
+    ASSERT_TRUE(X.match(twentyFive));
 }
 
 //?- tom=25.

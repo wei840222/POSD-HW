@@ -1,7 +1,6 @@
 #ifndef NUMBER_H
 #define NUMBER_H
 
-#include "atom.h"
 #include <string>
 using std::string;
 
