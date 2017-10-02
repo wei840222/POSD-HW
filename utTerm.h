@@ -16,11 +16,13 @@ TEST (Number, symbol)
     Number two("two", 2);
     ASSERT_EQ(two.symbol(), "two");
 }
+
 //?- 25=25.
 //true.
 TEST (Number, matchSuccess)
 {
-
+    Number n("n", 25);
+    ASSERT_TRUE(n.match(n));
 }
 //?- 25=0.
 //false.
