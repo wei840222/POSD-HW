@@ -1,18 +1,17 @@
 #ifndef ATOM_H
 #define ATOM_H
 
-#include "number.h"
+#include "data.h"
 #include <string>
 using std::string;
 
-class Atom
+class Atom: public Data
 {
 public:
     Atom (string atom):_symbol(atom), _value(atom){}
-    string symbol(){return _symbol;}
-    string value(){return _value;}
-    bool match(Atom atom){return _value == atom.value();}
-    bool match(Number number){return _value == number.value();}
+    const string symbol(){return _symbol;}
+    const string value(){return _value;}
+    const bool match(Data &data){return _value == data.value();}
 private:
     string _symbol;
     string _value;

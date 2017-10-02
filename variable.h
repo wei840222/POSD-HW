@@ -1,42 +1,24 @@
 #ifndef VARIABLE_H
 #define VARIABLE_H
 
-#include "atom.h"
-#include "number.h"
+#include "data.h"
 #include <string>
 using std::string;
 
-class Variable
+class Variable: public Data
 {
 public:
     Variable(string s):_symbol(s){}
-    string symbol(){return _symbol;}
-    string value(){return _value;}
-    bool match(Atom atom)
-    {
-        bool status = _assignable;
-        if(_assignable)
-        {
-            _value = atom.value();
-            _assignable = false;
-        }
-        return status;
-    }
-    bool match(Number number)
-    {
-        bool status = _assignable;
-        if(_assignable)
-        {
-            _value = number.value();
-            _assignable = false;
-        }
-        return status;
-    }
+    const string symbol(){return _symbol;}
+    const string value(){return _value;}
+    void setValue(string s){_value = s;}
+    bool isAssignable(){return _assignable;}
+    void disAssignable(){_assignable = false;}
 
 private:
     string _symbol;
     string _value;
-    bool _assignable;
+    bool _assignable = true;
 };
 
 #endif

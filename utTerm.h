@@ -39,25 +39,25 @@ TEST (Number, matchFailureDiffValue)
 //false.
 TEST (Number, matchFailureDiffConstant)
 {
-    Atom tom("tom");
     Number twentyFive("25");
-    ASSERT_FALSE(tom.match(twentyFive));
+    Atom tom("tom");
+    ASSERT_FALSE(twentyFive.match(tom));
 }
 
 //?- 25=X.
 //true.
 TEST (Number, matchSuccessToVar)
 {
-    Variable X("X");
-    Number twentyFive("25");
-    ASSERT_TRUE(X.match(twentyFive));
+    
 }
 
 //?- tom=25.
 //false.
 TEST (Atom, matchFailureDiffConstant)
 {
-
+    Atom tom("tom");
+    Number twentyFive("25");
+    ASSERT_FALSE(tom.match(twentyFive));
 }
 
 // ?- tom = X.

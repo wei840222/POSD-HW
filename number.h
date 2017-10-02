@@ -1,16 +1,18 @@
 #ifndef NUMBER_H
 #define NUMBER_H
 
+#include "data.h"
 #include <string>
 using std::string;
 
-class Number
+class Number: public Data
 {
 public:
     Number (string number):_symbol(number), _value(number){}
-    string symbol(){return _symbol;}
-    string value(){return _value;}
-    bool match(Number number){return _value == number.value();}
+    const string symbol(){return _symbol;}
+    const string value(){return _value;}
+    const bool match(Data &data){return _value == data.value();}
+
 private:
     string _symbol;
     string _value;
