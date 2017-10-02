@@ -7,7 +7,7 @@ using std::string;
 class Number
 {
 public:
-    Number (string s, string v):_symbol(s), _value(v){}
+    Number (string s, int v):_symbol(s), _value(std::to_string(v)){}
     string symbol(){return _symbol;}
     string value(){return _value;}
     bool match(Number number){return _value == number.value();}
