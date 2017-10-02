@@ -6,13 +6,13 @@
 //test Number.value()
 TEST (Number,ctor)
 {
-    Number one(1);
-    EXPECT_EQ(one.getValue(), "1");
+    Number one("one", "1");
+    EXPECT_EQ(one.value(), "1");
 }
 
 //test Number.symbol()
-TEST (Number, symbol) {
-
+TEST (Number, symbol)
+{
 }
 //?- 25=25.
 //true.
