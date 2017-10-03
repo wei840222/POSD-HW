@@ -108,7 +108,10 @@ TEST (Var, matchSuccessToNumber)
 // false.
 TEST (Var, matchFailureToTwoDiffNumbers)
 {
-
+    Variable X("X");
+    Number twentyFive(25), hundred(100);
+    ASSERT_TRUE(X.match(twentyFive));
+    ASSERT_FALSE(X.match(hundred));
 }
 
 // ?- X=tom, X= 25.
