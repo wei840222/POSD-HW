@@ -118,8 +118,13 @@ TEST (Var, matchFailureToTwoDiffNumbers)
 // false.
 TEST (Var, matchSuccessToAtomThenFailureToNumber)
 {
-
+    Variable X("X");
+    Atom tom("tom");
+    Number twentyFive(25);
+    ASSERT_TRUE(X.match(tom));
+    ASSERT_FALSE(X.match(twentyFive));
 }
+
 //?- tom=X, 25=X.
 //false.
 TEST (Var, matchSuccessToAtomThenFailureToNumber2)
