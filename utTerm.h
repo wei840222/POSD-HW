@@ -140,7 +140,10 @@ TEST (Var, matchSuccessToAtomThenFailureToNumber2)
 //true.
 TEST(Var, reAssignTheSameAtom)
 {
-
+    Variable X("X");
+    Atom tom("tom");
+    ASSERT_TRUE(X.match(tom));
+    ASSERT_TRUE(X.match(tom));
 }
 
 #endif
