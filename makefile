@@ -1,13 +1,12 @@
-CPP = g++ -std=c++11
-INC = ./include/
-
 hw2: mainTerm
 
 mainTerm: mainTerm.o
-	${CPP} -o hw2 mainTerm.o -lgtest -lpthread
+	g++ -o hw2 mainTerm.o -lgtest -lpthread
 
-mainTerm.o: mainTerm.cpp
-	${CPP} -c mainTerm.cpp
+mainTerm.o: mainTerm.cpp include/atom.h include/number.h include/variable.h
+	g++ -std=c++11 -c mainTerm.cpp
 
 clean:
 	rm -f *.o hw2
+stat:
+	wc *.h *.cpp

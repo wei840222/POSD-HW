@@ -98,7 +98,10 @@ TEST (Atom, matchFailureToVarInstantedToDiffConstant)
 // X = 5.
 TEST (Var, matchSuccessToNumber)
 {
- 
+    Variable X("X");
+    Number five(5);
+    ASSERT_TRUE(X.match(five));
+    ASSERT_EQ(X.value(), five.value());
 }
 
 // ?- X=25, X= 100.
