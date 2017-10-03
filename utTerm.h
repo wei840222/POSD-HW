@@ -88,7 +88,10 @@ TEST (Atom, matchSuccessToVarInstantedToDiffConstant)
 // false.
 TEST (Atom, matchFailureToVarInstantedToDiffConstant)
 {
-
+    Variable X("X");
+    Atom jerry("jerry"), tom("tom");
+    ASSERT_TRUE(X.match(jerry));
+    ASSERT_FALSE(tom.match(X));
 }
 
 // ?- X = 5.
