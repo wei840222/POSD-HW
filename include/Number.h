@@ -1,17 +1,17 @@
-#ifndef ATOM_H
-#define ATOM_H
+#ifndef NUMBER_H
+#define NUMBER_H
 
-#include "dataAccess.h"
-#include "variable.h"
+#include "DataAccess.h"
+#include "Variable.h"
 #include <string>
 using std::string;
 
-class Atom: public DataAccess
+class Number: public DataAccess
 {
 public:
-    Atom (string s):_symbol(s){}
-    const string symbol(){return _symbol;}
-    const string value(){return _symbol;}
+    Number (int i):_value(i){}
+    const string symbol(){return std::to_string(_value);}
+    const string value(){return std::to_string(_value);}
     const bool match(DataAccess& dataAccess){return value() == dataAccess.value();}
     const bool match(Variable& variable)
     {
@@ -28,7 +28,7 @@ public:
     }
     
 private:
-    string _symbol;
+    int _value;
 };
 
 #endif
