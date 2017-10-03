@@ -1,21 +1,21 @@
 #ifndef UTTERM_H
 #define UTTERM_H
 
-#include "atom.h"
-#include "number.h"
-#include "variable.h"
+#include "include/atom.h"
+#include "include/number.h"
+#include "include/variable.h"
 
 //test Number.value()
 TEST (Number,ctor)
 {
-    Number one("1");
+    Number one(1);
     ASSERT_EQ(one.value(), "1");
 }
 
 //test Number.symbol()
 TEST (Number, symbol)
 {
-    Number two("2");
+    Number two(2);
     ASSERT_EQ(two.symbol(), "2");
 }
 
@@ -23,7 +23,7 @@ TEST (Number, symbol)
 //true.
 TEST (Number, matchSuccess)
 {
-    Number twentyFive("25");
+    Number twentyFive(25);
     ASSERT_TRUE(twentyFive.match(twentyFive));
 }
 
@@ -31,7 +31,7 @@ TEST (Number, matchSuccess)
 //false.
 TEST (Number, matchFailureDiffValue)
 {
-    Number twentyFive("25"), zero("0");
+    Number twentyFive(25), zero(0);
     ASSERT_FALSE(twentyFive.match(zero));
 }
 
@@ -39,7 +39,7 @@ TEST (Number, matchFailureDiffValue)
 //false.
 TEST (Number, matchFailureDiffConstant)
 {
-    Number twentyFive("25");
+    Number twentyFive(25);
     Atom tom("tom");
     ASSERT_FALSE(twentyFive.match(tom));
 }
@@ -48,7 +48,10 @@ TEST (Number, matchFailureDiffConstant)
 //true.
 TEST (Number, matchSuccessToVar)
 {
-    
+    Number twentyFive(25);
+    Variable X("X");
+    ASSERT_TRUE(twentyFive.match(X));
+    ASSERT_EQ(X.value(), twentyFive.value());
 }
 
 //?- tom=25.
@@ -56,7 +59,7 @@ TEST (Number, matchSuccessToVar)
 TEST (Atom, matchFailureDiffConstant)
 {
     Atom tom("tom");
-    Number twentyFive("25");
+    Number twentyFive(25);
     ASSERT_FALSE(tom.match(twentyFive));
 }
 

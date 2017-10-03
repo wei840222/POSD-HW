@@ -1,11 +1,12 @@
 CPP = g++ -std=c++11
+INC = ./include/
 
 hw2: mainTerm
 
 mainTerm: mainTerm.o
 	${CPP} -o hw2 mainTerm.o -lgtest -lpthread
 
-mainTerm.o: mainTerm.cpp atom.h number.h variable.h
+mainTerm.o: mainTerm.cpp
 	${CPP} -c mainTerm.cpp
 
 clean:
