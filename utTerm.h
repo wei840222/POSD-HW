@@ -77,7 +77,11 @@ TEST (Atom, matchSuccessToVar)
 // X = tom.
 TEST (Atom, matchSuccessToVarInstantedToDiffConstant)
 {
-
+    Variable X("X");
+    Atom tom("tom");
+    ASSERT_TRUE(X.match(tom));
+    ASSERT_TRUE(tom.match(X));
+    ASSERT_EQ(X.value(), tom.value());
 }
 
 // ?- X=jerry, tom=X.
