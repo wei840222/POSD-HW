@@ -1,12 +1,16 @@
-hw2: mainTerm
-
-mainTerm: mainTerm.o
+hw2: mainTerm.o
+ifeq (${OS}, Windows_NT)
+	g++ -o hw2 mainTerm.o -lgtest
+else
 	g++ -o hw2 mainTerm.o -lgtest -lpthread
+endif
 
-mainTerm.o: mainTerm.cpp include/Atom.h include/Number.h include/Variable.h
-	g++ -std=c++11 -c mainTerm.cpp
+mainTerm.o: mainTerm.cpp include/atom.h include/number.h include/variable.h
+	g++ -std=gnu++0x -c mainTerm.cpp
 
-clean:
-	rm -f *.o hw2
-stat:
-	wc *.h *.cpp
+clean:	
+ifeq (${OS}, Windows_NT)
+	del *.o *.exe
+else
+	rm -f *.o exp
+endif
