@@ -129,8 +129,13 @@ TEST (Var, matchSuccessToAtomThenFailureToNumber)
 //false.
 TEST (Var, matchSuccessToAtomThenFailureToNumber2)
 {
-
+    Atom tom("tom");
+    Variable X("X");
+    Number twentyFive(25);
+    ASSERT_TRUE(tom.match(X));
+    ASSERT_FALSE(twentyFive.match(X));
 }
+
 //?- X=tom, X=tom.
 //true.
 TEST(Var, reAssignTheSameAtom)
