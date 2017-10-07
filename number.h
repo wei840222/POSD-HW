@@ -1,19 +1,19 @@
 #ifndef NUMBER_H
 #define NUMBER_H
 
-#include "dataAccess.h"
+#include "term.h"
 #include "variable.h"
 #include <string>
 using std::string;
 
-class Number: public DataAccess
+class Number: public Term
 {
 public:
     Number (int i):_value(i){}
-    const string symbol(){return std::to_string(_value);}
-    const string value(){return std::to_string(_value);}
-    const bool match(DataAccess& dataAccess){return value() == dataAccess.value();}
-    const bool match(Variable& variable)
+    string symbol(){return std::to_string(_value);}
+    string value(){return std::to_string(_value);}
+    bool match(Term& term){return value() == term.value();}
+    bool match(Variable& variable)
     {
         if(variable.isAssignable())
         {

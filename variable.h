@@ -1,27 +1,27 @@
 #ifndef VARIABLE_H
 #define VARIABLE_H
 
-#include "dataAccess.h"
+#include "term.h"
 #include <string>
 using std::string;
 
-class Variable: public DataAccess
+class Variable: public Term
 {
 public:
     Variable(string s):_assignable(true), _symbol(s){}
-    const string symbol(){return _symbol;}
-    const string value(){return _value;}
-    const bool match(DataAccess& dataAccess)
+    string symbol(){return _symbol;}
+    string value(){return _value;}
+    bool match(Term& term)
     {
         if(isAssignable())
         {
-            setValue(dataAccess.value());
+            setValue(term.value());
             disAssignable();
             return true;
         }
         else
         {
-            return value() == dataAccess.value();
+            return value() == term.value();
         }
     }
 

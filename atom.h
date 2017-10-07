@@ -1,19 +1,19 @@
 #ifndef ATOM_H
 #define ATOM_H
 
-#include "dataAccess.h"
+#include "term.h"
 #include "variable.h"
 #include <string>
 using std::string;
 
-class Atom: public DataAccess
+class Atom: public Term
 {
 public:
     Atom (string s):_symbol(s){}
-    const string symbol(){return _symbol;}
-    const string value(){return _symbol;}
-    const bool match(DataAccess& dataAccess){return value() == dataAccess.value();}
-    const bool match(Variable& variable)
+    string symbol(){return _symbol;}
+    string value(){return _symbol;}
+    bool match(Term& term){return value() == term.value();}
+    bool match(Variable& variable)
     {
         if(variable.isAssignable())
         {
