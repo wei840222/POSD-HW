@@ -30,9 +30,9 @@ public:
     void disAssignable(){_assignable = false;}
 
 private:
-    bool _assignable;
-    string _symbol;
+    const string _symbol;
     string _value;
+    bool _assignable;
 };
 
 #endif

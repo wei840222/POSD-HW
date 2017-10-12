@@ -6,7 +6,7 @@
 #include "variable.h"
 
 //test Number.value()
-TEST (Number,ctor)
+TEST (Number, ctor)
 {
     Number one(1);
     ASSERT_EQ(one.value(), "1");

@@ -28,7 +28,7 @@ public:
     }
     
 private:
-    int _value;
+    const int _value;
 };
 
 #endif
