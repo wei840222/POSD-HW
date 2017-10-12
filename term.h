@@ -7,9 +7,15 @@ using std::string;
 class Term
 {
 public:
-    virtual string symbol() = 0;
-    virtual string value() = 0;
-    virtual bool match(Term& term) = 0;
+    Term(string s):_symbol(s){}
+    Term(string s, string v):_symbol(s), _value(v){}
+    string symbol(){return _symbol;}
+    string value(){return _value;}
+    virtual bool match(Term& term){return symbol() == term.symbol();}
+
+protected:
+    string _symbol;
+    string _value;
 };
 
 #endif

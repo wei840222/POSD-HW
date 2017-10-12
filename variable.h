@@ -8,10 +8,8 @@ using std::string;
 class Variable: public Term
 {
 public:
-    Variable(string s):_assignable(true), _symbol(s){}
-    string symbol(){return _symbol;}
-    string value(){return _value;}
-    bool match(Term& term)
+    Variable(string s):Term(s), _assignable(true){}
+    virtual bool match(Term& term)
     {
         if(isAssignable())
         {
@@ -30,8 +28,6 @@ public:
     void disAssignable(){_assignable = false;}
 
 private:
-    const string _symbol;
-    string _value;
     bool _assignable;
 };
 

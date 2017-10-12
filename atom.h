@@ -9,26 +9,21 @@ using std::string;
 class Atom: public Term
 {
 public:
-    Atom (string s):_symbol(s){}
-    string symbol(){return _symbol;}
-    string value(){return _symbol;}
-    bool match(Term& term){return value() == term.value();}
+    Atom(string s):Term(s, s){}
+    virtual bool match(Term& term){return symbol() == term.symbol();}
     bool match(Variable& variable)
     {
         if(variable.isAssignable())
         {
-            variable.setValue(value());
+            variable.setValue(symbol());
             variable.disAssignable();
             return true;
         }
         else
         {
-            return value() == variable.value();
+            return symbol() == variable.value();
         }
     }
-    
-private:
-    const string _symbol;
 };
 
 #endif
