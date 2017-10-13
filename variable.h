@@ -31,7 +31,7 @@ public:
 
 private:
     bool _assignable;
-    string _symbol;
+    const string _symbol;
     string _value;
 };
 

@@ -27,7 +27,7 @@ public:
     }
 
 private:
-    string _symbol;
+    const string _symbol;
 };
 
 #endif
