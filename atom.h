@@ -9,8 +9,9 @@ using std::string;
 class Atom: public Term
 {
 public:
-    Atom(string s):Term(s, s){}
-    virtual bool match(Term& term){return symbol() == term.symbol();}
+    Atom(string s):_symbol(s){}
+    string symbol()const{return _symbol;}
+    bool match(Term& term){return symbol() == term.symbol();}
     bool match(Variable& variable)
     {
         if(variable.isAssignable())
@@ -24,6 +25,9 @@ public:
             return symbol() == variable.value();
         }
     }
+
+private:
+    string _symbol;
 };
 
 #endif
