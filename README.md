@@ -1,38 +1,45 @@
 # POSD2017F Homework
 
-## Homework assignment 2
+## Homework assignment 3
 
-Please use [the files that were used in course](https://github.com/yccheng66/posd2017f) and copy test header to your repository from this project. 
+Please use [the files that were used in course](https://github.com/yccheng66/posd2017f) and copy test header to your repository from this project.
 
-For this time, not only run the test you write, but the test we prepared for your program.
-So you will see two jobs, make sure 2 jobs will be passed before deadline. Then, everyone's CI job had updated, it should pull the repository automatically once you push your commit. If it does not work, email to us.
+~~And unfortunately, the theft of plagiarism occurred again and again, in order to protect the rights and interests of students, we decided to ask you to move your repository from Github to [Gitlab](https://gitlab.com). Please follow [the steps](https://github.com/posd2017f/homework#setup-gitlab-repository) below to change your repository host.~~
 
-#### Assignment requirement 
- 1. Need to create a header file by youself naming `Number.h`.
-   In this header, there will be three method you should define: `symbol()`, `value()` and `match()`. As you define the Atom 
-   and implement it, the `symbol` and `value` method should return value with string type. And for `match`, in this homework, 
-   please use the method way to define instead of operator. 
-    
- 2. Also re-define and re-implement the `match()` in Atom via method way instead of operator.
- 
- 3. Implement all tests in utTerm.h. There are prompts in each test, follow the prompt to complete tests.
- 
- 4. Write the corresponding makefile to generate executable file which named `hw2`.
- 
- 5. Make sure your CI jobs are both passed before deadline.
+:zap: After we discussed with Professor, we decided to remain github host. So if you already created a new gitlab repository, sorry for that.
+
+#### Assignment requirement
+
+  1. Need `number.h` and its class implementation `Number`, you can use the previous one(hw2). And the interface of `Number` should follow the code block below:
+
+      ```c++
+      void Number(double value);
+      std::string symbol();
+      std::string value();
+      ```
+
+  2. Implement all tests in `utStrcut.h` and `utVariable.h`. The describe of test have been written on each test.
+
+  4. Write the corresponding makefile to generate executable file which named `hw3`. Note that it is the executable name, not the test file name.
+
+  5. Make sure your CI jobs are both passed before deadline.
 
 #### Marks
 
-On your own tests, each test has 2 points, total is 30 points.
-On TA's tests, each test has 4 points, total is 60 points.
-The sum of this homework marks is 90.
+  You totally have 15 tests in your own, each one is 2 points.
+  And TA's tests totally have 20 tests, each one is 3 points.
+  The sum of this homework is 90 points.
 
 #### Deadline
 
-Fri Oct 6 2017 23:59:59
+  Thus Oct 19 2017 23:59:59 
 
 #### Note
 
- * Clean all HW1 related files (Media.h, Shapes.h, Sort.h...and its implementation).
- * The header's first letter should be capitalized so that we can caugth your header file on CI.
- * If you had any suggestions in HW1, improve it.
+  * **About project structure**. In pervious homework, some people will place test file into folder and write the corresponding makefile. (e.g. `variable.h` in *include* folder ) This will result the executable in .ut job that still contains your test script but not ours because we just replace the test file at root directory. Thus, the report of test result shows all tests are passed, but in the fact it may isn't. So, if you place your files into some folder, please check the test report in .ut job that test script is still yours or not.
+
+  * Try to read building information in console log and fix the hw problem  by yourself as possible as you can.
+  
+  * If your CI job can not pull your repository, email to us.
+
+#### Change log
