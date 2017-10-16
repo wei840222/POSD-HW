@@ -1,9 +1,9 @@
 #ifndef UTSTRUCT_H
 #define UTSTRUCT_H
 
-#include <vector>
 #include "atom.h"
 #include "struct.h"
+#include <vector>
 
 TEST(Struct, hobby)
 {

@@ -9,14 +9,14 @@
 TEST (Number, ctor)
 {
     Number one(1);
-    ASSERT_EQ(one.value(), "1");
+    ASSERT_EQ(one.value(), "1.000000");
 }
 
 //test Number.symbol()
 TEST (Number, symbol)
 {
     Number two(2);
-    ASSERT_EQ(two.symbol(), "2");
+    ASSERT_EQ(two.symbol(), "2.000000");
 }
 
 //?- 25=25.

@@ -8,7 +8,8 @@ using std::string;
 class Variable: public Term
 {
 public:
-    Variable(string s):Term(s), _assignable(true){}
+    Variable(string s):_symbol(s), _assignable(true){}
+    string symbol()const{return _symbol;}
     string value()const{return _value;}
     virtual bool match(Term& term)
     {
@@ -30,6 +31,7 @@ public:
 
 private:
     bool _assignable;
+    const string _symbol;
     string _value;
 };
 
