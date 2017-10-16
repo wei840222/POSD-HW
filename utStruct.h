@@ -1,57 +1,63 @@
 #ifndef UTSTRUCT_H
 #define UTSTRUCT_H
 
+#include "term.h"
 #include "atom.h"
+#include "number.h"
+#include "variable.h"
 #include "struct.h"
 #include <vector>
+
+using std::vector;
 
 TEST(Struct, hobby)
 {
   Atom tom("tom");
   Atom chaseMouse("chaseMouse");
-  std::vector<Term *> v = {&tom, &chaseMouse};
+  vector<Term *> v = {&tom, &chaseMouse};
   Struct hobby(Atom("hobby"), v);
   ASSERT_EQ("hobby", hobby.name().symbol());
   ASSERT_EQ("tom", hobby.args(0)->symbol());
   ASSERT_EQ("chaseMouse", hobby.args(1)->symbol());
-
 }
 
 TEST(Struct, symbol)
 {
   Atom tom("tom");
   Atom chaseMouse("chaseMouse");
-  std::vector<Term *> v = {&tom, &chaseMouse};
+  vector<Term *> v = {&tom, &chaseMouse};
   Struct hobby(Atom("hobby"), v);
-  ASSERT_EQ("hobby(tom, chaseMouse)",hobby.symbol());
+  ASSERT_EQ("hobby(tom, chaseMouse)", hobby.symbol());
 }
 
 TEST(Struct, match1)
 {
   Atom tom("tom");
   Atom chaseMouse("chaseMouse");
-  std::vector<Term *> v = {&tom, &chaseMouse};
+  vector<Term *> v = {&tom, &chaseMouse};
   Struct hobby(Atom("hobby"), v);
   Struct hobby2(Atom("hobby2"), v);
   EXPECT_FALSE(hobby.match(hobby2));
 }
 
-TEST(Struct, match2){
+TEST(Struct, match2)
+{
   Atom tom("tom");
   Atom chaseMouse("chaseMouse");
-  std::vector<Term *> v = {&tom, &chaseMouse};
+  vector<Term *> v = {&tom, &chaseMouse};
   Struct hobby(Atom("hobby"), v);
-  std::vector<Term *> v1 = {&tom};
+  vector<Term *> v1 = {&tom};
   Struct hobby2(Atom("hobby"), v1);
   EXPECT_FALSE(hobby.match(hobby2));
 }
 
-TEST(Struct, match3){
+TEST(Struct, match3)
+{
   Atom tom("tom");
   Atom chaseMouse("chaseMouse");
-  std::vector<Term *> v = {&tom, &chaseMouse};
+  vector<Term *> v = {&tom, &chaseMouse};
   Struct hobby(Atom("hobby"), v);
-  std::vector<Term *> v1 = { &chaseMouse,&tom};
+  vector<Term *> v1 = {&chaseMouse, &tom};
   Struct hobby2(Atom("hobby"), v1);
   EXPECT_FALSE(hobby.match(hobby2));
 }
@@ -60,7 +66,7 @@ TEST(Struct, match4)
 {
   Atom tom("tom");
   Atom chaseMouse("chaseMouse");
-  std::vector<Term *> v = {&tom, &chaseMouse};
+  vector<Term *> v = {&tom, &chaseMouse};
   Struct hobby(Atom("hobby"), v);
   Struct hobby2(Atom("hobby"), v);
   EXPECT_TRUE(hobby.match(hobby2));
@@ -70,7 +76,7 @@ TEST(Struct, match5)
 {
   Atom tom("tom");
   Atom chaseMouse("chaseMouse");
-  std::vector<Term *> v = {&tom, &chaseMouse};
+  vector<Term *> v = {&tom, &chaseMouse};
   Struct hobby(Atom("hobby"), v);
   EXPECT_FALSE(hobby.match(tom));
 }
@@ -80,7 +86,11 @@ TEST(Struct, match5)
 // and #value() should also return "s(X)"
 TEST(Struct, var)
 {
-
+  Variable X("X");
+  vector<Term *> v = {&X};
+  Struct s(Atom("s"), v);
+  EXPECT_EQ(s.symbol(), "s(X)");
+  EXPECT_EQ(s.value(), "s(X)");
 }
 
 // Given there is Struct s contains a Variable X
@@ -89,7 +99,6 @@ TEST(Struct, var)
 // and #value() should also return "s(tom)"
 TEST(Struct, var_match_atom)
 {
-
 }
 
 // Given there are Struct s1 and Struct s2
@@ -99,7 +108,6 @@ TEST(Struct, var_match_atom)
 // and #value() of s1 should also return "s1(s2(X))"
 TEST(Struct, nested_struct1)
 {
-
 }
 
 // Given there are Struct s1 contains Struct s2
@@ -109,7 +117,6 @@ TEST(Struct, nested_struct1)
 // and #value() of s1 should return "s1(s2(tom))"
 TEST(Struct, nested_struct2)
 {
-
 }
 
 // Given there are Struct s1 contains Struct s2
@@ -119,7 +126,6 @@ TEST(Struct, nested_struct2)
 // and #value() of s1 should return "s1(s2(3.14))"
 TEST(Struct, nested_struct3)
 {
-
 }
 
 // Given there are Struct s1 contains Struct s2 and Variable X
@@ -130,7 +136,6 @@ TEST(Struct, nested_struct3)
 // and #value() of s1 should return "s1(s2(kent_beck), kent_beck)"
 TEST(Struct, nested_struct_and_multiVariable)
 {
-
 }
 
 #endif
