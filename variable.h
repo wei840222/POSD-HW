@@ -5,34 +5,31 @@
 #include <string>
 using std::string;
 
+#include <iostream>
+using namespace std;
+
 class Variable : public Term
 {
   public:
-    Variable(string s) : _symbol(s), _assignable(true) {}
+    Variable(string s) : _symbol(s), _value(NULL) {}
     string symbol() const { return _symbol; }
-    string value() const { return _value; }
-    virtual bool match(Term &term)
+    string value() const { return _value->value(); }
+    bool match(Term &term)
     {
-        if (isAssignable())
+        if (_value)
         {
-            setValue(term.value());
-            disAssignable();
-            return true;
+            return _value->match(term);
         }
         else
         {
-            return value() == term.value();
+            _value = &term;
+            return true;
         }
     }
 
-    void setValue(string s) { _value = s; }
-    bool isAssignable() { return _assignable; }
-    void disAssignable() { _assignable = false; }
-
   private:
-    bool _assignable;
     const string _symbol;
-    string _value;
+    Term *_value;
 };
 
 #endif
