@@ -6,15 +6,15 @@
 #include <string>
 using std::string;
 
-class Atom: public Term
+class Atom : public Term
 {
-public:
-    Atom(string s):_symbol(s){}
-    string symbol()const{return _symbol;}
-    bool match(Term& term){return symbol() == term.symbol();}
-    bool match(Variable& variable)
+  public:
+    Atom(string s) : _symbol(s) {}
+    string symbol() const { return _symbol; }
+    bool match(Term &term) { return symbol() == term.symbol(); }
+    bool match(Variable &variable)
     {
-        if(variable.isAssignable())
+        if (variable.isAssignable())
         {
             variable.setValue(symbol());
             variable.disAssignable();
@@ -26,7 +26,7 @@ public:
         }
     }
 
-private:
+  private:
     const string _symbol;
 };
 
