@@ -2,6 +2,7 @@
 #define UTVARIABLE_H
 
 #include "atom.h"
+#include "number.h"
 #include "variable.h"
 
 
@@ -27,8 +28,12 @@ TEST (Variable , haveValue){
 
 // ?- X=2.7182.
 // X=2.7182
-TEST(Variable , numE_to_varX){
-
+TEST(Variable , numE_to_varX)
+{
+  Number E(2.7182);
+  Variable X("X");
+  ASSERT_TRUE(X.match(E));
+  ASSERT_EQ(X.value(), "2.7182");
 }
 
 // ?- X=Y, X=1.
