@@ -11,17 +11,10 @@ using std::vector;
 class Struct : public Term
 {
 public:
-  Struct(Atom const &name, vector<Term *> args) : _name(name), _args(args){}
+  Struct(Atom name, vector<Term *> args) : _name(name), _args(args) {}
+  Atom name() { return _name; }
+  Term *args(int index) { return _args[index]; }
 
-  Term *args(int index)
-  {
-    return _args[index];
-  }
-
-  Atom const &name()
-  {
-    return _name;
-  }
   string symbol() const
   {
     string ret = _name.symbol() + "(";
@@ -32,7 +25,32 @@ public:
     ret += _args[_args.size() - 1]->symbol() + ")";
     return ret;
   }
-  
+
+  string value() const
+  {
+    string ret = _name.symbol() + "(";
+    for (int i = 0; i < _args.size() - 1; i++)
+    {
+      if(_args[i]->isAssignable())
+      {
+        ret += _args[i]->symbol() + ", ";
+      }
+      else
+      {
+        ret += _args[i]->value() + ", ";
+      }
+    }
+    if(_args[_args.size() - 1]->isAssignable())
+    {
+      ret += _args[_args.size() - 1]->symbol() + ")";
+    }
+    else
+    {
+      ret += _args[_args.size() - 1]->value() + ")";
+    }
+    return ret;
+  }
+
   bool match(Term &term)
   {
     Struct *ps = dynamic_cast<Struct *>(&term);

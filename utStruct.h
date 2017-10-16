@@ -99,6 +99,13 @@ TEST(Struct, var)
 // and #value() should also return "s(tom)"
 TEST(Struct, var_match_atom)
 {
+  Atom tom("tom");
+  Variable X("X");
+  vector<Term *> v = {&X};
+  Struct s(Atom("s"), v);
+  EXPECT_TRUE(X.match(tom));
+  EXPECT_EQ(s.symbol(), "s(X)");
+  EXPECT_EQ(s.value(), "s(tom)");
 }
 
 // Given there are Struct s1 and Struct s2
