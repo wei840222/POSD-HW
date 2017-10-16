@@ -9,8 +9,7 @@ using std::string;
 class Number: public Term
 {
 public:
-    Number(int i):_symbol(std::to_string(i)){}
-    string symbol()const{return _symbol;}
+    Number(int i):Term(std::to_string(i)){}
     bool match(Term& term){return symbol() == term.symbol();}
     bool match(Variable& variable)
     {
@@ -25,9 +24,6 @@ public:
             return symbol() == variable.value();
         }
     }
-
-private:
-    const string _symbol;
 };
 
 #endif
