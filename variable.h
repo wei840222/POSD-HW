@@ -16,7 +16,11 @@ class Variable : public Term
     string value() const { return _value->value(); }
     bool match(Term &term)
     {
-        if (_value)
+        if (&term == this)
+        {
+            return true;
+        }
+        else if (_value)
         {
             return _value->match(term);
         }
