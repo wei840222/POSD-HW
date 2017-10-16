@@ -53,6 +53,11 @@ TEST(Variable, varY_to_varX_and_num1_to_varX)
 // X=1
 TEST(Variable, varY_to_varX_and_num1_to_varY)
 {
+  Variable X("X"), Y("Y");
+  Number one(1);
+  ASSERT_TRUE(X.match(Y));
+  ASSERT_TRUE(Y.match(one));
+  ASSERT_EQ(X.value(), "1");
 }
 
 // ?- X=X, X=1.
