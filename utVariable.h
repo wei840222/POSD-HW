@@ -100,6 +100,14 @@ TEST(Variable, num1_to_varZ_to_varY_to_varX)
 // X=1, Y=1, Z=1
 TEST(Variable, num1_to_varZ_to_varX_and_varY_to_varX)
 {
+  Variable X("X"), Y("Y"), Z("Z");
+  Number one(1);
+  ASSERT_TRUE(X.match(Y));
+  ASSERT_TRUE(X.match(Z));
+  ASSERT_TRUE(Z.match(one));
+  ASSERT_EQ(X.value(), "1");
+  ASSERT_EQ(Y.value(), "1");
+  ASSERT_EQ(Z.value(), "1");
 }
 
 // Give there is a Struct s contains Variable X
