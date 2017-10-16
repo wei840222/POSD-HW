@@ -1,3 +1,9 @@
+allTest: utAtom utVariable utTerm utStruct
+	./utAtom
+	./utVariable
+	./utTerm
+	./utStruct
+
 all: utAtom utVariable utTerm utStruct
 
 # hw3: mainVariable.o mainStruct.o

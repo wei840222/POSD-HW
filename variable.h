@@ -31,6 +31,9 @@ class Variable : public Term
         }
     }
 
+    bool isAssignable() { return !_value; }
+    void setValue(Term *term) { _value = term; }
+
   private:
     const string _symbol;
     Term *_value;

@@ -11,6 +11,19 @@ class Number : public Term
   public:
     Number(double d) : _symbol(numToString(d)) {}
     string symbol() const { return _symbol; }
+    bool match(Term &term) { return symbol() == term.value(); }
+    bool match(Variable &variable)
+    {
+        if (variable.isAssignable())
+        {
+            variable.setValue(this);
+            return true;
+        }
+        else
+        {
+            return symbol() == variable.value();
+        }
+    }
 
   private:
     const string _symbol;
