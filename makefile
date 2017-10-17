@@ -1,17 +1,17 @@
-allTest: utAtom utVariable utTerm utStruct
+all: utAtom utVariable utTerm utStruct
 	./utAtom
 	./utVariable
 	./utTerm
 	./utStruct
 
-all: utAtom utVariable utTerm utStruct
-
-# hw3: mainVariable.o mainStruct.o
-# ifeq (${OS}, Windows_NT)
-# 	g++ -o hw3 mainVariable.o mainStruct.o -lgtest
-# else
-# 	g++ -o hw3 mainVariable.o mainStruct.o -lgtest -lpthread
-# endif
+hw3: mainVarAndStruct.o
+ifeq (${OS}, Windows_NT)
+	g++ -o hw3 mainVarAndStruct.o -lgtest
+else
+	g++ -o hw3 mainVarAndStruct.o -lgtest -lpthread
+endif
+mainVarAndStruct.o: mainVarAndStruct.cpp utVariable.h variable.h utStruct.h atom.h number.h variable.h struct.h
+	g++ -std=gnu++0x -c mainVarAndStruct.cpp
 
 utAtom: mainAtom.o
 	g++ -o utAtom mainAtom.o -lgtest -lpthread
@@ -37,5 +37,5 @@ clean:
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
 else
-	rm -f *.o utAtom utVariable utTerm utStruct
+	rm -f *.o utAtom utVariable utTerm utStruct hw3
 endif
