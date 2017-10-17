@@ -149,6 +149,13 @@ TEST(Struct, nested_struct2)
 // and #value() of s1 should return "s1(s2(3.14))"
 TEST(Struct, nested_struct3)
 {
+  Variable X("X");
+  Struct s2(Atom("s2"), vector<Term *> {&X});
+  Struct s1(Atom("s1"), vector<Term *> {&s2});
+  Number pi(3.14);
+  EXPECT_TRUE(X.match(pi));
+  EXPECT_EQ(s1.symbol(), "s1(s2(X))");
+  EXPECT_EQ(s1.value(), "s1(s2(3.14))");
 }
 
 // Given there are Struct s1 contains Struct s2 and Variable X
