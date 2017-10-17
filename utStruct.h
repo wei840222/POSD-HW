@@ -131,6 +131,15 @@ TEST(Struct, nested_struct1)
 // and #value() of s1 should return "s1(s2(tom))"
 TEST(Struct, nested_struct2)
 {
+  Variable X("X");
+  vector<Term *> v = {&X};
+  Struct s2(Atom("s2"), v);
+  vector<Term *> v2 = {&s2};
+  Struct s1(Atom("s1"), v2);
+  Atom tom("tom");
+  EXPECT_TRUE(X.match(tom));
+  EXPECT_EQ(s1.symbol(), "s1(s2(X))");
+  EXPECT_EQ(s1.value(), "s1(s2(tom))");
 }
 
 // Given there are Struct s1 contains Struct s2
