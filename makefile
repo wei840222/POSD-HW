@@ -1,9 +1,3 @@
-all: utAtom utVariable utTerm utStruct
-	./utAtom
-	./utVariable
-	./utTerm
-	./utStruct
-
 hw3: mainVarAndStruct.o
 ifeq (${OS}, Windows_NT)
 	g++ -o hw3 mainVarAndStruct.o -lgtest
@@ -12,6 +6,12 @@ else
 endif
 mainVarAndStruct.o: mainVarAndStruct.cpp utVariable.h variable.h utStruct.h atom.h number.h variable.h struct.h
 	g++ -std=gnu++0x -c mainVarAndStruct.cpp
+
+allTest: utAtom utVariable utTerm utStruct
+	./utAtom
+	./utVariable
+	./utTerm
+	./utStruct
 
 utAtom: mainAtom.o
 	g++ -o utAtom mainAtom.o -lgtest -lpthread
