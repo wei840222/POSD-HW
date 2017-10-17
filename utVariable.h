@@ -136,6 +136,13 @@ TEST(Variable, Struct1)
 // And #value() of Y should return "s(teddy)"
 TEST(Variable, Struct2)
 {
+  Variable X("X"), Y("Y");
+  Struct s(Atom("s"), vector<Term *> {&X});
+  Atom teddy("teddy");
+  EXPECT_TRUE(Y.match(s));
+  EXPECT_TRUE(X.match(teddy));
+  EXPECT_EQ(Y.symbol(), "Y");
+  EXPECT_EQ(Y.value(), "s(teddy)");
 }
 
 #endif
