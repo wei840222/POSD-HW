@@ -13,21 +13,28 @@ class Variable : public Term
   public:
     Variable(string s) : _symbol(s), _value(NULL) {}
     string symbol() const { return _symbol; }
-    string value() const { return _value->value(); }
+    string value() const
+    {
+        if (!_value)
+        {
+            return symbol();
+        }
+        return _value->value();
+    }
     bool match(Term &term)
     {
         if (&term == this)
         {
             return true;
         }
-        else if (_value)
-        {
-            return _value->match(term);
-        }
-        else
+        else if (!_value)
         {
             _value = &term;
             return true;
+        }
+        else
+        {
+            return _value->match(term);
         }
     }
 

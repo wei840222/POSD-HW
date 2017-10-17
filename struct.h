@@ -28,26 +28,12 @@ public:
 
   string value() const
   {
-    string ret = _name.symbol() + "(";
+    string ret = _name.value() + "(";
     for (int i = 0; i < _args.size() - 1; i++)
     {
-      if(_args[i]->isAssignable())
-      {
-        ret += _args[i]->symbol() + ", ";
-      }
-      else
-      {
-        ret += _args[i]->value() + ", ";
-      }
+      ret += _args[i]->value() + ", ";
     }
-    if(_args[_args.size() - 1]->isAssignable())
-    {
-      ret += _args[_args.size() - 1]->symbol() + ")";
-    }
-    else
-    {
-      ret += _args[_args.size() - 1]->value() + ")";
-    }
+    ret += _args[_args.size() - 1]->value() + ")";
     return ret;
   }
 
