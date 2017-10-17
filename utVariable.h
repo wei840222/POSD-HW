@@ -4,6 +4,10 @@
 #include "atom.h"
 #include "number.h"
 #include "variable.h"
+#include "struct.h"
+#include <vector>
+
+using std::vector;
 
 TEST(Variable, constructor)
 {
@@ -117,6 +121,11 @@ TEST(Variable, num1_to_varZ_to_varX_and_varY_to_varX)
 // And #value() of Y should return "s(X)"
 TEST(Variable, Struct1)
 {
+  Variable X("X"), Y("Y");
+  Struct s(Atom("s"), vector<Term *> {&X});
+  EXPECT_TRUE(Y.match(s));
+  EXPECT_EQ(Y.symbol(), "Y");
+  EXPECT_EQ(Y.value(), "s(X)");
 }
 
 // Give there is a Struct s contains Variable X
