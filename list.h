@@ -25,13 +25,20 @@ public:
   }
   List *tail()
   {
-    vector<Term *> tail;
-    for (int i = 1;i < _elements.size(); i++)
+    if (_elements.empty())
     {
-      tail.push_back(_elements[i]);
+      throw string("Accessing tail in an empty list");
     }
-    List *l = new List(tail);
-    return l;
+    else
+    {
+      vector<Term *> tail;
+      for (int i = 1;i < _elements.size(); i++)
+      {
+        tail.push_back(_elements[i]);
+      }
+      List *l = new List(tail);
+      return l;
+    }
   }
   string symbol() const
   {

@@ -223,6 +223,15 @@ TEST(List, emptyExecptionOfHead)
 // Then it should throw a string: "Accessing tail in an empty list" as an exception.
 TEST(List, emptyExecptionOfTail)
 {
+  List l(vector<Term *>{});
+  try
+  {
+    l.tail();
+  }
+  catch(string e)
+  {
+    EXPECT_EQ("Accessing tail in an empty list", e);
+  }
 }
 
 #endif
