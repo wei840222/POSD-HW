@@ -11,8 +11,20 @@ class List : public Term
 public:
   List(vector<Term *> elements) : _elements(elements) {}
   Term *element(int index) { return _elements[index]; }
-  // Term *head() const;
-  // List *tail() const;
+  Term *head()
+  {
+    return element(0);
+  }
+  List *tail()
+  {
+    vector<Term *> tail;
+    for (int i = 1;i < _elements.size(); i++)
+    {
+      tail.push_back(_elements[i]);
+    }
+    List *l = new List(tail);
+    return l;
+  }
   string symbol() const
   {
     if(_elements.empty())
