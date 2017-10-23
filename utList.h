@@ -63,6 +63,11 @@ TEST(List, matchToAtomShouldFail)
 // false.
 TEST(List, matchToNumberShouldFail)
 {
+  Atom terence_tao("terence_tao");
+  Number n1(8128), n2(496);
+  Variable X("X");
+  List l(vector<Term *> {&n2, &X, &terence_tao});
+  EXPECT_FALSE(n1.match(l));
 }
 
 // ?- s(X) = [496, X, terence_tao].
