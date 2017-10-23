@@ -207,6 +207,15 @@ TEST(List, headAndTailMatching4)
 // Then it should throw a string: "Accessing head in an empty list" as an exception.
 TEST(List, emptyExecptionOfHead)
 {
+  List l(vector<Term *>{});
+  try
+  {
+    l.head();
+  }
+  catch(string e)
+  {
+    EXPECT_EQ("Accessing head in an empty list", e);
+  }
 }
 
 // Given there is a empty list

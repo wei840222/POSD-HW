@@ -2,8 +2,9 @@
 #define LIST_H
 
 #include "term.h"
-
+#include <string>
 #include <vector>
+using std::string;
 using std::vector;
 
 class List : public Term
@@ -13,7 +14,14 @@ public:
   Term *element(int index) { return _elements[index]; }
   Term *head()
   {
-    return element(0);
+    if (_elements.empty())
+    {
+      throw string("Accessing head in an empty list");
+    }
+    else
+    {
+      return element(0);
+    }
   }
   List *tail()
   {
