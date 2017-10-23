@@ -1,3 +1,10 @@
+hw4: mainList.o
+ifeq (${OS}, Windows_NT)
+	g++ -o hw4 mainList.o -lgtest
+else
+	g++ -o hw4 mainList.o -lgtest -lpthread
+endif
+
 allTest: utAtom utTerm utVariable utStruct utList
 	./utAtom
 	./utTerm
@@ -36,10 +43,3 @@ ifeq (${OS}, Windows_NT)
 else
 	rm -f *.o ut*[!.h] hw*
 endif
-
-# hw3: mainVarAndStruct.o
-# ifeq (${OS}, Windows_NT)
-# 	g++ -o hw3 mainVarAndStruct.o -lgtest
-# else
-# 	g++ -o hw3 mainVarAndStruct.o -lgtest -lpthread
-# endif
