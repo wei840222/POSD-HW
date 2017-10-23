@@ -32,6 +32,18 @@ public:
   }
   bool match(Term &term)
   {
+    List *p = dynamic_cast<List *>(&term);
+    if (p)
+    {
+      if (_elements.size() != p->_elements.size())
+        return false;
+      for (int i = 0; i < _elements.size(); i++)
+      {
+        if (_elements[i]->symbol() != p->_elements[i]->symbol())
+          return false;
+      }
+      return true;
+    }
     return false;
   }
 

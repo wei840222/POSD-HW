@@ -110,6 +110,11 @@ TEST(List, matchToVarOccuredInListShouldFail)
 // true.
 TEST(List, matchToSameListShouldSucceed)
 {
+  Atom terence_tao("terence_tao");
+  Number n(496);
+  Variable X("X");
+  List l(vector<Term *> {&n, &X, &terence_tao});
+  EXPECT_TRUE(l.match(l));
 }
 
 // ?- [496, X, terence_tao] = [496, Y, terence_tao].
