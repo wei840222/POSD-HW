@@ -86,6 +86,12 @@ TEST(List, matchToStructShouldFail)
 // Y = [496, X, terence_tao].
 TEST(List, matchToVarShouldSucceed)
 {
+  Atom terence_tao("terence_tao");
+  Number n(496);
+  Variable X("X"), Y("Y");
+  List l(vector<Term *> {&n, &X, &terence_tao});
+  EXPECT_TRUE(Y.match(l));
+  EXPECT_EQ("[496, X, terence_tao]", Y.value());
 }
 
 // ?- X = [496, X, terence_tao].
