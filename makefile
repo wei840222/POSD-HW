@@ -34,7 +34,7 @@ clean:
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
 else
-	rm -f *.o utAtom utTerm utVariable utStruct utList
+	rm -f *.o ut*[!.h] hw*
 endif
 
 # hw3: mainVarAndStruct.o

@@ -6,21 +6,40 @@
 #include <vector>
 using std::vector;
 
-class List : public Term {
+class List : public Term
+{
 public:
-  string symbol() const;
-  string value() const;
-  bool match(Term & term);
-
-public:
-  List (): _elements() {}
-  List (vector<Term *> const & elements):_elements(elements){}
-  Term * head() const;
-  List * tail() const;
+  List(vector<Term *> elements) : _elements(elements) {}
+  // Term *head() const;
+  // List *tail() const;
+  string symbol() const
+  {
+    if(_elements.empty())
+    {
+      return "[]";
+    }
+    else
+    {
+      string ret = "[";
+      for (int i = 0; i < _elements.size() - 1; i++)
+      {
+        ret += _elements[i]->symbol() + ", ";
+      }
+      ret += _elements[_elements.size() - 1]->symbol() + "]";
+      return ret;
+    }
+  }
+  string value() const
+  {
+    return symbol();
+  }
+  bool match(Term &term)
+  {
+    return false;
+  }
 
 private:
   vector<Term *> _elements;
-
 };
 
 #endif

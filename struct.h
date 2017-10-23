@@ -14,7 +14,6 @@ public:
   Struct(Atom name, vector<Term *> args) : _name(name), _args(args) {}
   Atom name() { return _name; }
   Term *args(int index) { return _args[index]; }
-
   string symbol() const
   {
     string ret = _name.symbol() + "(";
