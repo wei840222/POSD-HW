@@ -74,6 +74,12 @@ TEST(List, matchToNumberShouldFail)
 // false.
 TEST(List, matchToStructShouldFail)
 {
+  Atom terence_tao("terence_tao");
+  Number n(496);
+  Variable X("X");
+  Struct s(Atom("s"), vector<Term *> {&X});
+  List l(vector<Term *> {&n, &X, &terence_tao});
+  EXPECT_FALSE(s.match(l));
 }
 
 // ?- Y = [496, X, terence_tao].
