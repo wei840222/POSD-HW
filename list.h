@@ -10,6 +10,7 @@ using std::vector;
 class List : public Term
 {
 public:
+  List() : _elements() {}
   List(vector<Term *> elements) : _elements(elements) {}
   Term *element(int index) { return _elements[index]; }
   Term *head()
