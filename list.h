@@ -29,10 +29,6 @@ public:
       return ret;
     }
   }
-  string value() const
-  {
-    return symbol();
-  }
   bool match(Term &term)
   {
     return false;
