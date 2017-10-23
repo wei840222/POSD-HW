@@ -2,6 +2,7 @@
 #define VARIABLE_H
 
 #include "term.h"
+#include "list.h"
 #include <string>
 using std::string;
 

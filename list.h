@@ -10,6 +10,7 @@ class List : public Term
 {
 public:
   List(vector<Term *> elements) : _elements(elements) {}
+  Term *element(int index) { return _elements[index]; }
   // Term *head() const;
   // List *tail() const;
   string symbol() const
