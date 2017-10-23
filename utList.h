@@ -132,6 +132,12 @@ TEST(List, matchToSameListWithDiffVarNameShouldSucceed)
 // X = 8128.
 TEST(List, matchToVarToAtominListShouldSucceed)
 {
+  Atom terence_tao("terence_tao");
+  Number n(496), n2(8128);
+  Variable X("X");
+  List l1(vector<Term *> {&n, &X, &terence_tao}), l2(vector<Term *> {&n, &n2, &terence_tao});
+  EXPECT_TRUE(l1.match(l2));
+  EXPECT_EQ("8128", X.value());
 }
 
 // ?- Y = [496, X, terence_tao], X = alan_mathison_turing.
