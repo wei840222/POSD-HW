@@ -196,6 +196,10 @@ TEST(List, headAndTailMatching3)
 // H = third, T = [].
 TEST(List, headAndTailMatching4)
 {
+  Atom f("first"), s("second"), t("third");
+  List l(vector<Term *>{&f, &s, &t});
+  EXPECT_EQ("third", l.tail()->tail()->head()->value());
+  EXPECT_EQ("[]", l.tail()->tail()->tail()->value());
 }
 
 // Given there is a empty list
