@@ -39,7 +39,7 @@ public:
         return false;
       for (int i = 0; i < _elements.size(); i++)
       {
-        if (_elements[i]->symbol() != p->_elements[i]->symbol())
+        if (!_elements[i]->match(*(p->_elements[i])))
           return false;
       }
       return true;

@@ -121,6 +121,11 @@ TEST(List, matchToSameListShouldSucceed)
 // true.
 TEST(List, matchToSameListWithDiffVarNameShouldSucceed)
 {
+  Atom terence_tao("terence_tao");
+  Number n(496);
+  Variable X("X"), Y("Y");
+  List l1(vector<Term *> {&n, &X, &terence_tao}), l2(vector<Term *> {&n, &Y, &terence_tao});
+  EXPECT_TRUE(l1.match(l2));
 }
 
 // ?- [496, X, terence_tao] = [496, 8128, terence_tao].
