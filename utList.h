@@ -33,6 +33,9 @@ TEST(List, Numbers)
 // Then #symbol() of the list should return "[terence_tao, alan_mathison_turing]"
 TEST(List, Atoms)
 {
+  Atom a1("terence_tao"), a2("alan_mathison_turing");
+  List l(vector<Term *>{&a1, &a2});
+  EXPECT_EQ("[terence_tao, alan_mathison_turing]",l.symbol());
 }
 
 // Given there are two variables: X, Y
