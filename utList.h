@@ -14,7 +14,7 @@ using std::string;
 // Then #symbol() of the list should return "[]"
 TEST(List, constructor)
 {
-  List l(vector<Term *> {});
+  List l(vector<Term *>{});
   EXPECT_EQ("[]", l.symbol());
 }
 
@@ -23,6 +23,9 @@ TEST(List, constructor)
 // Then #symbol() of the list should return "[496, 8128]"
 TEST(List, Numbers)
 {
+  Number n1(496), n2(8128);
+  List l(vector<Term *>{&n1, &n2});
+  EXPECT_EQ("[496, 8128]",l.symbol());
 }
 
 // Given there are two atoms: "terence_tao", "alan_mathison_turing"
