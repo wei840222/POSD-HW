@@ -145,6 +145,15 @@ TEST(List, matchToVarToAtominListShouldSucceed)
 // X = alan_mathison_turing.
 TEST(List, matchVarinListToAtomShouldSucceed)
 {
+  Number n(496);
+  Atom a1("terence_tao"), a2("alan_mathison_turing");
+  Variable X("X"), Y("Y");
+  List l(vector<Term *> {&n, &X, &a1});
+  EXPECT_TRUE(Y.match(l));
+  EXPECT_EQ("[496, X, terence_tao]", Y.value());
+  EXPECT_TRUE(X.match(a2));
+  EXPECT_EQ("[496, alan_mathison_turing, terence_tao]", Y.value());
+  EXPECT_EQ("alan_mathison_turing", X.value());
 }
 
 // Example:

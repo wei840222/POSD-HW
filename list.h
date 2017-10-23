@@ -30,6 +30,23 @@ public:
       return ret;
     }
   }
+  string value() const
+  {
+    if(_elements.empty())
+    {
+      return "[]";
+    }
+    else
+    {
+      string ret = "[";
+      for (int i = 0; i < _elements.size() - 1; i++)
+      {
+        ret += _elements[i]->value() + ", ";
+      }
+      ret += _elements[_elements.size() - 1]->value() + "]";
+      return ret;
+    }
+  }
   bool match(Term &term)
   {
     List *p = dynamic_cast<List *>(&term);
