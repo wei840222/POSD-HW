@@ -24,8 +24,8 @@ TEST(List, constructor)
 TEST(List, Numbers)
 {
   Number n1(496), n2(8128);
-  List l(vector<Term *>{&n1, &n2});
-  EXPECT_EQ("[496, 8128]",l.symbol());
+  List l(vector<Term *> {&n1, &n2});
+  EXPECT_EQ("[496, 8128]", l.symbol());
 }
 
 // Given there are two atoms: "terence_tao", "alan_mathison_turing"
@@ -34,8 +34,8 @@ TEST(List, Numbers)
 TEST(List, Atoms)
 {
   Atom a1("terence_tao"), a2("alan_mathison_turing");
-  List l(vector<Term *>{&a1, &a2});
-  EXPECT_EQ("[terence_tao, alan_mathison_turing]",l.symbol());
+  List l(vector<Term *> {&a1, &a2});
+  EXPECT_EQ("[terence_tao, alan_mathison_turing]", l.symbol());
 }
 
 // Given there are two variables: X, Y
@@ -43,6 +43,9 @@ TEST(List, Atoms)
 // Then #symbol() of the list should return "[X, Y]"
 TEST(List, Vars)
 {
+  Variable X("X"), Y("Y");
+  List l(vector<Term *> {&X, &Y});
+  EXPECT_EQ("[X, Y]", l.symbol());
 }
 
 // ?- tom = [496, X, terence_tao].
