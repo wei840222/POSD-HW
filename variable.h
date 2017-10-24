@@ -23,6 +23,10 @@ class Variable : public Term
     }
     bool match(Term &term)
     {
+        if (term.isRecurrsiveMatch(this))
+        {
+            return false;
+        }
         if (&term == this)
         {
             return true;

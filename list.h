@@ -93,6 +93,13 @@ public:
   }
   bool match(Variable &variable)
   {
+    for (int i = 0; i < _elements.size(); i++)
+    {
+      if (&variable == _elements[i])
+      {
+        return false;
+      }
+    }
     if (variable.isAssignable())
     {
       variable.setValue(this);
@@ -101,6 +108,16 @@ public:
     else
     {
       return symbol() == variable.value();
+    }
+  }
+  bool isRecurrsiveMatch(Term * term)
+  {
+    for (int i = 0; i < _elements.size(); i++)
+    {
+      if (term == _elements[i])
+      {
+        return true;
+      }
     }
   }
 

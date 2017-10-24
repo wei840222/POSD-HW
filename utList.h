@@ -103,8 +103,8 @@ TEST(List, matchToVarOccuredInListShouldFail)
   Number n(496);
   Variable X("X");
   List l(vector<Term *>{&n, &X, &terence_tao});
-  //wait for fix
-  //EXPECT_FALSE(X.match(l));
+  EXPECT_FALSE(l.match(X));
+  EXPECT_FALSE(X.match(l));
 }
 
 // ?- [496, X, terence_tao] = [496, X, terence_tao].

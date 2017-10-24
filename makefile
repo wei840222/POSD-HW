@@ -43,7 +43,7 @@ mainStruct.o: mainStruct.cpp utStruct.h atom.h number.h variable.h struct.h
 
 utList: mainList.o
 	g++ -o utList mainList.o -lgtest -lpthread
-mainList.o: mainList.cpp utList.h atom.h number.h variable.h struct.h
+mainList.o: mainList.cpp utList.h atom.h number.h variable.h struct.h list.h
 	g++ -std=gnu++0x -c mainList.cpp
 
 clean:	
