@@ -90,6 +90,18 @@ public:
     }
     return false;
   }
+  bool match(Variable &variable)
+  {
+    if (variable.isAssignable())
+    {
+      variable.setValue(this);
+      return true;
+    }
+    else
+    {
+      return symbol() == variable.value();
+    }
+  }
 
 private:
   vector<Term *> _elements;
