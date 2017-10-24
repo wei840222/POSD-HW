@@ -14,7 +14,7 @@ using std::string;
 // Then #symbol() of the list should return "[]"
 TEST(List, constructor)
 {
-  List l(vector<Term *>{});
+  List l;
   EXPECT_EQ("[]", l.symbol());
 }
 
