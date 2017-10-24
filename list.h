@@ -2,6 +2,7 @@
 #define LIST_H
 
 #include "term.h"
+#include "variable.h"
 #include <string>
 #include <vector>
 using std::string;
