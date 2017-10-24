@@ -10,9 +10,8 @@ using std::vector;
 class List : public Term
 {
 public:
-  List() : _elements() {}
+  List() {}
   List(vector<Term *> elements) : _elements(elements) {}
-  Term *element(int index) { return _elements[index]; }
   Term *head()
   {
     if (_elements.empty())
@@ -21,7 +20,7 @@ public:
     }
     else
     {
-      return element(0);
+      return _elements.front();
     }
   }
   List *tail()
