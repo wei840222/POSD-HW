@@ -1,18 +1,9 @@
-all: hw3 hw4
-
-hw3: mainList.o
-ifeq (${OS}, Windows_NT)
-	g++ -o hw3 mainList.o -lgtest
-else
-	g++ -o hw3 mainList.o -lgtest -lpthread
-endif
-
-hw4: mainList.o
-ifeq (${OS}, Windows_NT)
-	g++ -o hw4 mainList.o -lgtest
-else
-	g++ -o hw4 mainList.o -lgtest -lpthread
-endif
+# hw4: mainList.o
+# ifeq (${OS}, Windows_NT)
+# 	g++ -o hw4 mainList.o -lgtest
+# else
+# 	g++ -o hw4 mainList.o -lgtest -lpthread
+# endif
 
 allTest: utAtom utTerm utVariable utStruct utList
 	./utAtom
