@@ -122,7 +122,7 @@ TEST(Variable, num1_to_varZ_to_varX_and_varY_to_varX)
 TEST(Variable, Struct1)
 {
   Variable X("X"), Y("Y");
-  Struct s(Atom("s"), vector<Term *> {&X});
+  Struct s(Atom("s"), vector<Term *>{&X});
   EXPECT_TRUE(Y.match(s));
   EXPECT_EQ(Y.symbol(), "Y");
   EXPECT_EQ(Y.value(), "s(X)");
@@ -137,7 +137,7 @@ TEST(Variable, Struct1)
 TEST(Variable, Struct2)
 {
   Variable X("X"), Y("Y");
-  Struct s(Atom("s"), vector<Term *> {&X});
+  Struct s(Atom("s"), vector<Term *>{&X});
   Atom teddy("teddy");
   EXPECT_TRUE(Y.match(s));
   EXPECT_TRUE(X.match(teddy));

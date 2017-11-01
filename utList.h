@@ -208,12 +208,12 @@ TEST(List, headAndTailMatching4)
 // Then it should throw a string: "Accessing head in an empty list" as an exception.
 TEST(List, emptyExecptionOfHead)
 {
-  List l(vector<Term *> {});
+  List l(vector<Term *>{});
   try
   {
     l.head();
   }
-  catch(string e)
+  catch (string e)
   {
     EXPECT_EQ("Accessing head in an empty list", e);
   }
@@ -224,12 +224,12 @@ TEST(List, emptyExecptionOfHead)
 // Then it should throw a string: "Accessing tail in an empty list" as an exception.
 TEST(List, emptyExecptionOfTail)
 {
-  List l(vector<Term *> {});
+  List l(vector<Term *>{});
   try
   {
     l.tail();
   }
-  catch(string e)
+  catch (string e)
   {
     EXPECT_EQ("Accessing tail in an empty list", e);
   }

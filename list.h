@@ -33,7 +33,7 @@ public:
     else
     {
       vector<Term *> tail;
-      for (int i = 1;i < _elements.size(); i++)
+      for (int i = 1; i < _elements.size(); i++)
       {
         tail.push_back(_elements[i]);
       }
@@ -43,7 +43,7 @@ public:
   }
   string symbol() const
   {
-    if(_elements.empty())
+    if (_elements.empty())
     {
       return "[]";
     }
@@ -60,7 +60,7 @@ public:
   }
   string value() const
   {
-    if(_elements.empty())
+    if (_elements.empty())
     {
       return "[]";
     }
@@ -110,7 +110,7 @@ public:
       return symbol() == variable.value();
     }
   }
-  bool isRecurrsiveMatch(Term * term)
+  bool isRecurrsiveMatch(Term *term)
   {
     for (int i = 0; i < _elements.size(); i++)
     {

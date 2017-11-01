@@ -150,8 +150,8 @@ TEST(Struct, nested_struct2)
 TEST(Struct, nested_struct3)
 {
   Variable X("X");
-  Struct s2(Atom("s2"), vector<Term *> {&X});
-  Struct s1(Atom("s1"), vector<Term *> {&s2});
+  Struct s2(Atom("s2"), vector<Term *>{&X});
+  Struct s1(Atom("s1"), vector<Term *>{&s2});
   Number pi(3.14);
   EXPECT_TRUE(X.match(pi));
   EXPECT_EQ(s1.symbol(), "s1(s2(X))");
@@ -167,8 +167,8 @@ TEST(Struct, nested_struct3)
 TEST(Struct, nested_struct_and_multiVariable)
 {
   Variable X("X"), Y("Y");
-  Struct s2(Atom("s2"), vector<Term *> {&Y});
-  Struct s1(Atom("s1"), vector<Term *> {&s2, &X});
+  Struct s2(Atom("s2"), vector<Term *>{&Y});
+  Struct s1(Atom("s1"), vector<Term *>{&s2, &X});
   Atom kent_beck("kent_beck");
   EXPECT_TRUE(X.match(Y));
   EXPECT_TRUE(X.match(kent_beck));

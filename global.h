@@ -22,27 +22,15 @@ using std::vector;
 
 vector<pair<string, int>> symtable;
 
-bool isSpecialCh(char c) {
+bool isSpecialCh(char c)
+{
   return c == '+'
-      // || c == '=' // ... the matching operator
-         || c == '-'
-         || c == '*'
-         || c == '/'
-         || c == '<'
-         || c == '>'
-         || c == '.'
-         || c == '&'
-         || c == '\\'
-         || c == '~'
-         || c == '^'
-         || c == '$'
-         || c == '#'
-         || c == '@'
-         || c == '?'
-         || c == ':';
+         // || c == '=' // ... the matching operator
+         || c == '-' || c == '*' || c == '/' || c == '<' || c == '>' || c == '.' || c == '&' || c == '\\' || c == '~' || c == '^' || c == '$' || c == '#' || c == '@' || c == '?' || c == ':';
 }
 
-bool symbolExist(string s, int & val) {
+bool symbolExist(string s, int &val)
+{
   bool found = false;
   val = -1;
   vector<pair<string, int>>::iterator it = find_if(symtable.begin(), symtable.end(), [s](pair<string, int> ele) {
@@ -51,7 +39,7 @@ bool symbolExist(string s, int & val) {
 
   found = symtable.end() != it;
   if (found)
-   val = it - symtable.begin();
+    val = it - symtable.begin();
 
   return found;
 }
