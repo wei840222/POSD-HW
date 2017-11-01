@@ -5,12 +5,13 @@
 # 	g++ -o hw4 mainList.o -lgtest -lpthread
 # endif
 
-allTest: utAtom utTerm utVariable utStruct utList
+allTest: utAtom utTerm utVariable utStruct utList utScanner
 	./utAtom
 	./utTerm
 	./utVariable
 	./utStruct
 	./utList
+	./utScanner
 
 utAtom: mainAtom.o
 	g++ -o utAtom mainAtom.o -lgtest -lpthread
@@ -36,6 +37,16 @@ utList: mainList.o
 	g++ -o utList mainList.o -lgtest -lpthread
 mainList.o: mainList.cpp utList.h atom.h number.h variable.h struct.h list.h
 	g++ -std=gnu++0x -c mainList.cpp
+
+utScanner: mainScanner.o
+	g++ -o utScanner mainScanner.o -lgtest -lpthread
+mainScanner.o: mainScanner.cpp utScanner.h scanner.h global.h
+	g++ -std=c++11 -c mainScanner.cpp
+
+utParser: mainParser.o
+	g++ -o utParser mainParser.o -lgtest -lpthread
+mainParser.o: mainParser.cpp utParser.h parser.h scanner.h global.h
+	g++ -std=c++11 -c mainParser.cpp
 
 clean:	
 ifeq (${OS}, Windows_NT)
