@@ -1,12 +1,47 @@
 #ifndef SCANNER_H
 #define SCANNER_H
 
-#include "global.h"
-
 #include <string>
 #include <vector>
+#include <algorithm>
+
+using std::pair;
 using std::string;
 using std::vector;
+
+// no tokenValue
+const int NONE = -1; 
+
+// tokens return by the scanner
+const int EOS = '\0';
+const int NUMBER = 256;
+const int ATOM = 257;
+const int ATOMSC = 258;
+const int VAR = 259;
+
+vector<pair<string, int>> symtable;
+
+bool isSpecialCh(char c)
+{
+  return c == '+'
+         //|| c == '=' // ... the matching operator
+         || c == '-' || c == '*' || c == '/' || c == '<' || c == '>' || c == '.' || c == '&' || c == '\\' || c == '~' || c == '^' || c == '$' || c == '#' || c == '@' || c == '?' || c == ':';
+}
+
+bool symbolExist(string s, int &val)
+{
+  bool found = false;
+  val = -1;
+  vector<pair<string, int>>::iterator it = find_if(symtable.begin(), symtable.end(), [s](pair<string, int> ele) {
+    return ele.first == s;
+  });
+
+  found = symtable.end() != it;
+  if (found)
+    val = it - symtable.begin();
+
+  return found;
+}
 
 class Scanner
 {
@@ -106,8 +141,8 @@ private:
   string buffer;
   int pos;
   int _tokenValue;
+  vector<pair<string, int>> symtable;
 
-private:
   // case-based populating symtable and setting _tokenValue
   template <int TokenType>
   void processToken(string const &s)

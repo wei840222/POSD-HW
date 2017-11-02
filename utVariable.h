@@ -5,8 +5,8 @@
 #include "number.h"
 #include "variable.h"
 #include "struct.h"
-#include <vector>
 
+#include <vector>
 using std::vector;
 
 TEST(Variable, constructor)

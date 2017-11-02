@@ -9,7 +9,6 @@ using std::string;
 #include "variable.h"
 #include "struct.h"
 #include "list.h"
-#include "global.h"
 #include "scanner.h"
 
 class Parser
