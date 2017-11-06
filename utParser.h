@@ -136,6 +136,9 @@ TEST_F(ParserTest, listOfTermsEmpty)
 // And #symbol() of Strcut should return "s(s(s(s(1))))".
 TEST_F(ParserTest, parseStructOfStructAllTheWay)
 {
+  Scanner scanner("s(s(s(s(1))))");
+  Parser parser(scanner);
+  ASSERT_EQ("s(s(s(s(1))))", parser.createTerm()->symbol());
 }
 
 // Given there is string: "   [  [1], [] ]" in scanner.
