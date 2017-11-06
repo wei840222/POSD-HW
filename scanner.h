@@ -142,7 +142,6 @@ private:
   int pos;
   int _tokenValue;
 
-private:
   // case-based populating symtable and setting _tokenValue
   template <int TokenType>
   void processToken(string const &s)
