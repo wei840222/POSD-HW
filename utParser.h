@@ -125,6 +125,9 @@ TEST_F(ParserTest, parseVar)
 // Then it should return nothing.
 TEST_F(ParserTest, listOfTermsEmpty)
 {
+  Scanner scanner;
+  Parser parser(scanner);
+  ASSERT_EQ(nullptr, parser.createTerm());
 }
 
 // Given there is string: "s(s(s(s(1))))" in scanner.
