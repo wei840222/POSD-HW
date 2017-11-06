@@ -1,6 +1,5 @@
 #ifndef PARSER_H
 #define PARSER_H
-
 #include <string>
 using std::string;
 
@@ -29,8 +28,9 @@ public:
     else if (token == ATOM)
     {
       Atom *atom = new Atom(symtable[_scanner.tokenValue()].first);
-      if (_scanner.nextToken() == '(')
+      if (_scanner.currentChar() == '(')
       {
+        _scanner.nextToken();
         vector<Term *> terms = getArgs();
         if (_currentToken == ')')
           return new Struct(*atom, terms);
@@ -38,7 +38,7 @@ public:
       else
         return atom;
     }
-    return NULL;
+    return nullptr;
   }
 
   vector<Term *> getArgs()

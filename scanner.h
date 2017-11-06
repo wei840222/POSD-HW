@@ -10,7 +10,7 @@ using std::string;
 using std::vector;
 
 // no tokenValue
-const int NONE = -1; 
+const int NONE = -1;
 
 // tokens return by the scanner
 const int EOS = '\0';
@@ -141,8 +141,8 @@ private:
   string buffer;
   int pos;
   int _tokenValue;
-  vector<pair<string, int>> symtable;
 
+private:
   // case-based populating symtable and setting _tokenValue
   template <int TokenType>
   void processToken(string const &s)
