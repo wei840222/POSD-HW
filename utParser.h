@@ -206,6 +206,11 @@ TEST_F(ParserTest, ListAsStruct2)
 // And #symbol() of the second Strcut should return "b(1, 2, 3)".
 TEST_F(ParserTest, parseStructOfStructAllTheWay2)
 {
+  Scanner scanner("s(s(s(s(1)))), b(1,2,3)");
+  Parser parser(scanner);
+  vector<Term *> terms = parser.getArgs();
+  ASSERT_EQ("s(s(s(s(1))))", terms[0]->symbol());
+  ASSERT_EQ("b(1, 2, 3)", terms[1]->symbol());
 }
 
 // Given there is string: "point()" in scanner.
