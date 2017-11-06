@@ -10,6 +10,9 @@
 #include <string>
 using std::string;
 
+#include <iostream>
+using std::cout;
+
 class Parser
 {
 public:
@@ -38,11 +41,13 @@ public:
       else
         return atom;
     }
-    else if (token == ATOMSC)
+    else if (token == '[')
     {
-      if (symtable[_scanner.tokenValue()].first == "[")
-      {
+      if (_scanner.watchNextToken() == ']')
         return new List;
+      else
+      {
+        return new List(getArgs());
       }
     }
     return nullptr;
@@ -52,8 +57,8 @@ public:
   {
     Term *term = createTerm();
     vector<Term *> args;
-    if (term)
-      args.push_back(term);
+    if (term){
+      args.push_back(term);}
     while ((_currentToken = _scanner.nextToken()) == ',')
     {
       args.push_back(createTerm());

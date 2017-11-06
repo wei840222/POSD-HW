@@ -25,7 +25,7 @@ bool isSpecialCh(char c)
 {
   return c == '+'
          //|| c == '=' // ... the matching operator
-         || c == '-' || c == '*' || c == '/' || c == '<' || c == '>' || c == '.' || c == '&' || c == '\\' || c == '~' || c == '^' || c == '$' || c == '#' || c == '@' || c == '?' || c == ':'|| c == '['|| c == ']';
+         || c == '-' || c == '*' || c == '/' || c == '<' || c == '>' || c == '.' || c == '&' || c == '\\' || c == '~' || c == '^' || c == '$' || c == '#' || c == '@' || c == '?' || c == ':';
 }
 
 bool symbolExist(string s, int &val)
@@ -83,7 +83,33 @@ public:
     }
   }
 
-  int tokenValue() const { return _tokenValue; }
+  int watchNextToken()
+  {
+    if (skipLeadingWhiteSpace() >= buffer.length())
+      return EOS;
+    else if (isdigit(currentChar()))
+    {
+      return NUMBER;
+    }
+    else if (islower(currentChar()))
+    {
+      return ATOM;
+    }
+    else if (isSpecialCh(currentChar()))
+    {
+      return ATOMSC;
+    }
+    else if (isupper(currentChar()) || currentChar() == '_')
+    {
+      return VAR;
+    }
+    else
+    {
+      return buffer[pos];
+    }
+  }
+
+  int tokenValue() const{ return _tokenValue; }
 
   int skipLeadingWhiteSpace()
   {

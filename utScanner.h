@@ -105,6 +105,23 @@ TEST_F(ScannerTest, nextTokenChar) {
   EXPECT_EQ(4, scanner.position());
 }
 
+TEST_F(ScannerTest, nextTokenChar2) {
+  //---------------01234
+  Scanner scanner("   []");
+  int token = scanner.nextToken();
+  EXPECT_EQ('[', token);
+  EXPECT_EQ(NONE, scanner.tokenValue());
+  EXPECT_EQ(4, scanner.position());
+  token = scanner.nextToken();
+  EXPECT_EQ(']', token);
+  EXPECT_EQ(NONE, scanner.tokenValue());
+  EXPECT_EQ(5, scanner.position());
+  token = scanner.nextToken();
+  EXPECT_EQ(EOS, token);
+  EXPECT_EQ(NONE, scanner.tokenValue());
+  EXPECT_EQ(5, scanner.position());
+}
+
 TEST_F(ScannerTest, nextTokenAtomSC) {
   //---------------01234567-890
   Scanner scanner(".*-><&$@\\?");
