@@ -70,6 +70,9 @@ TEST_F(ParserTest, listOfTermsTwo)
 // And #symbol() of Strcut should return "point(1, X, z(1,2,3))".
 TEST_F(ParserTest, parseStructOfStruct)
 {
+  Scanner scanner("point(1, X, z(1,2,3))");
+  Parser parser(scanner);
+  ASSERT_EQ("point(1, X, z(1, 2, 3))", parser.createTerm()->symbol());
 }
 
 // Given there is string: " 12345,  67" in scanner.
