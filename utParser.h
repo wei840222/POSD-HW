@@ -115,6 +115,9 @@ TEST_F(ParserTest, parseListEmpty)
 // And #symbol() of Variable should return "_date".
 TEST_F(ParserTest, parseVar)
 {
+  Scanner scanner("_date");
+  Parser parser(scanner);
+  ASSERT_EQ("_date", parser.createTerm()->symbol());
 }
 
 // Given there is not string in scanner.
