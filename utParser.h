@@ -104,6 +104,9 @@ TEST_F(ParserTest, parseStructThreeArgs)
 // And #symbol() of List should return "[]".
 TEST_F(ParserTest, parseListEmpty)
 {
+  Scanner scanner("   [   ]");
+  Parser parser(scanner);
+  ASSERT_EQ("[]", parser.createTerm()->symbol());
 }
 
 // Given there is string: "_date" in scanner.

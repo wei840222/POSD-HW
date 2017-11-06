@@ -1,7 +1,5 @@
 #ifndef PARSER_H
 #define PARSER_H
-#include <string>
-using std::string;
 
 #include "atom.h"
 #include "number.h"
@@ -9,6 +7,8 @@ using std::string;
 #include "struct.h"
 #include "list.h"
 #include "scanner.h"
+#include <string>
+using std::string;
 
 class Parser
 {
@@ -37,6 +37,13 @@ public:
       }
       else
         return atom;
+    }
+    else if (token == ATOMSC)
+    {
+      if (symtable[_scanner.tokenValue()].first == "[")
+      {
+        return new List;
+      }
     }
     return nullptr;
   }
