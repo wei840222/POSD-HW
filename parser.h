@@ -43,12 +43,7 @@ public:
     }
     else if (token == '[')
     {
-      if (_scanner.watchNextToken() == ']')
-        return new List;
-      else
-      {
-        return new List(getArgs());
-      }
+      return new List(getElements());
     }
     return nullptr;
   }
@@ -57,13 +52,30 @@ public:
   {
     Term *term = createTerm();
     vector<Term *> args;
-    if (term){
-      args.push_back(term);}
+    if (term)
+    {
+      args.push_back(term);
+    }
     while ((_currentToken = _scanner.nextToken()) == ',')
     {
       args.push_back(createTerm());
     }
     return args;
+  }
+
+  vector<Term *> getElements()
+  {
+    vector<Term *> elements;
+    if (_scanner.watchNextToken() == ']')
+      return elements;
+    Term *term = createTerm();
+    if (term)
+      elements.push_back(term);
+    while ((_currentToken = _scanner.nextToken()) == ',')
+    {
+      elements.push_back(createTerm());
+    }
+      return elements;
   }
 
 private:

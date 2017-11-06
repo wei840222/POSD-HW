@@ -158,6 +158,7 @@ TEST_F(ParserTest, parseListOfLists)
 // And #symbol() of List should return "[[1], [], s(s(1))]".
 TEST_F(ParserTest, parseListOfListsAndStruct)
 {
+  
 }
 
 // Given there is string: "   [1, 2]" in scanner.
@@ -244,6 +245,9 @@ TEST_F(ParserTest, parseStructDOTSTwoArgs)
 // And #symbol() of Strcut should return "point(11)".
 TEST_F(ParserTest, parseStructOneArg)
 {
+  Scanner scanner("point(11)");
+  Parser parser(scanner);
+  ASSERT_EQ("point(11)", parser.createTerm()->symbol());
 }
 
 #endif
