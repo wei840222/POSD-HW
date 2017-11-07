@@ -40,15 +40,18 @@ public:
         _scanner.nextToken();
         vector<Term *> terms = getArgs();
         if (_currentToken == ')')
+        {
           return new Struct(*atom, terms);
+        }
       }
       else
         return atom;
     }
     else if (token == '[')
     {
-      vector<Term*> terms = getArgs();
-      if(_currentToken == ')') throw(std::string("unexpected token"));
+      vector<Term *> terms = getArgs();
+      if (_currentToken == ')')
+        throw(std::string("unexpected token"));
       if (_currentToken == ']' || _currentToken == 0)
       {
         return new List(terms);
@@ -74,7 +77,7 @@ public:
       args.push_back(createTerm());
     }
     return args;
-  } 
+  }
 
 private:
   Scanner _scanner;

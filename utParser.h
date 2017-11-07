@@ -246,6 +246,9 @@ TEST_F(ParserTest, parseStructOfStructAllTheWay2)
 // And #symbol() of Strcut should return "point()".
 TEST_F(ParserTest, parseStructNoArg)
 {
+  Scanner scanner("point()");
+  Parser parser(scanner);
+  ASSERT_EQ("point()", parser.createTerm()->symbol());
 }
 
 // Given there is string: " 12345,  tom,   Date" in scanner.

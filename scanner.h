@@ -83,33 +83,7 @@ public:
     }
   }
 
-  int watchNextToken()
-  {
-    if (skipLeadingWhiteSpace() >= buffer.length())
-      return EOS;
-    else if (isdigit(currentChar()))
-    {
-      return NUMBER;
-    }
-    else if (islower(currentChar()))
-    {
-      return ATOM;
-    }
-    else if (isSpecialCh(currentChar()))
-    {
-      return ATOMSC;
-    }
-    else if (isupper(currentChar()) || currentChar() == '_')
-    {
-      return VAR;
-    }
-    else
-    {
-      return buffer[pos];
-    }
-  }
-
-  int tokenValue() const{ return _tokenValue; }
+  int tokenValue() const { return _tokenValue; }
 
   int skipLeadingWhiteSpace()
   {
@@ -120,10 +94,7 @@ public:
 
   int position() const { return pos; }
 
-  char currentChar()
-  {
-    return buffer[pos];
-  }
+  char currentChar() { return buffer[pos]; }
 
   // extractX: extract X and set position right after X
   int extractNumber()
