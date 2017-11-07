@@ -281,6 +281,9 @@ TEST_F(ParserTest, parseStructTwoArgs)
 // And #symbol() of Strcut should return "...(11, 12)".
 TEST_F(ParserTest, parseStructDOTSTwoArgs)
 {
+  Scanner scanner("...(11,12)");
+  Parser parser(scanner);
+  ASSERT_EQ("...(11, 12)", parser.createTerm()->symbol());
 }
 
 // Given there is string: "point(11)" in scanner.
