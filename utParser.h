@@ -217,6 +217,13 @@ TEST_F(ParserTest, ListAsStruct)
 // And the first term should be number: "2", the second term should be another Strcut: ".(1, [])".
 TEST_F(ParserTest, ListAsStruct2)
 {
+  Scanner scanner(".(2,.(1,[]))");
+  Parser parser(scanner);
+  Struct *stuct = dynamic_cast<Struct *>(parser.createTerm());
+  EXPECT_EQ(".(2, .(1, []))", stuct->symbol());
+  EXPECT_EQ(2, stuct->arity());
+  EXPECT_EQ("2", stuct->args(0)->symbol());
+  EXPECT_EQ(".(1, [])", stuct->args(1)->symbol());
 }
 
 // Given there is string: "s(s(s(s(1)))), b(1,2,3)" in scanner.

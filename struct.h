@@ -13,6 +13,7 @@ class Struct : public Term
 public:
   Struct(Atom name, vector<Term *> args) : _name(name), _args(args) {}
   Atom name() { return _name; }
+  int arity() { return _args.size(); }
   Term *args(int index) { return _args[index]; }
   string symbol() const
   {
@@ -65,16 +66,6 @@ public:
     {
       return symbol() == variable.value();
     }
-  }
-
-  int arity()
-  {
-    int sum = 0;
-    for (int i = 0; i < _args.size(); i++)
-    {
-      sum += _args[i]->arity();
-    }
-    return sum;
   }
 
 private:

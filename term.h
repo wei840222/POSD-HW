@@ -11,7 +11,6 @@ public:
   virtual string value() const { return symbol(); }
   virtual bool match(Term &term) = 0;
   virtual bool isRecurrsiveMatch(Term *) { return false; }
-  virtual int arity() { return 1; }
 };
 
 #endif
