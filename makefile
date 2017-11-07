@@ -41,12 +41,12 @@ mainList.o: mainList.cpp utList.h term.h atom.h number.h variable.h struct.h lis
 utScanner: mainScanner.o
 	g++ -o utScanner mainScanner.o -lgtest -lpthread
 mainScanner.o: mainScanner.cpp utScanner.h scanner.h
-	g++ -std=c++11 -c mainScanner.cpp
+	g++ -std=gnu++0x -c mainScanner.cpp
 
 utParser: mainParser.o
 	g++ -o utParser mainParser.o -lgtest -lpthread
 mainParser.o: mainParser.cpp utParser.h parser.h scanner.h term.h atom.h number.h variable.h struct.h list.h
-	g++ -std=c++11 -c mainParser.cpp
+	g++ -std=gnu++0x -c mainParser.cpp
 
 clean:	
 ifeq (${OS}, Windows_NT)
