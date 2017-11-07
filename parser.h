@@ -8,7 +8,10 @@
 #include "list.h"
 #include "scanner.h"
 #include <string>
+#include <vector>
+
 using std::string;
+using std::vector;
 
 #include <iostream>
 using std::cout;
@@ -20,6 +23,7 @@ public:
   Term *createTerm()
   {
     int token = _scanner.nextToken();
+    _currentToken = token;
     if (token == VAR)
     {
       return new Variable(symtable[_scanner.tokenValue()].first);
@@ -43,7 +47,11 @@ public:
     }
     else if (token == '[')
     {
-      return new List(getElements());
+      vector<Term*> terms = getArgs();
+      if (_currentToken == ']' || _currentToken == 0)
+      {
+        return new List(terms);
+      }
     }
     return nullptr;
   }
@@ -51,32 +59,21 @@ public:
   vector<Term *> getArgs()
   {
     Term *term = createTerm();
-    vector<Term *> args;
+    vector<Term *> args = {};
     if (term)
     {
       args.push_back(term);
+    }
+    if ((_currentToken == ']' || _currentToken == ')') && term == nullptr)
+    {
+      return args;
     }
     while ((_currentToken = _scanner.nextToken()) == ',')
     {
       args.push_back(createTerm());
     }
     return args;
-  }
-
-  vector<Term *> getElements()
-  {
-    vector<Term *> elements;
-    if (_scanner.watchNextToken() == ']')
-      return elements;
-    Term *term = createTerm();
-    if (term)
-      elements.push_back(term);
-    while ((_currentToken = _scanner.nextToken()) == ',')
-    {
-      elements.push_back(createTerm());
-    }
-      return elements;
-  }
+  } 
 
 private:
   Scanner _scanner;

@@ -158,7 +158,9 @@ TEST_F(ParserTest, parseListOfLists)
 // And #symbol() of List should return "[[1], [], s(s(1))]".
 TEST_F(ParserTest, parseListOfListsAndStruct)
 {
-  
+  Scanner scanner("   [  [1], [], s(s(1)) ]   ");
+  Parser parser(scanner);
+  ASSERT_EQ("[[1], [], s(s(1))]", parser.createTerm()->symbol());
 }
 
 // Given there is string: "   [1, 2]" in scanner.
