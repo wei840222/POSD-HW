@@ -67,6 +67,16 @@ public:
     }
   }
 
+  int arity()
+  {
+    int sum = 0;
+    for (int i = 0; i < _args.size(); i++)
+    {
+      sum += _args[i]->arity();
+    }
+    return sum;
+  }
+
 private:
   Atom _name;
   vector<Term *> _args;
