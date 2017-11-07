@@ -48,6 +48,7 @@ public:
     else if (token == '[')
     {
       vector<Term*> terms = getArgs();
+      if(_currentToken == ')') throw(std::string("unexpected token"));
       if (_currentToken == ']' || _currentToken == 0)
       {
         return new List(terms);

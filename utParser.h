@@ -179,6 +179,16 @@ TEST_F(ParserTest, parseList)
 // Then it should return a string: "unexpected token" as exception.
 TEST_F(ParserTest, illegal1)
 {
+  Scanner scanner("[1,2)");
+  Parser parser(scanner);
+  try
+  {
+    parser.createTerm();
+  }
+  catch(string e)
+  {
+    ASSERT_EQ("unexpected token", e);
+  }
 }
 
 // Given there is string: ".(1,[])" in scanner.
