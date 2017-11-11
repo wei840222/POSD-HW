@@ -10,4 +10,11 @@ TEST(Token, createTokenNONE)
     EXPECT_EQ(t.value(), "");
 }
 
+TEST(Token, createTokenATOM)
+{
+    Token t(Token::ATOM, "fuck");
+    EXPECT_EQ(t.type(), Token::ATOM);
+    EXPECT_EQ(t.value(), "fuck");
+}
+
 #endif
