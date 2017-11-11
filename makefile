@@ -1,9 +1,9 @@
-hw5: mainParser.o
-ifeq (${OS}, Windows_NT)
-	g++ -o hw5 mainParser.o -lgtest
-else
-	g++ -o hw5 mainParser.o -lgtest -lpthread
-endif
+# hw5: mainParser.o
+# ifeq (${OS}, Windows_NT)
+# 	g++ -o hw5 mainParser.o -lgtest
+# else
+# 	g++ -o hw5 mainParser.o -lgtest -lpthread
+# endif
 
 allTest: utAtom utTerm utVariable utStruct utList utScanner
 	./utAtom
