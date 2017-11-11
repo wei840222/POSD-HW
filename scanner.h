@@ -1,158 +1,106 @@
 #ifndef SCANNER_H
 #define SCANNER_H
 
+#include "token.h"
 #include <string>
-#include <vector>
-#include <algorithm>
-
-using std::pair;
 using std::string;
-using std::vector;
-
-// no tokenValue
-const int NONE = -1;
-
-// tokens return by the scanner
-const int EOS = '\0';
-const int NUMBER = 256;
-const int ATOM = 257;
-const int ATOMSC = 258;
-const int VAR = 259;
-
-vector<pair<string, int>> symtable;
-
-bool isSpecialCh(char c)
-{
-  return c == '+'
-         //|| c == '=' // ... the matching operator
-         || c == '-' || c == '*' || c == '/' || c == '<' || c == '>' || c == '.' || c == '&' || c == '\\' || c == '~' || c == '^' || c == '$' || c == '#' || c == '@' || c == '?' || c == ':';
-}
-
-bool symbolExist(string s, int &val)
-{
-  bool found = false;
-  val = -1;
-  vector<pair<string, int>>::iterator it = find_if(symtable.begin(), symtable.end(), [s](pair<string, int> ele) {
-    return ele.first == s;
-  });
-
-  found = symtable.end() != it;
-  if (found)
-    val = it - symtable.begin();
-
-  return found;
-}
 
 class Scanner
 {
 public:
-  Scanner(string in = "") : buffer(in), pos(0), _tokenValue(NONE) {}
-  void setInput(string in) { buffer = in; }
+  Scanner(string in = "") : _buffer(in), _pos(0), _currentToken(nullptr) {}
 
-  int nextToken()
+  Token *nextToken()
   {
-    if (skipLeadingWhiteSpace() >= buffer.length())
-      return EOS;
+    if (skipLeadingWhiteSpace() >= _buffer.length())
+    {
+      _currentToken = new Token();
+    }
     else if (isdigit(currentChar()))
     {
-      _tokenValue = extractNumber();
-      return NUMBER;
+      _currentToken = new Token(Token::NUMBER, extractNumber());
     }
     else if (islower(currentChar()))
     {
-      string s = extractAtom();
-      processToken<ATOM>(s);
-      return ATOM;
+      _currentToken = new Token(Token::ATOM, extractAtom());
     }
     else if (isSpecialCh(currentChar()))
     {
-      string s = extractAtomSC();
-      processToken<ATOMSC>(s);
-      return ATOMSC;
+      _currentToken = new Token(Token::ATOMSC, extractAtomSC());
     }
     else if (isupper(currentChar()) || currentChar() == '_')
     {
-      string s = extractVar();
-      processToken<VAR>(s);
-      return VAR;
+      _currentToken = new Token(Token::VAR, extractVar());
     }
     else
     {
-      _tokenValue = NONE;
-      return extractChar();
+      _currentToken = nullptr;
     }
+    return currentToken();
   }
 
-  int tokenValue() const { return _tokenValue; }
+  Token *currentToken() { return _currentToken; }
 
   int skipLeadingWhiteSpace()
   {
-    for (; (buffer[pos] == ' ' || buffer[pos] == '\t') && pos < buffer.length(); ++pos)
+    for (; (_buffer[_pos] == ' ' || _buffer[_pos] == '\t') && _pos < _buffer.length(); ++_pos)
       ;
     return position();
   }
 
-  int position() const { return pos; }
+  int position() const { return _pos; }
 
-  char currentChar() { return buffer[pos]; }
+  char currentChar() { return _buffer[_pos]; }
 
-  // extractX: extract X and set position right after X
-  int extractNumber()
+  string extractNumber()
   {
     int posBegin = position();
-    for (; isdigit(buffer[pos]); ++pos)
-      ;
-    return stoi(buffer.substr(posBegin, pos - posBegin));
+    while(isdigit(_buffer[_pos]))
+    {
+      ++_pos;
+    }
+    return _buffer.substr(posBegin, _pos - posBegin);
   }
 
   string extractAtom()
   {
     int posBegin = position();
-    for (; isalnum(buffer[pos]); ++pos)
+    for (; isalnum(_buffer[_pos]); ++_pos)
       ;
-    return buffer.substr(posBegin, pos - posBegin);
+    return _buffer.substr(posBegin, _pos - posBegin);
   }
 
   string extractAtomSC()
   {
     int posBegin = position();
-    for (; isSpecialCh(buffer[pos]); ++pos)
+    for (; isSpecialCh(_buffer[_pos]); ++_pos)
       ;
-    return buffer.substr(posBegin, pos - posBegin);
+    return _buffer.substr(posBegin, _pos - posBegin);
   }
 
   string extractVar()
   {
     int posBegin = position();
-    for (; isalnum(buffer[pos]) || buffer[pos] == '_'; ++pos)
+    for (; isalnum(_buffer[_pos]) || _buffer[_pos] == '_'; ++_pos)
       ;
-    return buffer.substr(posBegin, pos - posBegin);
+    return _buffer.substr(posBegin, _pos - posBegin);
   }
 
   char extractChar()
   {
-    return buffer[pos++];
+    return _buffer[_pos++];
   }
 
 private:
-  string buffer;
-  int pos;
-  int _tokenValue;
+  string _buffer;
+  int _pos;
+  Token *_currentToken;
 
-  // case-based populating symtable and setting _tokenValue
-  template <int TokenType>
-  void processToken(string const &s)
+  static bool isSpecialCh(char c)
   {
-    int val = -1;
-    if (symbolExist(s, val))
-    {
-      _tokenValue = val;
-    }
-    else
-    {
-      symtable.push_back(pair<string, int>(s, TokenType));
-      _tokenValue = symtable.size() - 1; // index to symtable
-    }
+    return c == '+'
+           //|| c == '=' // ... the matching operator
+           || c == '-' || c == '*' || c == '/' || c == '<' || c == '>' || c == '.' || c == '&' || c == '\\' || c == '~' || c == '^' || c == '$' || c == '#' || c == '@' || c == '?' || c == ':';
   }
 };
 
