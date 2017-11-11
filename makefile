@@ -38,6 +38,11 @@ utList: mainList.o
 mainList.o: mainList.cpp utList.h term.h atom.h number.h variable.h struct.h list.h
 	g++ -std=gnu++0x -c mainList.cpp
 
+utToken: mainToken.o
+	g++ -o utToken mainToken.o -lgtest -lpthread
+mainToken.o: mainToken.cpp utToken.h token.h
+	g++ -std=gnu++0x -c mainToken.cpp
+
 utScanner: mainScanner.o
 	g++ -o utScanner mainScanner.o -lgtest -lpthread
 mainScanner.o: mainScanner.cpp utScanner.h scanner.h
