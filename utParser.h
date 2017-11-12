@@ -102,15 +102,15 @@ TEST(ParserTest, parseVar)
   EXPECT_EQ("_date", parser.createTerm()->symbol());
 }
 
-  // // Given there is not string in scanner.
-  // // When parser parses all terms via scanner.
-  // // Then it should return nothing.
-  // TEST_F(ParserTest, listOfTermsEmpty)
-  // {
-  //   Scanner scanner;
-  //   Parser parser(scanner);
-  //   ASSERT_EQ(nullptr, parser.createTerm());
-  // }
+// Given there is not string in scanner.
+// When parser parses all terms via scanner.
+// Then it should return nothing.
+TEST(ParserTest, listOfTermsEmpty)
+{
+  Scanner scanner;
+  Parser parser(scanner);
+  EXPECT_EQ(nullptr, parser.createTerm());
+}
 
   // // Given there is string: "s(s(s(s(1))))" in scanner.
   // // When parser parses all terms via scanner.
