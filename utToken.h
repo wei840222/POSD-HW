@@ -6,22 +6,22 @@
 TEST(Token, createTokenNONE)
 {
     Token t;
-    EXPECT_EQ(t.type(), Token::NONE);
-    EXPECT_EQ(t.value(), "");
+    EXPECT_EQ(Token::NONE, t.type());
+    EXPECT_EQ("", t.value());
 }
 
 TEST(Token, createTokenATOM)
 {
     Token t(Token::ATOM, "fuck");
-    EXPECT_EQ(t.type(), Token::ATOM);
-    EXPECT_EQ(t.value(), "fuck");
+    EXPECT_EQ(Token::ATOM, t.type());
+    EXPECT_EQ("fuck", t.value());
 }
 
 TEST(Token, createTokenNUMBER)
 {
     Token t(Token::NUMBER, "123");
-    EXPECT_EQ(t.type(), Token::NUMBER);
-    EXPECT_EQ(t.valueToDouble(), 123);
+    EXPECT_EQ(Token::NUMBER, t.type());
+    EXPECT_EQ(123, t.valueToDouble());
 }
 
 #endif
