@@ -28,6 +28,10 @@ public:
     {
       return new Number(_scanner.currentToken()->valueToDouble());
     }
+    else if (_scanner.currentToken()->type() == Token::ATOM)
+    {
+      return new Atom(_scanner.currentToken()->value());
+    }
     else
     {
       return nullptr;
