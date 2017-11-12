@@ -122,16 +122,15 @@ TEST(ScannerTest, nextTokenChar2)
   EXPECT_EQ(5, scanner.position());
 }
 
-  // TEST_F(ScannerTest, nextTokenAtomSC) {
-  //   //---------------01234567-890
-  //   Scanner scanner(".*-><&$@\\?");
-  //   EXPECT_EQ(0, scanner.position());
-  //   int token = scanner.nextToken();
-  //   EXPECT_EQ(ATOMSC, token);
-  //   EXPECT_EQ(0, scanner.tokenValue());
-  //   EXPECT_EQ(10, scanner.position());
-  //   EXPECT_EQ(".*-><&$@\\?", symtable[0].first);
-  //   EXPECT_EQ(ATOMSC, symtable[0].second);
-  // }
+TEST(ScannerTest, nextTokenAtomSC)
+{
+  //---------------01234567-890
+  Scanner scanner(".*-><&$@\\?");
+  EXPECT_EQ(0, scanner.position());
+  Token *tok = scanner.nextToken();
+  EXPECT_EQ(Token::ATOMSC, tok->type());
+  EXPECT_EQ(".*-><&$@\\?", tok->value());
+  EXPECT_EQ(10, scanner.position());
+}
 
 #endif
