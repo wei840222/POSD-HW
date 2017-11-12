@@ -215,16 +215,15 @@ TEST(ParserTest, parseStructOfStructAllTheWay2)
   EXPECT_EQ("b(1, 2, 3)", (*terms)[1]->symbol());
 }
 
-  // // Given there is string: "point()" in scanner.
-  // // When parser parses all terms via scanner.
-  // // Then it should return a Struct.
-  // // And #symbol() of Strcut should return "point()".
-  // TEST_F(ParserTest, parseStructNoArg)
-  // {
-  //   Scanner scanner("point()");
-  //   Parser parser(scanner);
-  //   ASSERT_EQ("point()", parser.createTerm()->symbol());
-  // }
+// Given there is string: "point()" in scanner.
+// When parser parses all terms via scanner.
+// Then it should return a Struct.
+// And #symbol() of Strcut should return "point()".
+TEST(ParserTest, parseStructNoArg)
+{
+  Parser parser(Scanner("point()"));
+  EXPECT_EQ("point()", parser.createTerm()->symbol());
+}
 
   // // Given there is string: " 12345,  tom,   Date" in scanner.
   // // When parser parses all terms via scanner.
