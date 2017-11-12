@@ -60,17 +60,16 @@ TEST(ParserTest, parseStructOfStruct)
   ASSERT_EQ("point(1, X, z(1, 2, 3))", parser.createTerm()->symbol());
 }
 
-  // // Given there is string: " 12345,  67" in scanner.
-  // // When parser parses all terms via scanner.
-  // // Then it should return two terms, one is "12345", another is "67".
-  // TEST_F(ParserTest, listOfTermsTwoNumbers)
-  // {
-  //   Scanner scanner(" 12345,  67");
-  //   Parser parser(scanner);
-  //   vector<Term *> terms = parser.getArgs();
-  //   ASSERT_EQ("12345", terms[0]->symbol());
-  //   ASSERT_EQ("67", terms[1]->symbol());
-  // }
+// Given there is string: " 12345,  67" in scanner.
+// When parser parses all terms via scanner.
+// Then it should return two terms, one is "12345", another is "67".
+TEST(ParserTest, listOfTermsTwoNumbers)
+{
+  Parser parser(Scanner(" 12345,  67"));
+  vector<Term *> *terms = parser.createTerms();
+  EXPECT_EQ("12345", (*terms)[0]->symbol());
+  EXPECT_EQ("67", (*terms)[1]->symbol());
+}
 
   // // Given there is string: "point(1, X, z)" in scanner.
   // // When parser parses all terms via scanner.
