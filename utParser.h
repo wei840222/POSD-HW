@@ -252,16 +252,15 @@ TEST(ParserTest, listOfTermsThree)
   EXPECT_EQ("Date", (*terms)[2]->symbol());
 }
 
-  // // Given there is string: "point(11,12)" in scanner.
-  // // When parser parses all terms via scanner.
-  // // Then it should return a Struct.
-  // // And #symbol() of Strcut should return "point(11, 12)".
-  // TEST_F(ParserTest, parseStructTwoArgs)
-  // {
-  //   Scanner scanner("point(11,12)");
-  //   Parser parser(scanner);
-  //   ASSERT_EQ("point(11, 12)", parser.createTerm()->symbol());
-  // }
+// Given there is string: "point(11,12)" in scanner.
+// When parser parses all terms via scanner.
+// Then it should return a Struct.
+// And #symbol() of Strcut should return "point(11, 12)".
+TEST(ParserTest, parseStructTwoArgs)
+{
+  Parser parser(Scanner("point(11,12)"));
+  EXPECT_EQ("point(11, 12)", parser.createTerm()->symbol());
+}
 
   // // Given there is string: "...(11,12)" in scanner.
   // // When parser parses all terms via scanner.
