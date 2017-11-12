@@ -1,10 +1,3 @@
-# hw5: mainParser.o
-# ifeq (${OS}, Windows_NT)
-# 	g++ -o hw5 mainParser.o -lgtest
-# else
-# 	g++ -o hw5 mainParser.o -lgtest -lpthread
-# endif
-
 allTest: utAtom utTerm utVariable utStruct utList utToken utScanner utParser
 	./utAtom
 	./utTerm
@@ -56,8 +49,4 @@ mainParser.o: mainParser.cpp utParser.h parser.h scanner.h term.h atom.h number.
 	g++ -std=gnu++0x -c mainParser.cpp
 
 clean:	
-ifeq (${OS}, Windows_NT)
-	del *.o *.exe
-else
 	rm -f *.o ut*[!.h] hw*
-endif

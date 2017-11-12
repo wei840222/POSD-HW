@@ -13,9 +13,6 @@
 using std::string;
 using std::vector;
 
-#include <iostream>
-using std::cout;
-
 class Parser
 {
 public:
