@@ -72,17 +72,17 @@ TEST(ScannerTest, nextTokenNumber)
   EXPECT_EQ(3, scanner.position());
 }
 
-  // TEST(ScannerTest, nextTokenAtom) {
-  //   //---------------0123
-  //   Scanner scanner("tom");
-  //   EXPECT_EQ(0, scanner.position());
-  //   int token = scanner.nextToken();
-  //   EXPECT_EQ(ATOM, token);
-  //   EXPECT_EQ(0, scanner.tokenValue());
-  //   EXPECT_EQ(3, scanner.position());
-  //   EXPECT_EQ("tom", symtable[0].first);
-  //   EXPECT_EQ(ATOM, symtable[0].second);
-  // }
+TEST(ScannerTest, nextTokenAtom)
+{
+  //---------------0123
+  Scanner scanner("tom");
+  EXPECT_EQ(0, scanner.position());
+  scanner.nextToken();
+  Token *tok = scanner.currentToken();
+  EXPECT_EQ(Token::ATOM, tok->type());
+  EXPECT_EQ("tom", tok->value());
+  EXPECT_EQ(3, scanner.position());
+}
 
   // TEST_F(ScannerTest, nextTokenVar) {
   //   //---------------01234
