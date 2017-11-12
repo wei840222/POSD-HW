@@ -38,6 +38,21 @@ public:
     }
   }
 
+  vector<Term *> *createTerms()
+  {
+    vector<Term *> *terms = new vector<Term *>();
+    Term *term = createTerm();
+    if (term != nullptr)
+    {
+      terms->push_back(term);
+      while (_scanner.nextToken()->value() == ",")
+      {
+        terms->push_back(createTerm());
+      }
+    }
+    return terms;
+  }
+
 private:
   Scanner _scanner;
 };
