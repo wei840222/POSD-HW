@@ -17,4 +17,11 @@ TEST(Token, createTokenATOM)
     EXPECT_EQ(t.value(), "fuck");
 }
 
+TEST(Token, createTokenNUMBER)
+{
+    Token t(Token::NUMBER, "123");
+    EXPECT_EQ(t.type(), Token::NUMBER);
+    EXPECT_EQ(t.valueToDouble(), 123);
+}
+
 #endif
