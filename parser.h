@@ -34,6 +34,7 @@ public:
     else if (_scanner.currentToken()->type() == Token::ATOM || _scanner.currentToken()->type() == Token::ATOMSC)
     {
       Atom *atom = new Atom(_scanner.currentToken()->value());
+      int pos = _scanner.position();
       if (_scanner.nextToken()->value() == "(")
       {
         vector<Term *> *terms = createTerms();
@@ -41,6 +42,7 @@ public:
       }
       else
       {
+        _scanner.setPosition(pos);
         return atom;
       }
     }

@@ -225,18 +225,17 @@ TEST(ParserTest, parseStructNoArg)
   EXPECT_EQ("point()", parser.createTerm()->symbol());
 }
 
-  // // Given there is string: " 12345,  tom,   Date" in scanner.
-  // // When parser parses all terms via scanner.
-  // // Then it should return three terms: "12345", "tom" and "Date".
-  // TEST_F(ParserTest, listOfTermsThree)
-  // {
-  //   Scanner scanner(" 12345,  tom,   Date");
-  //   Parser parser(scanner);
-  //   vector<Term *> terms = parser.getArgs();
-  //   ASSERT_EQ("12345", terms[0]->symbol());
-  //   ASSERT_EQ("tom", terms[1]->symbol());
-  //   ASSERT_EQ("Date", terms[2]->symbol());
-  // }
+// Given there is string: " 12345,  tom,   Date" in scanner.
+// When parser parses all terms via scanner.
+// Then it should return three terms: "12345", "tom" and "Date".
+TEST(ParserTest, listOfTermsThree)
+{
+  Parser parser(Scanner(" 12345,  tom,   Date"));
+  vector<Term *> *terms = parser.createTerms();
+  EXPECT_EQ("12345", (*terms)[0]->symbol());
+  EXPECT_EQ("tom", (*terms)[1]->symbol());
+  EXPECT_EQ("Date", (*terms)[2]->symbol());
+}
 
   // // Given there is string: "point(11,12)" in scanner.
   // // When parser parses all terms via scanner.

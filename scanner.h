@@ -10,6 +10,7 @@ class Scanner
 public:
   Scanner(string in = "") : _buffer(in), _pos(0), _currentToken(nullptr) {}
   int position() const { return _pos; }
+  void setPosition(int pos) {_pos = pos;}
   Token *currentToken() { return _currentToken; }
   Token *nextToken()
   {
