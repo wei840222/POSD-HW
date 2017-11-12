@@ -55,10 +55,6 @@ TEST(ScannerTest, nextTokenNONE2)
   EXPECT_EQ(Token::NONE, tok->type());
   EXPECT_EQ("", tok->value());
   EXPECT_EQ(0, scanner.position());
-  tok = scanner.currentToken();
-  EXPECT_EQ(Token::NONE, tok->type());
-  EXPECT_EQ("", tok->value());
-  EXPECT_EQ(0, scanner.position());
 }
 
 TEST(ScannerTest, nextTokenNumber)
@@ -77,24 +73,22 @@ TEST(ScannerTest, nextTokenAtom)
   //---------------0123
   Scanner scanner("tom");
   EXPECT_EQ(0, scanner.position());
-  scanner.nextToken();
-  Token *tok = scanner.currentToken();
+  Token *tok = scanner.nextToken();
   EXPECT_EQ(Token::ATOM, tok->type());
   EXPECT_EQ("tom", tok->value());
   EXPECT_EQ(3, scanner.position());
 }
 
-  // TEST_F(ScannerTest, nextTokenVar) {
-  //   //---------------01234
-  //   Scanner scanner("Date");
-  //   EXPECT_EQ(0, scanner.position());
-  //   int token = scanner.nextToken();
-  //   EXPECT_EQ(VAR, token);
-  //   EXPECT_EQ(0, scanner.tokenValue());
-  //   EXPECT_EQ(4, scanner.position());
-  //   EXPECT_EQ("Date", symtable[0].first);
-  //   EXPECT_EQ(VAR, symtable[0].second);
-  // }
+TEST(ScannerTest, nextTokenVar)
+{
+  //---------------01234
+  Scanner scanner("Date");
+  EXPECT_EQ(0, scanner.position());
+  Token *tok = scanner.nextToken();
+  EXPECT_EQ(Token::VAR, tok->type());
+  EXPECT_EQ("Date", tok->value());
+  EXPECT_EQ(4, scanner.position());
+}
 
   // TEST_F(ScannerTest, nextTokenChar) {
   //   //---------------01234
