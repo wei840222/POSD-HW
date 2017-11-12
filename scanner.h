@@ -9,7 +9,8 @@ class Scanner
 {
 public:
   Scanner(string in = "") : _buffer(in), _pos(0), _currentToken(nullptr) {}
-
+  int position() const { return _pos; }
+  Token *currentToken() { return _currentToken; }
   Token *nextToken()
   {
     if (skipLeadingWhiteSpace() >= _buffer.length())
@@ -39,7 +40,33 @@ public:
     return currentToken();
   }
 
-  Token *currentToken() { return _currentToken; }
+private:
+  string _buffer;
+  int _pos;
+  Token *_currentToken;
+
+  static bool isSpecialCh(char c)
+  {
+    return c == '+'
+           //|| c == '=' // ... the matching operator
+           || c == '-'
+           || c == '*'
+           || c == '/'
+           || c == '<'
+           || c == '>'
+           || c == '.'
+           || c == '&'
+           || c == '\\'
+           || c == '~'
+           || c == '^'
+           || c == '$'
+           || c == '#'
+           || c == '@'
+           || c == '?'
+           || c == ':';
+  }
+
+  char currentChar() { return _buffer[position()]; }
 
   int skipLeadingWhiteSpace()
   {
@@ -47,10 +74,6 @@ public:
       ;
     return position();
   }
-
-  int position() const { return _pos; }
-
-  char currentChar() { return _buffer[_pos]; }
 
   string extractNumber()
   {
@@ -89,18 +112,6 @@ public:
   string extractChar()
   {
     return string(1, _buffer[_pos++]);
-  }
-
-private:
-  string _buffer;
-  int _pos;
-  Token *_currentToken;
-
-  static bool isSpecialCh(char c)
-  {
-    return c == '+'
-           //|| c == '=' // ... the matching operator
-           || c == '-' || c == '*' || c == '/' || c == '<' || c == '>' || c == '.' || c == '&' || c == '\\' || c == '~' || c == '^' || c == '$' || c == '#' || c == '@' || c == '?' || c == ':';
   }
 };
 

@@ -3,35 +3,6 @@
 
 #include "scanner.h"
 
-TEST(ScannerTest, position)
-{
-  // one, two, three spaces
-  //---------------012345678901234567890
-  Scanner scanner(" 12345,  tom,   Date");
-  EXPECT_EQ(0, scanner.position());
-
-  EXPECT_EQ(1, scanner.skipLeadingWhiteSpace());
-  EXPECT_TRUE(isdigit(scanner.currentChar()));
-  EXPECT_EQ("12345", scanner.extractNumber());
-  EXPECT_EQ(6, scanner.position());
-
-  EXPECT_EQ(",", scanner.extractChar());
-  EXPECT_EQ(7, scanner.position());
-
-  EXPECT_EQ(9, scanner.skipLeadingWhiteSpace());
-  EXPECT_TRUE(islower(scanner.currentChar()));
-  EXPECT_EQ("tom", scanner.extractAtom());
-  EXPECT_EQ(12, scanner.position());
-
-  EXPECT_EQ(",", scanner.extractChar());
-  EXPECT_EQ(13, scanner.position());
-
-  EXPECT_EQ(16, scanner.skipLeadingWhiteSpace());
-  EXPECT_TRUE(isupper(scanner.currentChar()));
-  EXPECT_EQ("Date", scanner.extractVar());
-  EXPECT_EQ(20, scanner.position());
-}
-
 TEST(ScannerTest, nextTokenEOS)
 {
   //---------------01234
