@@ -14,7 +14,7 @@ public:
   {
     if (skipLeadingWhiteSpace() >= _buffer.length())
     {
-      _currentToken = new Token();
+      _currentToken = new Token(Token::EOS);
     }
     else if (isdigit(currentChar()))
     {
@@ -34,7 +34,7 @@ public:
     }
     else
     {
-      _currentToken = nullptr;
+      _currentToken = new Token(Token::NONE, extractChar());
     }
     return currentToken();
   }
@@ -55,7 +55,7 @@ public:
   string extractNumber()
   {
     int posBegin = position();
-    while(isdigit(_buffer[_pos]))
+    while (isdigit(_buffer[_pos]))
     {
       ++_pos;
     }
@@ -86,9 +86,9 @@ public:
     return _buffer.substr(posBegin, _pos - posBegin);
   }
 
-  char extractChar()
+  string extractChar()
   {
-    return _buffer[_pos++];
+    return string(1, _buffer[_pos++]);
   }
 
 private:

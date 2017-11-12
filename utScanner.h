@@ -15,7 +15,7 @@ TEST(ScannerTest, position)
   EXPECT_EQ("12345", scanner.extractNumber());
   EXPECT_EQ(6, scanner.position());
 
-  EXPECT_EQ(',', scanner.extractChar());
+  EXPECT_EQ(",", scanner.extractChar());
   EXPECT_EQ(7, scanner.position());
 
   EXPECT_EQ(9, scanner.skipLeadingWhiteSpace());
@@ -23,7 +23,7 @@ TEST(ScannerTest, position)
   EXPECT_EQ("tom", scanner.extractAtom());
   EXPECT_EQ(12, scanner.position());
 
-  EXPECT_EQ(',', scanner.extractChar());
+  EXPECT_EQ(",", scanner.extractChar());
   EXPECT_EQ(13, scanner.position());
 
   EXPECT_EQ(16, scanner.skipLeadingWhiteSpace());
@@ -32,27 +32,27 @@ TEST(ScannerTest, position)
   EXPECT_EQ(20, scanner.position());
 }
 
-TEST(ScannerTest, nextTokenNONE)
+TEST(ScannerTest, nextTokenEOS)
 {
   //---------------01234
   Scanner scanner("    ");
   EXPECT_EQ(0, scanner.position());
   Token *tok = scanner.nextToken();
-  EXPECT_EQ(Token::NONE, tok->type());
+  EXPECT_EQ(Token::EOS, tok->type());
   EXPECT_EQ("", tok->value());
   tok = scanner.currentToken();
-  EXPECT_EQ(Token::NONE, tok->type());
+  EXPECT_EQ(Token::EOS, tok->type());
   EXPECT_EQ("", tok->value());
   EXPECT_EQ(4, scanner.position());
 }
 
-TEST(ScannerTest, nextTokenNONE2)
+TEST(ScannerTest, nextTokenEOS2)
 {
   //---------------0
   Scanner scanner("");
   EXPECT_EQ(0, scanner.position());
   Token *tok = scanner.nextToken();
-  EXPECT_EQ(Token::NONE, tok->type());
+  EXPECT_EQ(Token::EOS, tok->type());
   EXPECT_EQ("", tok->value());
   EXPECT_EQ(0, scanner.position());
 }
@@ -90,18 +90,19 @@ TEST(ScannerTest, nextTokenVar)
   EXPECT_EQ(4, scanner.position());
 }
 
-  // TEST_F(ScannerTest, nextTokenChar) {
-  //   //---------------01234
-  //   Scanner scanner("   (");
-  //   int token = scanner.nextToken();
-  //   EXPECT_EQ('(', token);
-  //   EXPECT_EQ(NONE, scanner.tokenValue());
-  //   EXPECT_EQ(4, scanner.position());
-  //   token = scanner.nextToken();
-  //   EXPECT_EQ(EOS, token);
-  //   EXPECT_EQ(NONE, scanner.tokenValue());
-  //   EXPECT_EQ(4, scanner.position());
-  // }
+TEST(ScannerTest, nextTokenChar)
+{
+  //---------------01234
+  Scanner scanner("   (");
+  Token *tok = scanner.nextToken();
+  EXPECT_EQ(Token::NONE, tok->type());
+  EXPECT_EQ("(", tok->value());
+  EXPECT_EQ(4, scanner.position());
+  tok = scanner.nextToken();
+  EXPECT_EQ(Token::EOS, tok->type());
+  EXPECT_EQ("", tok->value());
+  EXPECT_EQ(4, scanner.position());
+}
 
   // TEST_F(ScannerTest, nextTokenChar2) {
   //   //---------------01234
