@@ -87,22 +87,20 @@ TEST(ParserTest, parseStructThreeArgs)
 // And #symbol() of List should return "[]".
 TEST(ParserTest, parseListEmpty)
 {
-  
+
   Parser parser(Scanner("   [   ]"));
   EXPECT_EQ("[]", parser.createTerm()->symbol());
-  //EXPECT_EQ(nullptr, parser.createTerm());
 }
 
-  // // Given there is string: "_date" in scanner.
-  // // When parser parses all terms via scanner.
-  // // Then it should return a Variable.
-  // // And #symbol() of Variable should return "_date".
-  // TEST_F(ParserTest, parseVar)
-  // {
-  //   Scanner scanner("_date");
-  //   Parser parser(scanner);
-  //   ASSERT_EQ("_date", parser.createTerm()->symbol());
-  // }
+// Given there is string: "_date" in scanner.
+// When parser parses all terms via scanner.
+// Then it should return a Variable.
+// And #symbol() of Variable should return "_date".
+TEST(ParserTest, parseVar)
+{
+  Parser parser(Scanner("_date"));
+  EXPECT_EQ("_date", parser.createTerm()->symbol());
+}
 
   // // Given there is not string in scanner.
   // // When parser parses all terms via scanner.
