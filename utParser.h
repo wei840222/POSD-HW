@@ -132,16 +132,15 @@ TEST(ParserTest, parseListOfLists)
   EXPECT_EQ("[[1], []]", parser.createTerm()->symbol());
 }
 
-  // // Given there is string: "   [  [1], [], s(s(1)) ]   " in scanner.
-  // // When parser parses all terms via scanner.
-  // // Then it should return a List.
-  // // And #symbol() of List should return "[[1], [], s(s(1))]".
-  // TEST_F(ParserTest, parseListOfListsAndStruct)
-  // {
-  //   Scanner scanner("   [  [1], [], s(s(1)) ]   ");
-  //   Parser parser(scanner);
-  //   ASSERT_EQ("[[1], [], s(s(1))]", parser.createTerm()->symbol());
-  // }
+// Given there is string: "   [  [1], [], s(s(1)) ]   " in scanner.
+// When parser parses all terms via scanner.
+// Then it should return a List.
+// And #symbol() of List should return "[[1], [], s(s(1))]".
+TEST(ParserTest, parseListOfListsAndStruct)
+{
+  Parser parser(Scanner("   [  [1], [], s(s(1)) ]   "));
+  EXPECT_EQ("[[1], [], s(s(1))]", parser.createTerm()->symbol());
+}
 
   // // Given there is string: "   [1, 2]" in scanner.
   // // When parser parses all terms via scanner.

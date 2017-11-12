@@ -66,19 +66,19 @@ public:
   {
     vector<Term *> *terms = new vector<Term *>();
     Term *term = createTerm();
-    if (term != nullptr)
+    if (term == nullptr && (_scanner.currentToken()->value() == ")" || _scanner.currentToken()->value() == "]"))
+    {
+      return terms;
+    }
+    else
     {
       terms->push_back(term);
       while (_scanner.nextToken()->value() == ",")
       {
         terms->push_back(createTerm());
-        if (_scanner.currentToken()->value() == ")" || _scanner.currentToken()->value() == "]")
-        {
-          break;
-        }
       }
+      return terms;
     }
-    return terms;
   }
 
 private:
