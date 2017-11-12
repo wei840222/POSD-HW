@@ -170,6 +170,21 @@ TEST(ParserTest, illegal1)
   }
 }
 
+TEST(ParserTest, illegal2)
+{
+  Parser parser(Scanner("s(1,2]"));
+  EXPECT_THROW(parser.createTerm(), string);
+  Parser parser2(Scanner("s(1,2]"));
+  try
+  {
+    parser2.createTerm();
+  }
+  catch (string e)
+  {
+    EXPECT_EQ("unexpected token", e);
+  }
+}
+
 // Given there is string: ".(1,[])" in scanner.
 // When parser parses all terms via scanner.
 // Then it should return a Struct which contains two terms.

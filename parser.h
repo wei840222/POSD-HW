@@ -38,7 +38,14 @@ public:
       if (_scanner.nextToken()->value() == "(")
       {
         vector<Term *> *terms = createTerms();
-        return new Struct(*atom, *terms);
+        if (_scanner.currentToken()->value() == ")")
+        {
+          return new Struct(*atom, *terms);
+        }
+        else
+        {
+          throw string("unexpected token");
+        }
       }
       else
       {
