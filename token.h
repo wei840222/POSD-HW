@@ -16,6 +16,7 @@ class Token
     Token(int type = 0, string value = "") : _tokenType(type), _tokenValue(value) {}
     int type() { return _tokenType; }
     string value() { return _tokenValue; }
+    double valueToDouble() { return stod(_tokenValue); }
 
   private:
     int _tokenType;
