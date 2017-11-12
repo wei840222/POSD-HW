@@ -170,22 +170,21 @@ TEST(ParserTest, illegal1)
   }
 }
 
-  // // Given there is string: ".(1,[])" in scanner.
-  // // When parser parses all terms via scanner.
-  // // Then it should return a Struct which contains two terms.
-  // // And #arity() of the Struct should be 2.
-  // // And #symbol() of Struct should return ".(1, [])".
-  // // And the first term should be number: "1", the second term should be another List: "[]".
-  // TEST_F(ParserTest, ListAsStruct)
-  // {
-  //   Scanner scanner(".(1,[])");
-  //   Parser parser(scanner);
-  //   Struct *stuct = dynamic_cast<Struct *>(parser.createTerm());
-  //   EXPECT_EQ(".(1, [])", stuct->symbol());
-  //   EXPECT_EQ(2, stuct->arity());
-  //   EXPECT_EQ("1", stuct->args(0)->symbol());
-  //   EXPECT_EQ("[]", stuct->args(1)->symbol());
-  // }
+// Given there is string: ".(1,[])" in scanner.
+// When parser parses all terms via scanner.
+// Then it should return a Struct which contains two terms.
+// And #arity() of the Struct should be 2.
+// And #symbol() of Struct should return ".(1, [])".
+// And the first term should be number: "1", the second term should be another List: "[]".
+TEST(ParserTest, ListAsStruct)
+{
+  Parser parser(Scanner(".(1,[])"));
+  Struct *stuct = dynamic_cast<Struct *>(parser.createTerm());
+  EXPECT_EQ(".(1, [])", stuct->symbol());
+  EXPECT_EQ(2, stuct->arity());
+  EXPECT_EQ("1", stuct->args(0)->symbol());
+  EXPECT_EQ("[]", stuct->args(1)->symbol());
+}
 
   // // Given there is string: ".(2,.(1,[]))" in scanner.
   // // When parser parses all terms via scanner.

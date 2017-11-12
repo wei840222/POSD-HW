@@ -31,7 +31,7 @@ public:
     {
       return new Number(_scanner.currentToken()->valueToDouble());
     }
-    else if (_scanner.currentToken()->type() == Token::ATOM)
+    else if (_scanner.currentToken()->type() == Token::ATOM || _scanner.currentToken()->type() == Token::ATOMSC)
     {
       Atom *atom = new Atom(_scanner.currentToken()->value());
       if (_scanner.nextToken()->value() == "(")
