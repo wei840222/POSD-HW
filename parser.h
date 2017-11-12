@@ -24,6 +24,10 @@ public:
     {
       return new Variable(_scanner.currentToken()->value());
     }
+    else if (_scanner.currentToken()->type() == Token::NUMBER)
+    {
+      return new Number(_scanner.currentToken()->valueToDouble());
+    }
     else
     {
       return nullptr;
