@@ -33,12 +33,11 @@ TEST(ParserTest, createTerms)
   EXPECT_EQ("tom", (*terms)[2]->symbol());
 }
 
-  // TEST_F(ParserTest, createTerms)
-  // {
-  //   Scanner scanner("s(1, X, tom)");
-  //   Parser parser(scanner);
-  //   ASSERT_EQ("s(1, X, tom)", parser.createTerm()->symbol());
-  // }
+TEST(ParserTest, createStruct)
+{
+  Parser parser(Scanner("s(1, X, tom)"));
+  EXPECT_EQ("s(1, X, tom)", parser.createTerm()->symbol());
+}
 
   // // Given there is string: " 12345,  tom" in scanner.
   // // When parser parses all terms via scanner.

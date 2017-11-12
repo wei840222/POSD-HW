@@ -13,6 +13,9 @@
 using std::string;
 using std::vector;
 
+#include <iostream>
+using std::cout;
+
 class Parser
 {
 public:
@@ -30,7 +33,16 @@ public:
     }
     else if (_scanner.currentToken()->type() == Token::ATOM)
     {
-      return new Atom(_scanner.currentToken()->value());
+      Atom *atom = new Atom(_scanner.currentToken()->value());
+      if (_scanner.nextToken()->value() == "(")
+      {
+        vector<Term *> *terms = createTerms();
+        return new Struct(*atom, *terms);
+      }
+      else
+      {
+        return atom;
+      }
     }
     else
     {
@@ -48,6 +60,10 @@ public:
       while (_scanner.nextToken()->value() == ",")
       {
         terms->push_back(createTerm());
+        if (_scanner.currentToken()->value() == ")")
+        {
+          break;
+        }
       }
     }
     return terms;
