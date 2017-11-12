@@ -152,22 +152,23 @@ TEST(ParserTest, parseList)
   EXPECT_EQ("[1, 2]", parser.createTerm()->symbol());
 }
 
-  // // Given there is string: "[1,2)" in scanner.
-  // // When parser parses all terms via scanner.
-  // // Then it should return a string: "unexpected token" as exception.
-  // TEST_F(ParserTest, illegal1)
-  // {
-  //   Scanner scanner("[1,2)");
-  //   Parser parser(scanner);
-  //   try
-  //   {
-  //     parser.createTerm();
-  //   }
-  //   catch(string e)
-  //   {
-  //     ASSERT_EQ("unexpected token", e);
-  //   }
-  // }
+// Given there is string: "[1,2)" in scanner.
+// When parser parses all terms via scanner.
+// Then it should return a string: "unexpected token" as exception.
+TEST(ParserTest, illegal1)
+{
+  Parser parser(Scanner("[1,2)"));
+  EXPECT_THROW(parser.createTerm(), string);
+  Parser parser2(Scanner("[1,2)"));
+  try
+  {
+    parser2.createTerm();
+  }
+  catch (string e)
+  {
+    EXPECT_EQ("unexpected token", e);
+  }
+}
 
   // // Given there is string: ".(1,[])" in scanner.
   // // When parser parses all terms via scanner.

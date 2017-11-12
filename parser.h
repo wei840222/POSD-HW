@@ -49,7 +49,14 @@ public:
       if (_scanner.currentToken()->value() == "[")
       {
         vector<Term *> *terms = createTerms();
-        return new List(*terms);
+        if (_scanner.currentToken()->value() == "]")
+        {
+          return new List(*terms);
+        }
+        else
+        {
+          throw string("unexpected token");
+        }
       }
       else
       {
