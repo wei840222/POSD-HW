@@ -112,16 +112,15 @@ TEST(ParserTest, listOfTermsEmpty)
   EXPECT_EQ(nullptr, parser.createTerm());
 }
 
-  // // Given there is string: "s(s(s(s(1))))" in scanner.
-  // // When parser parses all terms via scanner.
-  // // Then it should return a Struct.
-  // // And #symbol() of Strcut should return "s(s(s(s(1))))".
-  // TEST_F(ParserTest, parseStructOfStructAllTheWay)
-  // {
-  //   Scanner scanner("s(s(s(s(1))))");
-  //   Parser parser(scanner);
-  //   ASSERT_EQ("s(s(s(s(1))))", parser.createTerm()->symbol());
-  // }
+// Given there is string: "s(s(s(s(1))))" in scanner.
+// When parser parses all terms via scanner.
+// Then it should return a Struct.
+// And #symbol() of Strcut should return "s(s(s(s(1))))".
+TEST(ParserTest, parseStructOfStructAllTheWay)
+{
+  Parser parser(Scanner("s(s(s(s(1))))"));
+  EXPECT_EQ("s(s(s(s(1))))", parser.createTerm()->symbol());
+}
 
   // // Given there is string: "   [  [1], [] ]" in scanner.
   // // When parser parses all terms via scanner.
