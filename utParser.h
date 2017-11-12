@@ -78,19 +78,20 @@ TEST(ParserTest, listOfTermsTwoNumbers)
 TEST(ParserTest, parseStructThreeArgs)
 {
   Parser parser(Scanner("point(1, X, z)"));
-  ASSERT_EQ("point(1, X, z)", parser.createTerm()->symbol());
+  EXPECT_EQ("point(1, X, z)", parser.createTerm()->symbol());
 }
 
-  // // Given there is string: "   [   ]" in scanner.
-  // // When parser parses all terms via scanner.
-  // // Then it should return a List.
-  // // And #symbol() of List should return "[]".
-  // TEST_F(ParserTest, parseListEmpty)
-  // {
-  //   Scanner scanner("   [   ]");
-  //   Parser parser(scanner);
-  //   ASSERT_EQ("[]", parser.createTerm()->symbol());
-  // }
+// Given there is string: "   [   ]" in scanner.
+// When parser parses all terms via scanner.
+// Then it should return a List.
+// And #symbol() of List should return "[]".
+TEST(ParserTest, parseListEmpty)
+{
+  
+  Parser parser(Scanner("   [   ]"));
+  EXPECT_EQ("[]", parser.createTerm()->symbol());
+  //EXPECT_EQ(nullptr, parser.createTerm());
+}
 
   // // Given there is string: "_date" in scanner.
   // // When parser parses all terms via scanner.

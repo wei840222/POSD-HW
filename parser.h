@@ -44,6 +44,18 @@ public:
         return atom;
       }
     }
+    else if (_scanner.currentToken()->type() == Token::NONE)
+    {
+      if (_scanner.currentToken()->value() == "[")
+      {
+        vector<Term *> *terms = createTerms();
+        return new List(*terms);
+      }
+      else
+      {
+        return nullptr;
+      }
+    }
     else
     {
       return nullptr;
@@ -60,7 +72,7 @@ public:
       while (_scanner.nextToken()->value() == ",")
       {
         terms->push_back(createTerm());
-        if (_scanner.currentToken()->value() == ")")
+        if (_scanner.currentToken()->value() == ")" || _scanner.currentToken()->value() == "]")
         {
           break;
         }
