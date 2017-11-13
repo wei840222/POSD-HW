@@ -23,7 +23,7 @@ class Variable : public Term
     }
     bool match(Term &term)
     {
-        if (term.isRecurrsiveMatch(this))
+        if (term.isContain(this))
         {
             return false;
         }

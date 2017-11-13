@@ -110,7 +110,7 @@ public:
       return symbol() == variable.value();
     }
   }
-  bool isRecurrsiveMatch(Term *term)
+  bool isContain(Term *term)
   {
     for (int i = 0; i < _elements.size(); i++)
     {
@@ -118,7 +118,12 @@ public:
       {
         return true;
       }
+      else if (_elements[i]->isContain(term))
+      {
+        return true;
+      }
     }
+    return false;
   }
 
 private:
