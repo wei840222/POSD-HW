@@ -77,15 +77,22 @@ public:
   }
   bool match(Term &term)
   {
-    List *p = dynamic_cast<List *>(&term);
-    if (p)
+    List *l = dynamic_cast<List *>(&term);
+    if (l != nullptr)
     {
-      if (_elements.size() != p->_elements.size())
-        return false;
-      for (int i = 0; i < _elements.size(); i++)
+      if (_elements.size() != l->_elements.size())
       {
-        if (!_elements[i]->match(*(p->_elements[i])))
-          return false;
+        return false;
+      }
+      else
+      {
+        for (int i = 0; i < _elements.size(); i++)
+        {
+          if (!_elements[i]->match(*(l->_elements[i])))
+          {
+            return false;
+          }
+        }
       }
       return true;
     }
@@ -93,14 +100,11 @@ public:
   }
   bool match(Variable &variable)
   {
-    for (int i = 0; i < _elements.size(); i++)
+    if (isContain(&variable))
     {
-      if (&variable == _elements[i])
-      {
-        return false;
-      }
+      return false;
     }
-    if (variable.isAssignable())
+    else if (variable.isAssignable())
     {
       variable.setValue(this);
       return true;
