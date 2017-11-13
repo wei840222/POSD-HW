@@ -93,10 +93,11 @@ public:
             return false;
           }
         }
+        return true;
       }
-      return true;
     }
-    return false;
+    else
+      return false;
   }
   bool match(Variable &variable)
   {

@@ -49,25 +49,41 @@ public:
 
   bool match(Term &term)
   {
-    Struct *ps = dynamic_cast<Struct *>(&term);
-    if (ps)
+    Struct *s = dynamic_cast<Struct *>(&term);
+    if (s)
     {
-      if (!_name.match(ps->_name))
-        return false;
-      if (_args.size() != ps->_args.size())
-        return false;
-      for (int i = 0; i < _args.size(); i++)
+      if (!_name.match(s->_name))
       {
-        if (_args[i]->symbol() != ps->_args[i]->symbol())
-          return false;
+        return false;
       }
-      return true;
+      else if (_args.size() != s->_args.size())
+      {
+        return false;
+      }
+      else
+      {
+        for (int i = 0; i < _args.size(); i++)
+        {
+          if (_args[i]->symbol() != s->_args[i]->symbol())
+          {
+            return false;
+          }
+        }
+        return true;
+      }
     }
-    return false;
+    else
+    {
+      return false;
+    }
   }
   bool match(Variable &variable)
   {
-    if (variable.isAssignable())
+    if (isContain(&variable))
+    {
+      return false;
+    }
+    else if (variable.isAssignable())
     {
       variable.setValue(this);
       return true;
@@ -76,6 +92,22 @@ public:
     {
       return symbol() == variable.value();
     }
+  }
+
+  bool isContain(Term *term)
+  {
+    for (int i = 0; i < _args.size(); i++)
+    {
+      if (term == _args[i])
+      {
+        return true;
+      }
+      else if (_args[i]->isContain(term))
+      {
+        return true;
+      }
+    }
+    return false;
   }
 
 private:

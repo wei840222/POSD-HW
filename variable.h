@@ -27,7 +27,7 @@ class Variable : public Term
         {
             return false;
         }
-        if (&term == this)
+        else if (&term == this)
         {
             return true;
         }
