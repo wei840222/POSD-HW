@@ -5,13 +5,14 @@ else
 	g++ -o hw5 mainParser.o -lgtest -lpthread
 endif
 
-allTest: utAtom utTerm utVariable utStruct utList utScanner
+allTest: utAtom utTerm utVariable utStruct utList utScanner utParser
 	./utAtom
 	./utTerm
 	./utVariable
 	./utStruct
 	./utList
 	./utScanner
+	./utParser
 
 utAtom: mainAtom.o
 	g++ -o utAtom mainAtom.o -lgtest -lpthread
