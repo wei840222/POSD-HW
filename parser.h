@@ -95,21 +95,13 @@ public:
     Term *term = createTerm();
     if (term != nullptr)
     {
-      int i = _terms.size();
       _terms.push_back(term);
-      int firstSameSymbol = findFirstSameSymbol(_terms[i]->symbol());
-      if (firstSameSymbol < i)
-        _terms[i] = _terms[firstSameSymbol];
-
       while ((_currentToken = _scanner.nextToken()) == '=' || _currentToken == ',' || _currentToken == ';')
       {
         if (_currentToken == '=')
         {
           Node *l = new Node(TERM, _terms.back());
           _terms.push_back(createTerm());
-          int firstSameSymbol = findFirstSameSymbol(_terms[i]->symbol());
-          if (firstSameSymbol < i)
-            _terms[i] = _terms[firstSameSymbol];
           Node *r = new Node(TERM, _terms.back());
           _expressionTree = new Node(EQUALITY, 0, l, r);
         }
@@ -119,6 +111,7 @@ public:
           matchings();
           Node *r = _expressionTree;
           _expressionTree = new Node(COMMA, 0, l, r);
+          setAsSameScope();
         }
       }
     }
@@ -148,11 +141,20 @@ private:
     }
   }
 
-  int findFirstSameSymbol(string symbol)
+  void setAsSameScope()
   {
     for (int i = 0; i < _terms.size(); i++)
-      if ((_terms[i]->symbol()) == symbol || _terms[i]->isContain(symbol))
-        return i;
+    {
+      Variable *currentVar = dynamic_cast<Variable *>(_terms[i]);
+      if (currentVar != nullptr)
+      {
+        for (int j = i + 1; j < _terms.size(); j++)
+        {
+          if(currentVar->symbol() == _terms[j]->symbol())
+          currentVar->match(*(_terms[j]));
+        }
+      }
+    }
   }
 
   vector<Term *> _terms;
