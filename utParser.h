@@ -319,7 +319,8 @@ TEST_F(ParserTest, TwoVariableMatching2)
   EXPECT_EQ("1", terms[2]->value());
 }
 
-  // TEST_F(ParserTest, TwoVariableMatching3) {
+  // TEST_F(ParserTest, TwoVariableMatching3)
+  // {
   //   Scanner scanner("X=Y, X=1.");
   //   Parser parser(scanner);
   //   parser.matchings();
@@ -332,7 +333,7 @@ TEST_F(ParserTest, TwoVariableMatching2)
   //   EXPECT_EQ("X", symtable[0].first);
   //   EXPECT_EQ("Y", symtable[1].first);
 
-  //   Node * et = parser.expressionTree();
+  //   Node *et = parser.expressionTree();
   //   EXPECT_TRUE(et->evaluate());
 
   //   EXPECT_EQ("1", terms[0]->value());
