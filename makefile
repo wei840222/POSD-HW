@@ -4,10 +4,8 @@ ifeq (${OS}, Windows_NT)
 else
 	g++ -o hw6 mainParser.o -lgtest -lpthread
 endif
-	./hw6
-	make clean
 
-allTest: utAtom utTerm utVariable utStruct utList utScanner utParser
+allTestAndClean: utAtom utTerm utVariable utStruct utList utScanner utParser
 	./utAtom
 	./utTerm
 	./utVariable
@@ -15,6 +13,7 @@ allTest: utAtom utTerm utVariable utStruct utList utScanner utParser
 	./utList
 	./utScanner
 	./utParser
+	make clean
 
 utAtom: mainAtom.o
 	g++ -o utAtom mainAtom.o -lgtest -lpthread
