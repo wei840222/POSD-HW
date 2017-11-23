@@ -1,13 +1,14 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-
+#include "term.h"
 #include "atom.h"
 #include "number.h"
 #include "variable.h"
 #include "struct.h"
 #include "list.h"
 #include "scanner.h"
+#include "node.h"
 #include <string>
 using std::string;
 
@@ -85,6 +86,16 @@ public:
     return _terms;
   }
 
+  void matchings()
+  {
+    createTerms();
+    Node *l = new Node(TERM, _terms[0]);
+    Node *r = new Node(TERM, _terms[1]);
+    _expressionTree = new Node(EQUALITY, 0, l, r);
+  }
+
+  Node *expressionTree() { return _expressionTree; }
+
 private:
   FRIEND_TEST(ParserTest, createArgs);
   FRIEND_TEST(ParserTest, ListOfTermsEmpty);
@@ -97,7 +108,7 @@ private:
     if (term != nullptr)
     {
       _terms.push_back(term);
-      while ((_currentToken = _scanner.nextToken()) == ',')
+      while ((_currentToken = _scanner.nextToken()) == ',' || _currentToken == '=')
       {
         _terms.push_back(createTerm());
       }
@@ -107,5 +118,6 @@ private:
   vector<Term *> _terms;
   Scanner _scanner;
   int _currentToken;
+  Node *_expressionTree;
 };
 #endif

@@ -1,14 +1,34 @@
 #ifndef NODE_H
 #define NODE_H
 
-enum Operators {SEMICOLON, COMMA, EQUALITY, TERM};
+#include "term.h"
 
-class Node {
+enum Operators
+{
+  SEMICOLON,  //; or
+  COMMA,      //, and
+  EQUALITY,   //= match
+  TERM
+};
+
+class Node
+{
 public:
-  Node(Operators op):payload(op), term(0), left(0), right(0) {}
-  Node(Operators op, Term *t, Node *l, Node *r):payload(op), term(t), left(l), right(r) {}
+  Node(Operators op, Term *t = 0, Node *l = 0, Node *r = 0) : payload(op), term(t), left(l), right(r) {}
 
-  bool evaluate();
+  bool evaluate()
+  {
+    switch(payload)
+    {
+      case EQUALITY:
+        return left->term->match(*(right->term));
+        break;
+    }
+  }
+
+  Operators payload;
+  Term *term;
+  Node *left, *right;
 };
 
 #endif
