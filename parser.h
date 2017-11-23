@@ -105,6 +105,10 @@ public:
         break;
       }
     }
+    // if (!symtable.empty())
+    //   cout << symtable.back().first << endl;
+    if (symtable.back().first == ".")
+      symtable.pop_back();
   }
 
   Node *matching()
