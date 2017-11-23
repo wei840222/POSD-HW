@@ -25,6 +25,11 @@ public:
 
     case COMMA:
       return left->evaluate() && right->evaluate();
+
+    case SEMICOLON:
+      bool l = left->evaluate();
+      bool r = right->evaluate();
+      return l || r;
     }
   }
 

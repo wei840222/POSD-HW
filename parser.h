@@ -113,6 +113,13 @@ public:
           _expressionTree = new Node(COMMA, 0, l, r);
           setAsSameScope();
         }
+        else if (_currentToken == ';')
+        {
+          Node *l = _expressionTree;
+          matchings();
+          Node *r = _expressionTree;
+          _expressionTree = new Node(SEMICOLON, 0, l, r);
+        }
       }
     }
     //remove symtable .
