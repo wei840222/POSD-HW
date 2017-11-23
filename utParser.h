@@ -367,40 +367,40 @@ TEST_F(ParserTest, VarAStructOfVar)
   EXPECT_TRUE(et->evaluate());
 }
 
-TEST_F(ParserTest, TwoVariableMatching4)
-{
-  Scanner scanner("X=s(Y), Y=1.");
-  Parser parser(scanner);
-  parser.matchings();
-  vector<Term *> terms = parser.getTerms();
-  EXPECT_EQ(4, terms.size());
-  EXPECT_EQ("X", terms[0]->symbol());
-  EXPECT_EQ("X", terms[0]->value());
-  EXPECT_EQ("s(Y)", terms[1]->symbol());
-  EXPECT_EQ("Y", terms[2]->symbol());
-  EXPECT_EQ("1", terms[3]->symbol());
-  EXPECT_EQ("X", symtable[0].first);
-  EXPECT_EQ("s", symtable[1].first);
-  EXPECT_EQ("Y", symtable[2].first);
-  EXPECT_EQ(3, symtable.size());
+// TEST_F(ParserTest, TwoVariableMatching4)
+// {
+//   Scanner scanner("X=s(Y), Y=1.");
+//   Parser parser(scanner);
+//   parser.matchings();
+//   vector<Term *> terms = parser.getTerms();
+//   EXPECT_EQ(4, terms.size());
+//   EXPECT_EQ("X", terms[0]->symbol());
+//   EXPECT_EQ("X", terms[0]->value());
+//   EXPECT_EQ("s(Y)", terms[1]->symbol());
+//   EXPECT_EQ("Y", terms[2]->symbol());
+//   EXPECT_EQ("1", terms[3]->symbol());
+//   EXPECT_EQ("X", symtable[0].first);
+//   EXPECT_EQ("s", symtable[1].first);
+//   EXPECT_EQ("Y", symtable[2].first);
+//   EXPECT_EQ(3, symtable.size());
 
-  Node *et = parser.expressionTree();
-  EXPECT_TRUE(et->evaluate());
-  EXPECT_EQ(COMMA, et->payload);
-  EXPECT_EQ(EQUALITY, et->left->payload);
-  EXPECT_EQ("X", et->left->left->term->symbol());
-  EXPECT_EQ("s(Y)", et->left->right->term->symbol());
-  EXPECT_EQ("s(Y)", terms[1]->symbol());
-  EXPECT_EQ(EQUALITY, et->right->payload);
-  EXPECT_EQ("Y", et->right->left->term->symbol());
-  EXPECT_EQ("1", et->right->right->term->symbol());
+//   Node *et = parser.expressionTree();
+//   EXPECT_TRUE(et->evaluate());
+//   EXPECT_EQ(COMMA, et->payload);
+//   EXPECT_EQ(EQUALITY, et->left->payload);
+//   EXPECT_EQ("X", et->left->left->term->symbol());
+//   EXPECT_EQ("s(Y)", et->left->right->term->symbol());
+//   EXPECT_EQ("s(Y)", terms[1]->symbol());
+//   EXPECT_EQ(EQUALITY, et->right->payload);
+//   EXPECT_EQ("Y", et->right->left->term->symbol());
+//   EXPECT_EQ("1", et->right->right->term->symbol());
 
-  EXPECT_EQ("X", terms[0]->symbol());
-  EXPECT_EQ("s(1)", terms[0]->value());
-  EXPECT_EQ("s(1)", terms[1]->value());
-  EXPECT_EQ("Y", terms[2]->symbol());
-  EXPECT_EQ("1", terms[2]->value());
-}
+//   EXPECT_EQ("X", terms[0]->symbol());
+//   EXPECT_EQ("s(1)", terms[0]->value());
+//   EXPECT_EQ("s(1)", terms[1]->value());
+//   EXPECT_EQ("Y", terms[2]->symbol());
+//   EXPECT_EQ("1", terms[2]->value());
+// }
 
   // TEST_F(ParserTest, ConjTwoMatchingFailure) {
   //   Scanner scanner("X=1, X=2.");

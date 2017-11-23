@@ -19,7 +19,7 @@ using std::cout;
 class Parser
 {
 public:
-  Parser(Scanner scanner) : _scanner(scanner), _terms() {}
+  Parser(Scanner scanner) : _scanner(scanner) {}
 
   Term *createTerm()
   {
@@ -92,46 +92,39 @@ public:
 
   void matchings()
   {
-    _terms.clear();
-    _expressionTree = matching();
-    while ((_currentToken = _scanner.nextToken()) != EOS)
+    Term *term = createTerm();
+    if (term != nullptr)
     {
-      switch (_currentToken)
-      {
-      case ',':
-        Node *l = _expressionTree;
-        Node *r = matching();
-        _expressionTree = new Node(COMMA, 0, l, r);
-        break;
-      }
-    }
-    // if (!symtable.empty())
-    //   cout << symtable.back().first << endl;
-    if (symtable.back().first == ".")
-      symtable.pop_back();
-  }
-
-  Node *matching()
-  {
-    int i = _terms.size();
-    _terms.push_back(createTerm());
-    int firstSameSymbol = findFirstSameSymbol(_terms[i]->symbol());
-    if (firstSameSymbol < i)
-      _terms[i] = _terms[firstSameSymbol];
-
-      cout<<firstSameSymbol<<", "<<i<<endl;
-    if ((_currentToken = _scanner.nextToken()) == '=')
-    {
-      _terms.push_back(createTerm());
-      firstSameSymbol = findFirstSameSymbol(_terms[i]->symbol());
+      int i = _terms.size();
+      _terms.push_back(term);
+      int firstSameSymbol = findFirstSameSymbol(_terms[i]->symbol());
       if (firstSameSymbol < i)
         _terms[i] = _terms[firstSameSymbol];
-      Node *l = new Node(TERM, _terms[i]);
-      Node *r = new Node(TERM, _terms[i + 1]);
-      return new Node(EQUALITY, 0, l, r);
+
+      while ((_currentToken = _scanner.nextToken()) == '=' || _currentToken == ',' || _currentToken == ';')
+      {
+        if (_currentToken == '=')
+        {
+          Node *l = new Node(TERM, _terms.back());
+          _terms.push_back(createTerm());
+          int firstSameSymbol = findFirstSameSymbol(_terms[i]->symbol());
+          if (firstSameSymbol < i)
+            _terms[i] = _terms[firstSameSymbol];
+          Node *r = new Node(TERM, _terms.back());
+          _expressionTree = new Node(EQUALITY, 0, l, r);
+        }
+        else if (_currentToken == ',')
+        {
+          Node *l = _expressionTree;
+          matchings();
+          Node *r = _expressionTree;
+          _expressionTree = new Node(COMMA, 0, l, r);
+        }
+      }
     }
-    else
-      throw string("matching is wrong!");
+    //remove symtable .
+    if (symtable.back().first == ".")
+      symtable.pop_back();
   }
 
   Node *expressionTree() { return _expressionTree; }
