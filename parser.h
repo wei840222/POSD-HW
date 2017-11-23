@@ -101,7 +101,7 @@ public:
       case ',':
         Node *l = _expressionTree;
         Node *r = matching();
-        _expressionTree = new Node(COMMA, 0, l, r);
+        _expressionTree = new Node(COMMA, 0, r, l);
         break;
       }
     }
