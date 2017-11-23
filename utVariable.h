@@ -86,6 +86,17 @@ TEST(Variable, num1_to_varY_and_varX_match_varY)
   ASSERT_EQ(X.value(), "1");
 }
 
+// ?- Y=1, Y=X.
+// X=1
+TEST(Variable, num1_to_varY_and_varX_match_varY2)
+{
+  Variable X("X"), Y("Y");
+  Number one(1);
+  ASSERT_TRUE(Y.match(one));
+  ASSERT_TRUE(Y.match(X));
+  ASSERT_EQ(X.value(), "1");
+}
+
 // ?- X=Y, Y=Z, Z=1
 // X=1, Y=1, Z=1
 TEST(Variable, num1_to_varZ_to_varY_to_varX)

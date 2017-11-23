@@ -24,7 +24,7 @@ public:
       return left->term->match(*(right->term));
 
     case COMMA:
-      return (left->evaluate()) && (right->evaluate());
+      return right->evaluate() && left->evaluate();
     }
   }
 

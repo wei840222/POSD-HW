@@ -38,6 +38,17 @@ class Variable : public Term
         }
         else
         {
+            Variable *var=dynamic_cast<Variable*>(&term);
+            if(var!=nullptr)
+            {
+                if(var->isAssignable())
+                {
+                    var->setValue(_value);
+                    return true;
+                }
+                else
+                    return _value->match(*var);
+            }
             return _value->match(term);
         }
     }
