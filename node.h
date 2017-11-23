@@ -5,10 +5,10 @@
 
 enum Operators
 {
-  SEMICOLON,  //; or
-  COMMA,      //, and
-  EQUALITY,   //= match
-  TERM
+  SEMICOLON, //0 ; or
+  COMMA,     //1 , and
+  EQUALITY,  //2 = match
+  TERM       //3
 };
 
 class Node
@@ -18,11 +18,13 @@ public:
 
   bool evaluate()
   {
-    switch(payload)
+    switch (payload)
     {
-      case EQUALITY:
-        return left->term->match(*(right->term));
-        break;
+    case EQUALITY:
+      return left->term->match(*(right->term));
+
+    case COMMA:
+      return (left->evaluate()) && (right->evaluate());
     }
   }
 

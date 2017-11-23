@@ -9,8 +9,12 @@
 #include "list.h"
 #include "scanner.h"
 #include "node.h"
+
 #include <string>
 using std::string;
+
+#include <iostream>
+using std::cout;
 
 class Parser
 {
@@ -88,10 +92,34 @@ public:
 
   void matchings()
   {
-    createTerms();
-    Node *l = new Node(TERM, _terms[0]);
-    Node *r = new Node(TERM, _terms[1]);
-    _expressionTree = new Node(EQUALITY, 0, l, r);
+    _terms.clear();
+    _expressionTree = matching();
+    while ((_currentToken = _scanner.nextToken()) != EOS)
+    {
+      switch (_currentToken)
+      {
+      case ',':
+        Node *l = _expressionTree;
+        Node *r = matching();
+        _expressionTree = new Node(COMMA, 0, l, r);
+        break;
+      }
+    }
+  }
+
+  Node *matching()
+  {
+    int i = _terms.size();
+    _terms.push_back(createTerm());
+    if ((_currentToken = _scanner.nextToken()) == '=')
+    {
+      Node *l = new Node(TERM, _terms[i]);
+      _terms.push_back(createTerm());
+      Node *r = new Node(TERM, _terms[i + 1]);
+      return new Node(EQUALITY, 0, l, r);
+    }
+    else
+      throw string("matching is wrong!");
   }
 
   Node *expressionTree() { return _expressionTree; }
@@ -108,7 +136,7 @@ private:
     if (term != nullptr)
     {
       _terms.push_back(term);
-      while ((_currentToken = _scanner.nextToken()) == ',' || _currentToken == '=')
+      while ((_currentToken = _scanner.nextToken()) == ',')
       {
         _terms.push_back(createTerm());
       }

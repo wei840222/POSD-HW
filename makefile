@@ -48,7 +48,7 @@ mainScanner.o: mainScanner.cpp utScanner.h scanner.h
 
 utParser: mainParser.o
 	g++ -o utParser mainParser.o -lgtest -lpthread
-mainParser.o: mainParser.cpp utParser.h parser.h scanner.h term.h atom.h number.h variable.h struct.h list.h
+mainParser.o: mainParser.cpp utParser.h parser.h scanner.h node.h term.h atom.h number.h variable.h struct.h list.h
 	g++ -std=gnu++0x -c mainParser.cpp
 
 clean:	

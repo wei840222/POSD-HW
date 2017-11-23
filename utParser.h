@@ -249,26 +249,27 @@ TEST_F(ParserTest, OneMatchingFalse)
   EXPECT_FALSE(et->evaluate());
 }
 
-  // TEST_F(ParserTest, TwoTermsMatching) {
-  //   Scanner scanner("X=1, Y=2.");
-  //   Parser parser(scanner);
-  //   parser.matchings();
-  //   vector<Term *> terms = parser.getTerms();
-  //   EXPECT_EQ(4, terms.size());
-  //   EXPECT_EQ("X", terms[0]->symbol());
-  //   EXPECT_EQ("1", terms[1]->symbol());
-  //   EXPECT_EQ("Y", terms[2]->symbol());
-  //   EXPECT_EQ("2", terms[3]->symbol());
-  //   EXPECT_EQ("X", symtable[0].first);
-  //   EXPECT_EQ("Y", symtable[1].first);
+TEST_F(ParserTest, TwoTermsMatching)
+{
+  Scanner scanner("X=1, Y=2.");
+  Parser parser(scanner);
+  parser.matchings();
+  vector<Term *> terms = parser.getTerms();
+  EXPECT_EQ(4, terms.size());
+  EXPECT_EQ("X", terms[0]->symbol());
+  EXPECT_EQ("1", terms[1]->symbol());
+  EXPECT_EQ("Y", terms[2]->symbol());
+  EXPECT_EQ("2", terms[3]->symbol());
+  EXPECT_EQ("X", symtable[0].first);
+  EXPECT_EQ("Y", symtable[1].first);
 
-  //   Node * et = parser.expressionTree();
-  //   EXPECT_TRUE(et->evaluate());
-  //   EXPECT_EQ(COMMA, et->payload);
+  Node *et = parser.expressionTree();
+  EXPECT_TRUE(et->evaluate());
+  EXPECT_EQ(COMMA, et->payload);
 
-  //   EXPECT_EQ("1", terms[0]->value());
-  //   EXPECT_EQ("2", terms[2]->value());
-  // }
+  EXPECT_EQ("1", terms[0]->value());
+  EXPECT_EQ("2", terms[2]->value());
+}
 
   // TEST_F(ParserTest, ThreeTermsMatching) {
   //   Scanner scanner("X=1, Y=2, Z=3.");
