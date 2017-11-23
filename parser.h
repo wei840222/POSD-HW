@@ -99,9 +99,17 @@ public:
       switch (_currentToken)
       {
       case ',':
-        Node *l = _expressionTree;
-        Node *r = matching();
-        _expressionTree = new Node(COMMA, 0, r, l);
+        Node *r = _expressionTree;
+        Node *l = matching();
+        _expressionTree = new Node(COMMA, 0, l, r);
+        Variable *var;
+        for (int i = 0; i < _terms.size(); i++)
+        {
+          if ((var = dynamic_cast<Variable *>(_terms[i])) != nullptr)
+            for (int j = i; j < _terms.size(); j++)
+              if (var->symbol() == _terms[j]->symbol())
+                var->match(*_terms[j]);
+        }
         break;
       }
     }
