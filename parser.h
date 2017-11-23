@@ -148,10 +148,15 @@ private:
       Variable *currentVar = dynamic_cast<Variable *>(_terms[i]);
       if (currentVar != nullptr)
       {
-        for (int j = i + 1; j < _terms.size(); j++)
+        for (int j = 0; j < _terms.size(); j++)
         {
-          if(currentVar->symbol() == _terms[j]->symbol())
-          currentVar->match(*(_terms[j]));
+          Struct *currentStruct = dynamic_cast<Struct *>(_terms[j]);
+          if (currentStruct != nullptr && currentStruct->isContain(currentVar->symbol()))
+          {
+            currentVar->match(*(currentStruct->findBySymbol(currentVar->symbol())));
+          }
+          else if (currentVar->symbol() == _terms[j]->symbol() && j > i)
+            currentVar->match(*(_terms[j]));
         }
       }
     }

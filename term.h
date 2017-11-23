@@ -11,6 +11,13 @@ public:
   virtual string value() const { return symbol(); }
   virtual bool match(Term &term) = 0;
   virtual bool isContain(string symbol) { return false; }
+  virtual Term *findBySymbol(string symbol)
+  {
+    if (symbol == this->symbol())
+      return this;
+    else
+      return nullptr;
+  }
 };
 
 #endif

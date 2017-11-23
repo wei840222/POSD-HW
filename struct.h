@@ -88,6 +88,15 @@ public:
     }
   }
 
+  Term *findBySymbol(string symbol)
+  {
+    for (int i = 0; i < _args.size(); i++)
+    {
+      if (_args[i]->findBySymbol(symbol) != nullptr)
+        return _args[i]->findBySymbol(symbol);
+    }
+  }
+
 private:
   Atom _name;
   vector<Term *> _args;
