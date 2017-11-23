@@ -77,6 +77,16 @@ public:
       return symbol() == variable.value();
     }
   }
+  bool isContain(string symbol)
+  {
+    for (int i = 0; i < _args.size(); i++)
+    {
+      if (symbol == _args[i]->symbol() || _args[i]->isContain(symbol))
+      {
+        return true;
+      }
+    }
+  }
 
 private:
   Atom _name;

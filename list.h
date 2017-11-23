@@ -93,13 +93,8 @@ public:
   }
   bool match(Variable &variable)
   {
-    for (int i = 0; i < _elements.size(); i++)
-    {
-      if (&variable == _elements[i])
-      {
-        return false;
-      }
-    }
+    if (isContain(variable.symbol()))
+      return false;
     if (variable.isAssignable())
     {
       variable.setValue(this);
@@ -110,11 +105,11 @@ public:
       return symbol() == variable.value();
     }
   }
-  bool isRecurrsiveMatch(Term *term)
+  bool isContain(string symbol)
   {
     for (int i = 0; i < _elements.size(); i++)
     {
-      if (term == _elements[i])
+      if (symbol == _elements[i]->symbol() || _elements[i]->isContain(symbol))
       {
         return true;
       }

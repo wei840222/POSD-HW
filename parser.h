@@ -99,8 +99,8 @@ public:
       switch (_currentToken)
       {
       case ',':
-        Node *r = _expressionTree;
-        Node *l = matching();
+        Node *l = _expressionTree;
+        Node *r = matching();
         _expressionTree = new Node(COMMA, 0, l, r);
         break;
       }
@@ -118,6 +118,8 @@ public:
     int firstSameSymbol = findFirstSameSymbol(_terms[i]->symbol());
     if (firstSameSymbol < i)
       _terms[i] = _terms[firstSameSymbol];
+
+      cout<<firstSameSymbol<<", "<<i<<endl;
     if ((_currentToken = _scanner.nextToken()) == '=')
     {
       _terms.push_back(createTerm());
@@ -156,7 +158,7 @@ private:
   int findFirstSameSymbol(string symbol)
   {
     for (int i = 0; i < _terms.size(); i++)
-      if ((_terms[i]->symbol()) == symbol)
+      if ((_terms[i]->symbol()) == symbol || _terms[i]->isContain(symbol))
         return i;
   }
 
