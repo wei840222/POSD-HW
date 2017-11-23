@@ -1,6 +1,7 @@
 hw6: mainParser.o
 ifeq (${OS}, Windows_NT)
 	g++ -o hw6 mainParser.o -lgtest
+	g++ -o hw5 mainParser.o -lgtest
 else
 	g++ -o hw6 mainParser.o -lgtest -lpthread
 endif
