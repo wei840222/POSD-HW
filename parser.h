@@ -13,8 +13,6 @@
 #include <string>
 using std::string;
 
-#include <iostream>
-using std::cout;
 
 class Parser
 {
@@ -159,9 +157,14 @@ private:
         for (int j = _scopeStartIndex; j < _terms.size(); j++)
         {
           Struct *currentStruct = dynamic_cast<Struct *>(_terms[j]);
+          List *currentList = dynamic_cast<List *>(_terms[j]);
           if (currentStruct != nullptr && currentStruct->isContain(currentVar->symbol()))
           {
             currentVar->match(*(currentStruct->findBySymbol(currentVar->symbol())));
+          }
+          else if (currentList != nullptr && currentList->isContain(currentVar->symbol()))
+          {
+            currentVar->match(*(currentList->findBySymbol(currentVar->symbol())));
           }
           else if (currentVar->symbol() == _terms[j]->symbol() && j > i)
             currentVar->match(*(_terms[j]));

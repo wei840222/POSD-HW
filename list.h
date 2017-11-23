@@ -116,6 +116,15 @@ public:
     }
   }
 
+  Term *findBySymbol(string symbol)
+  {
+    for (int i = 0; i < _elements.size(); i++)
+    {
+      if (_elements[i]->findBySymbol(symbol) != nullptr)
+        return _elements[i]->findBySymbol(symbol);
+    }
+  }
+
 private:
   vector<Term *> _elements;
 };
