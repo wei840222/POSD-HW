@@ -19,7 +19,7 @@ using std::cout;
 class Parser
 {
 public:
-  Parser(Scanner scanner) : _scanner(scanner) {}
+  Parser(Scanner scanner) : _scanner(scanner), _scopeStartIndex(0) {}
 
   Term *createTerm()
   {
@@ -116,6 +116,7 @@ public:
         else if (_currentToken == ';')
         {
           Node *l = _expressionTree;
+          _scopeStartIndex = _terms.size();
           matchings();
           Node *r = _expressionTree;
           _expressionTree = new Node(SEMICOLON, 0, l, r);
@@ -150,12 +151,12 @@ private:
 
   void setAsSameScope()
   {
-    for (int i = 0; i < _terms.size(); i++)
+    for (int i = _scopeStartIndex; i < _terms.size(); i++)
     {
       Variable *currentVar = dynamic_cast<Variable *>(_terms[i]);
       if (currentVar != nullptr)
       {
-        for (int j = 0; j < _terms.size(); j++)
+        for (int j = _scopeStartIndex; j < _terms.size(); j++)
         {
           Struct *currentStruct = dynamic_cast<Struct *>(_terms[j]);
           if (currentStruct != nullptr && currentStruct->isContain(currentVar->symbol()))
@@ -172,6 +173,7 @@ private:
   vector<Term *> _terms;
   Scanner _scanner;
   int _currentToken;
+  int _scopeStartIndex;
   Node *_expressionTree;
 };
 #endif
