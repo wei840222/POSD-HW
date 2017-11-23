@@ -235,18 +235,19 @@ TEST_F(ParserTest, OneMatching)
   EXPECT_EQ("1", terms[0]->value());
 }
 
-  // TEST_F(ParserTest, OneMatchingFalse) {
-  //   Scanner scanner("1=2.");
-  //   Parser parser(scanner);
-  //   EXPECT_NO_THROW(parser.matchings());
-  //   vector<Term *> terms = parser.getTerms();
-  //   EXPECT_EQ(2, terms.size());
-  //   EXPECT_EQ("1", terms[0]->symbol());
-  //   EXPECT_EQ("2", terms[1]->symbol());
+TEST_F(ParserTest, OneMatchingFalse)
+{
+  Scanner scanner("1=2.");
+  Parser parser(scanner);
+  EXPECT_NO_THROW(parser.matchings());
+  vector<Term *> terms = parser.getTerms();
+  EXPECT_EQ(2, terms.size());
+  EXPECT_EQ("1", terms[0]->symbol());
+  EXPECT_EQ("2", terms[1]->symbol());
 
-  //   Node * et = parser.expressionTree();
-  //   EXPECT_FALSE(et->evaluate());
-  // }
+  Node *et = parser.expressionTree();
+  EXPECT_FALSE(et->evaluate());
+}
 
   // TEST_F(ParserTest, TwoTermsMatching) {
   //   Scanner scanner("X=1, Y=2.");
