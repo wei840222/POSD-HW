@@ -6,7 +6,6 @@ else
 	g++ -o hw6 mainParser.o -lgtest -lpthread
 endif
 
-
 allTestAndClean: utAtom utTerm utVariable utStruct utList utScanner utParser
 	./utAtom
 	./utTerm
