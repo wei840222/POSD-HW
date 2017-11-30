@@ -12,9 +12,7 @@ class Struct : public Term
 {
 public:
   Struct(Atom name, vector<Term *> args) : _name(name), _args(args) {}
-  Atom name() { return _name; }
-  int arity() const { return _args.size(); }
-  Term *args(int index) { return _args[index]; }
+
   string symbol() const
   {
     string ret = _name.symbol() + "(";
@@ -23,12 +21,13 @@ public:
       ret += ")";
       return ret;
     }
-    for (int i = 0; i < _args.size() - 1; i++)
+    else
     {
-      ret += _args[i]->symbol() + ", ";
+      for (int i = 0; i < _args.size() - 1; i++)
+        ret += _args[i]->symbol() + ", ";
+      ret += _args[_args.size() - 1]->symbol() + ")";
+      return ret;
     }
-    ret += _args[_args.size() - 1]->symbol() + ")";
-    return ret;
   }
 
   string value() const
@@ -39,12 +38,13 @@ public:
       ret += ")";
       return ret;
     }
-    for (int i = 0; i < _args.size() - 1; i++)
+    else
     {
-      ret += _args[i]->value() + ", ";
+      for (int i = 0; i < _args.size() - 1; i++)
+        ret += _args[i]->value() + ", ";
+      ret += _args[_args.size() - 1]->value() + ")";
+      return ret;
     }
-    ret += _args[_args.size() - 1]->value() + ")";
-    return ret;
   }
 
   bool match(Term &term)
@@ -54,17 +54,20 @@ public:
     {
       if (!_name.match(ps->_name))
         return false;
-      if (_args.size() != ps->_args.size())
+      else if (_args.size() != ps->_args.size())
         return false;
-      for (int i = 0; i < _args.size(); i++)
+      else
       {
-        if (_args[i]->symbol() != ps->_args[i]->symbol())
-          return false;
+        for (int i = 0; i < _args.size(); i++)
+          if (_args[i]->symbol() != ps->_args[i]->symbol())
+            return false;
+        return true;
       }
-      return true;
     }
-    return false;
+    else
+      return false;
   }
+  
   bool match(Variable &variable)
   {
     if (variable.isAssignable())
@@ -77,25 +80,18 @@ public:
       return symbol() == variable.value();
     }
   }
-  bool isContain(string symbol)
-  {
-    for (int i = 0; i < _args.size(); i++)
-    {
-      if (symbol == _args[i]->symbol() || _args[i]->isContain(symbol))
-      {
-        return true;
-      }
-    }
-  }
 
   Term *findBySymbol(string symbol)
   {
     for (int i = 0; i < _args.size(); i++)
-    {
       if (_args[i]->findBySymbol(symbol) != nullptr)
         return _args[i]->findBySymbol(symbol);
-    }
+    return nullptr;
   }
+
+  Atom name() { return _name; }
+  int arity() const { return _args.size(); }
+  Term *args(int index) { return _args[index]; }
 
 private:
   Atom _name;

@@ -9,6 +9,7 @@ using std::pair;
 using std::string;
 using std::vector;
 
+////////////////////Global////////////////////
 // no tokenValue
 const int NONE = -1;
 
@@ -20,28 +21,7 @@ const int ATOMSC = 258;
 const int VAR = 259;
 
 vector<pair<string, int>> symtable;
-
-bool isSpecialCh(char c)
-{
-  return c == '+'
-         //|| c == '=' // ... the matching operator
-         || c == '-' || c == '*' || c == '/' || c == '<' || c == '>' || c == '.' || c == '&' || c == '\\' || c == '~' || c == '^' || c == '$' || c == '#' || c == '@' || c == '?' || c == ':';
-}
-
-bool symbolExist(string s, int &val)
-{
-  bool found = false;
-  val = -1;
-  vector<pair<string, int>>::iterator it = find_if(symtable.begin(), symtable.end(), [s](pair<string, int> ele) {
-    return ele.first == s;
-  });
-
-  found = symtable.end() != it;
-  if (found)
-    val = it - symtable.begin();
-
-  return found;
-}
+////////////////////Global////////////////////
 
 class Scanner
 {
@@ -85,16 +65,30 @@ public:
 
   int tokenValue() const { return _tokenValue; }
 
-  int skipLeadingWhiteSpace()
-  {
-    for (; (buffer[pos] == ' ' || buffer[pos] == '\t') && pos < buffer.length(); ++pos)
-      ;
-    return position();
-  }
-
   int position() const { return pos; }
 
-  char currentChar() { return buffer[pos]; }
+  char currentChar() const { return buffer[pos]; }
+
+private:
+  string buffer;
+  int pos;
+  int _tokenValue;
+
+  // case-based populating symtable and setting _tokenValue
+  template <int TokenType>
+  void processToken(string const &s)
+  {
+    int val = -1;
+    if (symbolExist(s, val))
+    {
+      _tokenValue = val;
+    }
+    else
+    {
+      symtable.push_back(pair<string, int>(s, TokenType));
+      _tokenValue = symtable.size() - 1; // index to symtable
+    }
+  }
 
   // extractX: extract X and set position right after X
   int extractNumber()
@@ -134,26 +128,36 @@ public:
     return buffer[pos++];
   }
 
-private:
-  string buffer;
-  int pos;
-  int _tokenValue;
-
-  // case-based populating symtable and setting _tokenValue
-  template <int TokenType>
-  void processToken(string const &s)
+  int skipLeadingWhiteSpace()
   {
-    int val = -1;
-    if (symbolExist(s, val))
-    {
-      _tokenValue = val;
-    }
-    else
-    {
-      symtable.push_back(pair<string, int>(s, TokenType));
-      _tokenValue = symtable.size() - 1; // index to symtable
-    }
+    for (; (buffer[pos] == ' ' || buffer[pos] == '\t') && pos < buffer.length(); ++pos)
+      ;
+    return position();
   }
+
+  bool isSpecialCh(char c)
+  {
+    return c == '+'
+           //|| c == '=' // ... the matching operator
+           || c == '-' || c == '*' || c == '/' || c == '<' || c == '>' || c == '.' || c == '&' || c == '\\' || c == '~' || c == '^' || c == '$' || c == '#' || c == '@' || c == '?' || c == ':';
+  }
+
+  bool symbolExist(string s, int &val)
+  {
+    bool found = false;
+    val = -1;
+    vector<pair<string, int>>::iterator it = find_if(symtable.begin(), symtable.end(), [s](pair<string, int> ele) {
+      return ele.first == s;
+    });
+
+    found = symtable.end() != it;
+    if (found)
+      val = it - symtable.begin();
+
+    return found;
+  }
+
+  FRIEND_TEST(ScannerTest, position);
 };
 
 #endif

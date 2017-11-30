@@ -5,9 +5,6 @@
 #include <string>
 using std::string;
 
-#include <iostream>
-using namespace std;
-
 class Variable : public Term
 {
   public:
@@ -21,16 +18,13 @@ class Variable : public Term
         }
         return _value->value();
     }
+
     bool match(Term &term)
     {
-        if (term.isContain(symbol()))
-        {
+        if (term.findBySymbol(symbol()) != nullptr && term.findBySymbol(symbol()) != &term)
             return false;
-        }
-        if (&term == this)
-        {
+        else if (&term == this)
             return true;
-        }
         else if (!_value)
         {
             _value = &term;
@@ -38,10 +32,10 @@ class Variable : public Term
         }
         else
         {
-            Variable *var=dynamic_cast<Variable*>(&term);
-            if(var!=nullptr)
+            Variable *var = dynamic_cast<Variable *>(&term);
+            if (var != nullptr)
             {
-                if(var->isAssignable())
+                if (var->isAssignable())
                 {
                     var->setValue(_value);
                     return true;
@@ -49,7 +43,8 @@ class Variable : public Term
                 else
                     return _value->match(*var);
             }
-            return _value->match(term);
+            else
+                return _value->match(term);
         }
     }
 
