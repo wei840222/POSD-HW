@@ -8,9 +8,6 @@
 using std::string;
 using std::vector;
 
-#include <iostream>
-using std::cout;
-
 class List : public Term
 {
 public:
@@ -20,16 +17,12 @@ public:
   string symbol() const
   {
     if (_elements.empty())
-    {
       return "[]";
-    }
     else
     {
       string ret = "[";
       for (int i = 0; i < _elements.size() - 1; i++)
-      {
         ret += _elements[i]->symbol() + ", ";
-      }
       ret += _elements[_elements.size() - 1]->symbol() + "]";
       return ret;
     }
@@ -38,16 +31,12 @@ public:
   string value() const
   {
     if (_elements.empty())
-    {
       return "[]";
-    }
     else
     {
       string ret = "[";
       for (int i = 0; i < _elements.size() - 1; i++)
-      {
         ret += _elements[i]->value() + ", ";
-      }
       ret += _elements[_elements.size() - 1]->value() + "]";
       return ret;
     }

@@ -64,25 +64,17 @@ public:
   }
 
   int tokenValue() const { return _tokenValue; }
-
   int position() const { return pos; }
-
   char currentChar() const { return buffer[pos]; }
 
 private:
-  string buffer;
-  int pos;
-  int _tokenValue;
-
   // case-based populating symtable and setting _tokenValue
   template <int TokenType>
   void processToken(string const &s)
   {
     int val = -1;
     if (symbolExist(s, val))
-    {
       _tokenValue = val;
-    }
     else
     {
       symtable.push_back(pair<string, int>(s, TokenType));
@@ -94,7 +86,7 @@ private:
   int extractNumber()
   {
     int posBegin = position();
-    for (; isdigit(buffer[pos]); ++pos)
+    while (isdigit(buffer[++pos]))
       ;
     return stoi(buffer.substr(posBegin, pos - posBegin));
   }
@@ -102,7 +94,7 @@ private:
   string extractAtom()
   {
     int posBegin = position();
-    for (; isalnum(buffer[pos]); ++pos)
+    while (isalnum(buffer[++pos]))
       ;
     return buffer.substr(posBegin, pos - posBegin);
   }
@@ -110,7 +102,7 @@ private:
   string extractAtomSC()
   {
     int posBegin = position();
-    for (; isSpecialCh(buffer[pos]); ++pos)
+    while (isSpecialCh(buffer[++pos]))
       ;
     return buffer.substr(posBegin, pos - posBegin);
   }
@@ -118,20 +110,17 @@ private:
   string extractVar()
   {
     int posBegin = position();
-    for (; isalnum(buffer[pos]) || buffer[pos] == '_'; ++pos)
-      ;
+    while (isalnum(buffer[pos]) || buffer[pos] == '_')
+      ++pos;
     return buffer.substr(posBegin, pos - posBegin);
   }
 
-  char extractChar()
-  {
-    return buffer[pos++];
-  }
+  char extractChar() { return buffer[pos++]; }
 
   int skipLeadingWhiteSpace()
   {
-    for (; (buffer[pos] == ' ' || buffer[pos] == '\t') && pos < buffer.length(); ++pos)
-      ;
+    while ((buffer[pos] == ' ' || buffer[pos] == '\t') && pos < buffer.length())
+      ++pos;
     return position();
   }
 
@@ -149,13 +138,15 @@ private:
     vector<pair<string, int>>::iterator it = find_if(symtable.begin(), symtable.end(), [s](pair<string, int> ele) {
       return ele.first == s;
     });
-
     found = symtable.end() != it;
     if (found)
       val = it - symtable.begin();
-
     return found;
   }
+
+  string buffer;
+  int pos;
+  int _tokenValue;
 
   FRIEND_TEST(ScannerTest, position);
 };

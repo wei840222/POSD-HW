@@ -20,9 +20,7 @@ class Number : public Term
             return true;
         }
         else
-        {
             return symbol() == variable.value();
-        }
     }
 
   private:
@@ -31,15 +29,11 @@ class Number : public Term
     string numToString(double d)
     {
         string num = std::to_string(d);
-        int i = num.size() - 1;
-        while (num[i] == '0')
-        {
-            i--;
-        }
+        int i = num.size();
+        while (num[--i] == '0')
+            ;
         if (num[i] == '.')
-        {
             i--;
-        }
         num.resize(i + 1);
         return num;
     }

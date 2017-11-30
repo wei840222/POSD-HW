@@ -20,9 +20,7 @@ public:
       return true;
     }
     else
-    {
       return symbol() == variable.value();
-    }
   }
 
 private:
