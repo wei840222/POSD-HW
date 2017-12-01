@@ -9,7 +9,20 @@ class Term
 public:
   virtual string symbol() const = 0;
   virtual string value() const { return symbol(); }
-  virtual bool match(Term &term) = 0;
+  virtual void setValue(Term *term) { throw string("unacceptable set value to Term"); }
+  virtual bool isAssignable() { return false; }
+
+  virtual bool match(Term &term)
+  {
+    if (term.isAssignable())
+    {
+      term.setValue(this);
+      return true;
+    }
+    else
+      return symbol() == term.value();
+  }
+
   virtual Term *findBySymbol(string symbol)
   {
     if (symbol == this->symbol())

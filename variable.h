@@ -13,10 +13,9 @@ class Variable : public Term
     string value() const
     {
         if (!_value)
-        {
             return symbol();
-        }
-        return _value->value();
+        else
+            return _value->value();
     }
 
     bool match(Term &term)
@@ -24,7 +23,7 @@ class Variable : public Term
         if (term.findBySymbol(symbol()) != nullptr && term.findBySymbol(symbol()) != &term)
             return false;
         else if (&term == this)
-            return true;
+            return true; 
         else if (!_value)
         {
             _value = &term;
@@ -32,16 +31,10 @@ class Variable : public Term
         }
         else
         {
-            Variable *var = dynamic_cast<Variable *>(&term);
-            if (var != nullptr)
+            if (term.isAssignable())
             {
-                if (var->isAssignable())
-                {
-                    var->setValue(_value);
-                    return true;
-                }
-                else
-                    return _value->match(*var);
+                term.setValue(_value);
+                return true;
             }
             else
                 return _value->match(term);
