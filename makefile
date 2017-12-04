@@ -7,6 +7,9 @@ else
 	make clean
 endif
 
+
+#######UnitTest#######
+
 allTestAndClean: utAtom utTerm utVariable utStruct utList utScanner utParser utIterator
 	./utAtom
 	./utTerm
@@ -18,41 +21,72 @@ allTestAndClean: utAtom utTerm utVariable utStruct utList utScanner utParser utI
 	./utIterator
 	make clean
 
-utAtom: mainAtom.o
-	g++ -o utAtom mainAtom.o -lgtest -lpthread
-mainAtom.o: mainAtom.cpp utAtom.h atom.h
-	g++ -std=c++11 -c mainAtom.cpp
+utAtom: utAtom.o
+	g++ -o utAtom utAtom.o -lgtest -lpthread
+utAtom.o: utAtom.h atom.h
+	touch utAtom.cpp
+	echo '#include "utAtom.h"' >> utAtom.cpp
+	cat uniTestTemplate.cpp >> utAtom.cpp
+	g++ -std=c++11 -c utAtom.cpp
 
-utTerm: mainTerm.o
-	g++ -o utTerm mainTerm.o -lgtest -lpthread
-mainTerm.o: mainTerm.cpp utTerm.h term.h atom.h number.h variable.h
-	g++ -std=gnu++0x -c mainTerm.cpp
+utTerm: utTerm.o
+	g++ -o utTerm utTerm.o -lgtest -lpthread
+utTerm.o: utTerm.h term.h
+	touch utTerm.cpp
+	echo '#include "utTerm.h"' >> utTerm.cpp
+	cat uniTestTemplate.cpp >> utTerm.cpp
+	g++ -std=c++11 -c utTerm.cpp
 
-utVariable: mainVariable.o
-		g++ -o utVariable mainVariable.o  -lgtest -lpthread
-mainVariable.o: mainVariable.cpp utVariable.h term.h atom.h number.h variable.h struct.h
-		g++ -std=c++11 -c mainVariable.cpp
+utVariable: utVariable.o
+	g++ -o utVariable utVariable.o -lgtest -lpthread
+utVariable.o: utVariable.h term.h atom.h number.h variable.h struct.h
+	touch utVariable.cpp
+	echo '#include "utVariable.h"' >> utVariable.cpp
+	cat uniTestTemplate.cpp >> utVariable.cpp
+	g++ -std=c++11 -c utVariable.cpp
 
-utStruct: mainStruct.o
-	g++ -o utStruct mainStruct.o -lgtest -lpthread
-mainStruct.o: mainStruct.cpp utStruct.h term.h atom.h number.h variable.h struct.h
-	g++ -std=gnu++0x -c mainStruct.cpp
+utStruct: utStruct.o
+	g++ -o utStruct utStruct.o -lgtest -lpthread
+utStruct.o: utStruct.h term.h atom.h number.h variable.h struct.h
+	touch utStruct.cpp
+	echo '#include "utStruct.h"' >> utStruct.cpp
+	cat uniTestTemplate.cpp >> utStruct.cpp
+	g++ -std=c++11 -c utStruct.cpp
 
-utList: mainList.o
-	g++ -o utList mainList.o -lgtest -lpthread
-mainList.o: mainList.cpp utList.h term.h atom.h number.h variable.h struct.h list.h
-	g++ -std=gnu++0x -c mainList.cpp
+utList: utList.o
+	g++ -o utList utList.o -lgtest -lpthread
+utList.o: utList.h term.h atom.h number.h variable.h struct.h list.h
+	touch utList.cpp
+	echo '#include "utList.h"' >> utList.cpp
+	cat uniTestTemplate.cpp >> utList.cpp
+	g++ -std=c++11 -c utList.cpp
 
-utScanner: mainScanner.o
-	g++ -o utScanner mainScanner.o -lgtest -lpthread
-mainScanner.o: mainScanner.cpp utScanner.h scanner.h
-	g++ -std=gnu++0x -c mainScanner.cpp
+utScanner: utScanner.o
+	g++ -o utScanner utScanner.o -lgtest -lpthread
+utScanner.o: utScanner.h scanner.h
+	touch utScanner.cpp
+	echo '#include "utScanner.h"' >> utScanner.cpp
+	cat uniTestTemplate.cpp >> utScanner.cpp
+	g++ -std=c++11 -c utScanner.cpp
 
-utParser: mainParser.o
-	g++ -o utParser mainParser.o -lgtest -lpthread
-mainParser.o: mainParser.cpp utParser.h parser.h scanner.h node.h term.h atom.h number.h variable.h struct.h list.h
-	g++ -std=gnu++0x -c mainParser.cpp
-	
+utParser: utParser.o
+	g++ -o utParser utParser.o -lgtest -lpthread
+utParser.o: utParser.h parser.h scanner.h node.h term.h atom.h number.h variable.h struct.h list.h
+	touch utParser.cpp
+	echo '#include "utParser.h"' >> utParser.cpp
+	cat uniTestTemplate.cpp >> utParser.cpp
+	g++ -std=c++11 -c utParser.cpp
+
+utIterator: utIterator.o term.o struct.o list.o
+	g++ -o utIterator utIterator.o term.o struct.o list.o -lgtest -lpthread
+utIterator.o: utIterator.h iterator.h term.h atom.h number.h variable.h struct.h list.h
+	touch utIterator.cpp
+	echo '#include "utIterator.h"' >> utIterator.cpp
+	cat uniTestTemplate.cpp >> utIterator.cpp
+	g++ -std=c++11 -c utIterator.cpp
+
+
+#####Object file#####
 
 term.o: term.cpp term.h 
 	g++ -std=gnu++0x -c term.cpp
@@ -63,10 +97,6 @@ struct.o: struct.cpp struct.h
 list.o: list.cpp list.h 
 	g++ -std=gnu++0x -c list.cpp
 
-utIterator: mainIterator.o struct.o list.o term.o
-	g++ -o utIterator mainIterator.o struct.o list.o term.o -lgtest -lpthread
-mainIterator.o: mainIterator.cpp utIterator.h iterator.h term.h atom.h number.h variable.h struct.h list.h
-	g++ -std=gnu++0x -c mainIterator.cpp
 
 clean:	
 ifeq (${OS}, Windows_NT)
