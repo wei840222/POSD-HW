@@ -63,27 +63,28 @@ TEST(Iterator, nestedStructIterator)
     EXPECT_TRUE(itr2->isDone());
 }
 
-    // TEST(Iterator, firstList)
-    // {
-    //     Number one(1), two(2);
-    //     Variable X("X"), Y("Y");
-    //     Struct t(Atom("t"), {&X, &two});
-    //     List l({&one, &t, &Y});
+//[1, t(X, 2), Y]
+TEST(Iterator, listIterator)
+{
+    Number one(1), two(2);
+    Variable X("X"), Y("Y");
+    Struct t(Atom("t"), {&X, &two});
+    List l({&one, &t, &Y});
 
-    //     Iterator<Term *> *itList = l.createIterator();
+    Iterator<List> *itr = l.createIterator();
 
-    //     EXPECT_EQ("1", itList->currentItem()->symbol());
-    //     EXPECT_FALSE(itList->isDone());
+    EXPECT_EQ("1", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
 
-    //     itList->next();
-    //     EXPECT_EQ("t(X, 2)", itList->currentItem()->symbol());
-    //     EXPECT_FALSE(itList->isDone());
+    itr->next();
+    EXPECT_EQ("t(X, 2)", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
 
-    //     itList->next();
-    //     EXPECT_EQ("Y", itList->currentItem()->symbol());
+    itr->next();
+    EXPECT_EQ("Y", itr->currentItem()->symbol());
 
-    //     itList->next();
-    //     EXPECT_TRUE(itList->isDone());
-    // }
+    itr->next();
+    EXPECT_TRUE(itr->isDone());
+}
 
 #endif

@@ -42,29 +42,31 @@ private:
   Struct *_s;
 };
 
-// template <class T>
-// class ListIterator : public Iterator<T>
-// {
-//   public:
-//     friend class List;
-//     void first() { _index = 0; }
-//     Term *currentItem() const { return _l[_index]; }
-//     bool isDone() const { return _index >= _l.size(); }
-//     void next() { _index++; }
+template <>
+class Iterator<List>
+{
+  friend class List;
 
-//   private:
-//     ListIterator(List *l) : _index(0)
-//     {
-//         List visList = *l;
-//         while (visList.tail()->symbol() != "[]")
-//         {
-//             _l.push_back(visList.head());
-//             visList = *(visList.tail());
-//         }
-//         _l.push_back(visList.head());
-//     }
-//     int _index;
-//     vector<Term *> _l;
-// };
+public:
+  void first() { _tailList = *_l; }
+  Term *currentItem() const { return _tailList.head(); }
+  bool isDone() const
+  {
+    try
+    {
+      _tailList.head();
+    }
+    catch (string e)
+    {
+        return true;
+    }
+    return false;
+  }
+  void next() { _tailList = *(_tailList.tail()); }
+
+private:
+  Iterator(List *l) : _l(l), _tailList(*l) {}
+  List *_l, _tailList;
+};
 
 #endif

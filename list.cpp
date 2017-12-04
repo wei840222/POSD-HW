@@ -1,4 +1,4 @@
 #include "list.h"
 #include "iterator.h"
 
-// Iterator<Term *> *List::createIterator() { return new ListIterator<Term *>(this); }
+Iterator<List> *List::createIterator() { return new Iterator<List>(this); }
