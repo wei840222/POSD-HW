@@ -8,6 +8,9 @@
 using std::string;
 using std::vector;
 
+template <class T>
+class Iterator;
+
 class Struct : public Term
 {
 public:
@@ -67,7 +70,7 @@ public:
     else
       return false;
   }
-  
+
   bool match(Variable &variable)
   {
     if (variable.isAssignable())
@@ -92,6 +95,8 @@ public:
   Atom name() { return _name; }
   int arity() const { return _args.size(); }
   Term *args(int index) { return _args[index]; }
+
+  Iterator<Struct> *createIterator();
 
 private:
   Atom _name;

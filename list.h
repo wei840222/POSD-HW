@@ -8,6 +8,9 @@
 using std::string;
 using std::vector;
 
+template<class T>
+class Iterator;
+
 class List : public Term
 {
 public:
@@ -82,14 +85,14 @@ public:
     return nullptr;
   }
 
-  Term *head()
+  Term *head() const
   {
     if (_elements.empty())
       throw string("Accessing head in an empty list");
     else
       return _elements.front();
   }
-  List *tail()
+  List *tail() const
   {
     if (_elements.empty())
       throw string("Accessing tail in an empty list");
@@ -102,6 +105,8 @@ public:
       return l;
     }
   }
+
+  Iterator<List> *createIterator();
 
 private:
   vector<Term *> _elements;

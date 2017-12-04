@@ -2,6 +2,7 @@
 #define UTSCANNER_H
 
 #include "scanner.h"
+#include <gtest/gtest.h>
 
 class ScannerTest : public ::testing::Test {
 protected:

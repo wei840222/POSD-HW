@@ -6,8 +6,8 @@
 #include "number.h"
 #include "variable.h"
 #include "struct.h"
+#include <gtest/gtest.h>
 #include <vector>
-
 using std::vector;
 
 TEST(Struct, hobby)

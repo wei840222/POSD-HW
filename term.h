@@ -4,6 +4,9 @@
 #include <string>
 using std::string;
 
+template <class T>
+class Iterator;
+
 class Term
 {
 public:
@@ -30,6 +33,8 @@ public:
     else
       return nullptr;
   }
+
+  Iterator<Term> *createIterator();
 };
 
 #endif
