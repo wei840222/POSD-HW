@@ -7,6 +7,7 @@
 #include "iterator.h"
 #include <gtest/gtest.h>
 
+//1
 TEST(Iterator, nullIterator)
 {
     Number one(1);
@@ -16,7 +17,7 @@ TEST(Iterator, nullIterator)
 }
 
 //s(1, t(X, 2), Y)
-TEST(Iterator, iteratorStruct)
+TEST(Iterator, structIterator)
 {
     Number one(1), two(2);
     Variable X("X"), Y("Y");
@@ -38,28 +39,29 @@ TEST(Iterator, iteratorStruct)
     EXPECT_TRUE(itr->isDone());
 }
 
-    // TEST(Iterator, nested_structIterator)
-    // {
-    //     Number one(1), two(2);
-    //     Variable X("X"), Y("Y");
-    //     Struct t(Atom("t"), {&X, &two});
-    //     Struct s(Atom("s"), {&one, &t, &Y});
+//s(1, t(X, 2), Y)
+TEST(Iterator, nestedStructIterator)
+{
+    Number one(1), two(2);
+    Variable X("X"), Y("Y");
+    Struct t(Atom("t"), {&X, &two});
+    Struct s(Atom("s"), {&one, &t, &Y});
 
-    //     Iterator<Term *> *itStruct = s.createIterator();
-    //     itStruct->next();
-    //     Struct *s2 = dynamic_cast<Struct *>(itStruct->currentItem());
-    //     Iterator<Term *> *itStruct2 = s2->createIterator();
+    Iterator<Struct> *itr = s.createIterator();
+    itr->next();
+    Struct *s2 = dynamic_cast<Struct *>(itr->currentItem());
+    Iterator<Struct> *itr2 = s2->createIterator();
 
-    //     EXPECT_EQ("X", itStruct2->currentItem()->symbol());
-    //     EXPECT_FALSE(itStruct2->isDone());
+    EXPECT_EQ("X", itr2->currentItem()->symbol());
+    EXPECT_FALSE(itr2->isDone());
 
-    //     itStruct2->next();
-    //     EXPECT_EQ("2", itStruct2->currentItem()->symbol());
-    //     EXPECT_FALSE(itStruct2->isDone());
+    itr2->next();
+    EXPECT_EQ("2", itr2->currentItem()->symbol());
+    EXPECT_FALSE(itr2->isDone());
 
-    //     itStruct2->next();
-    //     EXPECT_TRUE(itStruct2->isDone());
-    // }
+    itr2->next();
+    EXPECT_TRUE(itr2->isDone());
+}
 
     // TEST(Iterator, firstList)
     // {
