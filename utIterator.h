@@ -3,7 +3,7 @@
 
 #include "iterator.h"
 
-TEST(iterator, first)
+TEST(Iterator, firstStruct)
 {
     Number one(1), two(2);
     Variable X("X"), Y("Y");
@@ -25,7 +25,7 @@ TEST(iterator, first)
     EXPECT_TRUE(itStruct->isDone());
 }
 
-TEST(iterator, nested_iterator)
+TEST(Iterator, nested_structIterator)
 {
     Number one(1), two(2);
     Variable X("X"), Y("Y");
@@ -48,9 +48,9 @@ TEST(iterator, nested_iterator)
     EXPECT_TRUE(itStruct2->isDone());
 }
 
-TEST(iterator, firstList)
+TEST(Iterator, firstList)
 {
-    Number one(1), two(2);
+    Number two(2);
     Variable X("X"), Y("Y");
     Struct t(Atom("t"), {&X, &two});
     List l({&one, &t, &Y});
@@ -71,7 +71,7 @@ TEST(iterator, firstList)
     EXPECT_TRUE(itList->isDone());
 }
 
-TEST(iterator, NullIterator)
+TEST(Iterator, NullIterator)
 {
     Number one(1);
     NullIterator<Term *> nullIterator(&one);
@@ -79,6 +79,24 @@ TEST(iterator, NullIterator)
 
     Iterator<Term *> *it = one.createIterator();
     EXPECT_TRUE(it->isDone());
+}
+
+TEST(Iterator, dfsIteratorStruct)
+{
+    Number one(1);
+    Variable X("X");
+    Struct s(Atom("t"), {&X, &one});
+
+    Iterator<Term *> *itStruct = t.createDFSIterator();
+    EXPECT_EQ("X", itStruct->currentItem()->symbol());
+    EXPECT_FALSE(itStruct->isDone());
+
+    itStruct->next();
+    EXPECT_EQ("1", itStruct->currentItem()->symbol());
+    EXPECT_FALSE(itStruct->isDone());
+
+    itStruct->next();
+    EXPECT_TRUE(itStruct->isDone());
 }
 
 #endif

@@ -26,11 +26,14 @@ template <class T>
 class NullIterator : public Iterator<T>
 {
   public:
-    NullIterator(Term *n) {}
+    NullIterator(Term *term) : _term(term) {}
     void first() {}
     void next() {}
-    Term *currentItem() const { return nullptr; }
+    Term *currentItem() const { return _term; }
     bool isDone() const { return true; }
+
+  private:
+    Term *_term;
 };
 
 template <class T>
@@ -72,6 +75,39 @@ class ListIterator : public Iterator<T>
     }
     int _index;
     vector<Term *> _l;
+};
+
+template <class T>
+class DFSIterator : public Iterator<T>
+{
+  public:
+    friend class Struct;
+    friend class List;
+
+    void first()
+    {
+        _stack.clear();
+        _stack.push_back(term->createIterator());
+    }
+
+    Term *currentItem() const { return _stack.back()->currentItem() }
+
+    bool isDone() const
+    {
+        if (_stack.size() == 0)
+            return true;
+        else
+            return false;
+    }
+
+    void next()
+    {
+    }
+
+  private:
+    DFSIterator(T term) : _term(term) { _stack.push_back(term->createIterator()); }
+    T _term;
+    vector<Iterator<Term *> *> _stack;
 };
 
 #endif
