@@ -1,4 +1,3 @@
-#include <gtest/gtest.h>
 #include "utIterator.h"
 
 int main(int argc, char **argv)

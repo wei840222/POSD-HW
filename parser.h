@@ -9,7 +9,7 @@
 #include "list.h"
 #include "scanner.h"
 #include "node.h"
-
+#include <gtest/gtest.h>
 #include <vector>
 #include <string>
 using std::string;

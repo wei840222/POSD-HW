@@ -1,4 +1,3 @@
-#include <gtest/gtest.h>
 #include "utScanner.h"
 
 int main(int argc, char **argv)

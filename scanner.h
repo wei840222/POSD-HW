@@ -1,10 +1,10 @@
 #ifndef SCANNER_H
 #define SCANNER_H
 
+#include <gtest/gtest.h>
 #include <string>
 #include <vector>
 #include <algorithm>
-
 using std::pair;
 using std::string;
 using std::vector;

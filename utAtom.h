@@ -2,6 +2,7 @@
 #define UTATOM_H
 
 #include "atom.h"
+#include <gtest/gtest.h>
 
 TEST(Atom, first)
 {

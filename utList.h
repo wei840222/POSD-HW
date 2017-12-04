@@ -7,6 +7,7 @@
 #include "struct.h"
 #include "list.h"
 
+#include <gtest/gtest.h>
 #include <string>
 using std::string;
 
