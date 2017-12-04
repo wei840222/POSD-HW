@@ -7,7 +7,7 @@ else
 	make clean
 endif
 
-allTestAndClean: utAtom utTerm utVariable utStruct utList utScanner utParser
+allTestAndClean: utAtom utTerm utVariable utStruct utList utScanner utParser utIterator
 	./utAtom
 	./utTerm
 	./utVariable
@@ -15,6 +15,7 @@ allTestAndClean: utAtom utTerm utVariable utStruct utList utScanner utParser
 	./utList
 	./utScanner
 	./utParser
+	./utIterator
 	make clean
 
 utAtom: mainAtom.o
