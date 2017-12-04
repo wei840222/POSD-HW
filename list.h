@@ -8,6 +8,9 @@
 using std::string;
 using std::vector;
 
+template<class T>
+class Iterator;
+
 class List : public Term
 {
 public:
@@ -102,6 +105,8 @@ public:
       return l;
     }
   }
+
+  Iterator<Term *> *createIterator();
 
 private:
   vector<Term *> _elements;

@@ -8,6 +8,10 @@
 #include "struct.h"
 #include "list.h"
 
+#include <vector>
+#include <iostream>
+using std::cout;
+
 template <class T>
 class Iterator
 {
@@ -43,6 +47,31 @@ class StructIterator : public Iterator<T>
     StructIterator(Struct *s) : _index(0), _s(s) {}
     int _index;
     Struct *_s;
+};
+
+template <class T>
+class ListIterator : public Iterator<T>
+{
+  public:
+    friend class List;
+    void first() { _index = 0; }
+    Term *currentItem() const { return _l[_index]; }
+    bool isDone() const { return _index >= _l.size(); }
+    void next() { _index++; }
+
+  private:
+    ListIterator(List *l) : _index(0)
+    {
+        List visList = *l;
+        while (visList.tail()->symbol() != "[]")
+        {
+            _l.push_back(visList.head());
+            visList = *(visList.tail());
+        }
+        _l.push_back(visList.head());
+    }
+    int _index;
+    vector<Term *> _l;
 };
 
 #endif
