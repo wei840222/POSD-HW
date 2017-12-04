@@ -1,8 +1,8 @@
-hw7: mainIterator.o struct.o list.o term.o
+hw7: utIterator.o struct.o list.o term.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw7 mainIterator.o struct.o list.o term.o -lgtest
+	g++ -o hw7 utIterator.o struct.o list.o term.o -lgtest
 else
-	g++ -o hw7 mainIterator.o struct.o list.o term.o -lgtest -lpthread
+	g++ -o hw7 utIterator.o struct.o list.o term.o -lgtest -lpthread
 	./hw7
 	make clean
 endif
