@@ -71,14 +71,14 @@ TEST(iterator, firstList)
     EXPECT_TRUE(itList->isDone());
 }
 
-    // TEST(iterator, NullIterator){
-    //   Number one(1);
-    //   NullIterator nullIterator(&one);
-    //   nullIterator.first();
-    //   ASSERT_TRUE(nullIterator.isDone());
-    //   Iterator * it = one.createIterator();
-    //   it->first();
-    //   ASSERT_TRUE(it->isDone());
-    // }
+TEST(iterator, NullIterator)
+{
+    Number one(1);
+    NullIterator<Term *> nullIterator(&one);
+    EXPECT_TRUE(nullIterator.isDone());
+
+    Iterator<Term *> *it = one.createIterator();
+    EXPECT_TRUE(it->isDone());
+}
 
 #endif

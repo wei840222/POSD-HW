@@ -1,8 +1,8 @@
-hw7: mainIterator.o struct.o list.o
+hw7: mainIterator.o struct.o list.o term.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw7 mainIterator.o struct.o list.o -lgtest
+	g++ -o hw7 mainIterator.o struct.o list.o term.o -lgtest
 else
-	g++ -o hw7 mainIterator.o struct.o list.o -lgtest -lpthread
+	g++ -o hw7 mainIterator.o struct.o list.o term.o -lgtest -lpthread
 	./hw7
 	make clean
 endif
@@ -51,7 +51,10 @@ utParser: mainParser.o
 	g++ -o utParser mainParser.o -lgtest -lpthread
 mainParser.o: mainParser.cpp utParser.h parser.h scanner.h node.h term.h atom.h number.h variable.h struct.h list.h
 	g++ -std=gnu++0x -c mainParser.cpp
+	
 
+term.o: term.cpp term.h 
+	g++ -std=gnu++0x -c term.cpp
 
 struct.o: struct.cpp struct.h 
 	g++ -std=gnu++0x -c struct.cpp
@@ -59,8 +62,8 @@ struct.o: struct.cpp struct.h
 list.o: list.cpp list.h 
 	g++ -std=gnu++0x -c list.cpp
 
-utIterator: mainIterator.o struct.o list.o
-	g++ -o utIterator mainIterator.o struct.o list.o -lgtest -lpthread
+utIterator: mainIterator.o struct.o list.o term.o
+	g++ -o utIterator mainIterator.o struct.o list.o term.o -lgtest -lpthread
 mainIterator.o: mainIterator.cpp utIterator.h iterator.h term.h atom.h number.h variable.h struct.h list.h
 	g++ -std=gnu++0x -c mainIterator.cpp
 
