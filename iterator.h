@@ -25,35 +25,22 @@ private:
   T *_t;
 };
 
-// template <class T>
-// class NullIterator : public Iterator<T>
-// {
-//   public:
-//     NullIterator(Term *term) : _term(term) {}
-//     void first() {}
-//     void next() {}
-//     Term *currentItem() const { return _term; }
-//     bool isDone() const { return true; }
+template <>
+class Iterator<Struct>
+{
+  friend class Struct;
 
-//   private:
-//     Term *_term;
-// };
+public:
+  void first() { _index = 0; }
+  void next() { _index++; }
+  Term *currentItem() const { return _s->args(_index); }
+  bool isDone() const { return _index >= _s->arity(); }
 
-// template <class T>
-// class StructIterator : public Iterator<T>
-// {
-//   public:
-//     friend class Struct;
-//     void first() { _index = 0; }
-//     Term *currentItem() const { return _s->args(_index); }
-//     bool isDone() const { return _index >= _s->arity(); }
-//     void next() { _index++; }
-
-//   private:
-//     StructIterator(Struct *s) : _index(0), _s(s) {}
-//     int _index;
-//     Struct *_s;
-// };
+private:
+  Iterator(Struct *s) : _index(0), _s(s) {}
+  int _index;
+  Struct *_s;
+};
 
 // template <class T>
 // class ListIterator : public Iterator<T>

@@ -34,7 +34,7 @@ public:
       return nullptr;
   }
 
-  virtual Iterator<Term> *createIterator();
+  Iterator<Term> *createIterator();
 };
 
 #endif

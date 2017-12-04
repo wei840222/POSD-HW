@@ -15,28 +15,28 @@ TEST(Iterator, nullIterator)
     EXPECT_TRUE(itr->isDone());
 }
 
-    //s(1, t(X, 2), Y)
-    // TEST(Iterator, iteratorStruct)
-    // {
-    //     Number one(1), two(2);
-    //     Variable X("X"), Y("Y");
-    //     Struct t(Atom("t"), {&X, &two});
-    //     Struct s(Atom("s"), {&one, &t, &Y});
+//s(1, t(X, 2), Y)
+TEST(Iterator, iteratorStruct)
+{
+    Number one(1), two(2);
+    Variable X("X"), Y("Y");
+    Struct t(Atom("t"), {&X, &two});
+    Struct s(Atom("s"), {&one, &t, &Y});
 
-    //     Iterator<Term> *itr = s.createIterator();
-    //     EXPECT_EQ("1", itr->currentItem()->symbol());
-    //     EXPECT_FALSE(itr->isDone());
+    Iterator<Struct> *itr = s.createIterator();
+    EXPECT_EQ("1", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
 
-    //     itr->next();
-    //     EXPECT_EQ("t(X, 2)", itr->currentItem()->symbol());
-    //     EXPECT_FALSE(itr->isDone());
+    itr->next();
+    EXPECT_EQ("t(X, 2)", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
 
-    //     itr->next();
-    //     EXPECT_EQ("Y", itr->currentItem()->symbol());
+    itr->next();
+    EXPECT_EQ("Y", itr->currentItem()->symbol());
 
-    //     itr->next();
-    //     EXPECT_TRUE(itr->isDone());
-    // }
+    itr->next();
+    EXPECT_TRUE(itr->isDone());
+}
 
     // TEST(Iterator, nested_structIterator)
     // {
