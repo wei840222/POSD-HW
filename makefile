@@ -1,6 +1,6 @@
 hw7: struct.o list.o term.o utIterator.h iterator.h term.h atom.h number.h variable.h struct.h list.h
 ifeq (${OS}, Windows_NT)
-	g++ -std=c++11 -c hw7.cpp
+	g++ -std=gnu++0x -c hw7.cpp
 	g++ -o hw7 hw7.o struct.o list.o term.o -lgtest
 else
 	g++ -o hw7 utIterator.o struct.o list.o term.o -lgtest -lpthread
