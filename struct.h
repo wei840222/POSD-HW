@@ -10,6 +10,10 @@ using std::vector;
 
 template <class T>
 class Iterator;
+template <class T>
+class DFSIterator;
+template <class T>
+class BFSIterator;
 
 class Struct : public Term
 {
@@ -96,7 +100,9 @@ public:
   int arity() const { return _args.size(); }
   Term *args(int index) { return _args[index]; }
 
-  Iterator<Struct> *createIterator();
+  Iterator<Term> *createIterator();
+  DFSIterator<Term> *createDFSIterator();
+  BFSIterator<Term> *createBFSIterator();
 
 private:
   Atom _name;
