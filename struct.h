@@ -97,6 +97,7 @@ public:
   Term *args(int index) { return _args[index]; }
 
   Iterator<Term> *createIterator();
+  Iterator<Term> *createDFSIterator();
 
 private:
   Atom _name;

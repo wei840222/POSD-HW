@@ -17,6 +17,7 @@ class Iterator
     virtual void next() = 0;
     virtual Term *currentItem() const = 0;
     virtual bool isDone() const = 0;
+    virtual Term *currentTerm() const = 0;
 };
 
 template <class T>
@@ -27,8 +28,9 @@ class NullIterator : public Iterator<T>
 
     void first(){};
     void next(){};
-    Term *currentItem() const { return _t; };
+    Term *currentItem() const { return nullptr; };
     bool isDone() const { return true; };
+    Term *currentTerm() const { return _t; };
 
   private:
     NullIterator(T *t) : _t(t) {}
@@ -45,6 +47,7 @@ class StructIterator : public Iterator<T>
     void next() { _index++; }
     Term *currentItem() const { return _s->args(_index); }
     bool isDone() const { return _index >= _s->arity(); }
+    Term *currentTerm() const { return _s; };
 
   private:
     StructIterator(Struct *s) : _index(0), _s(s) {}
@@ -59,6 +62,16 @@ class ListIterator : public Iterator<T>
     friend class List;
 
     void first() { _tailList = *_l; }
+    void next()
+    {
+        try
+        {
+            _tailList = *(_tailList.tail());
+        }
+        catch (string e)
+        {
+        }
+    }
     Term *currentItem() const { return _tailList.head(); }
     bool isDone() const
     {
@@ -72,43 +85,51 @@ class ListIterator : public Iterator<T>
         }
         return false;
     }
-    void next() { _tailList = *(_tailList.tail()); }
+    Term *currentTerm() const { return _l; };
 
   private:
     ListIterator(List *l) : _l(l), _tailList(*l) {}
     List *_l, _tailList;
 };
 
-// template <class T>
-// class DFSIterator : public Iterator<T>
-// {
-//   public:
-//     friend class Term;
-//     friend class Struct;
-//     friend class List;
+template <class T>
+class DFSIterator : public Iterator<T>
+{
+  public:
+    friend class Struct;
+    friend class List;
 
-//     void first()
-//     {
-//         iteratorStack.clear();
-//         iteratorStack.push_back(_t->createIterator());
-//     }
-//     void next()
-//     {
-//         if (iteratorStack.back().isDone())
-//             iteratorStack.pop_back();
-//         else
-//         {
-//             iteratorStack.back().next();
-//             iteratorStack.push_back(iteratorStack.back().currentItem()->createIterator());
-//         }
-//     }
-//     Term *currentItem() const { return iteratorStack.back().currentItem(); }
-//     bool isDone() const { return iteratorStack.empty(); };
+    void first()
+    {
+        _iteratorStack.clear();
+        _iteratorStack.push_back(_t->createIterator());
+    }
+    void next()
+    {
+        if (!isDone())
+        {
+            if (currentItem()->createIterator()->isDone())
+            {
+                _iteratorStack.back()->next();
+                if (_iteratorStack.back()->isDone())
+                {
+                    _iteratorStack.pop_back();
+                    if (!isDone())
+                        _iteratorStack.back()->next();
+                }
+            }
+            else
+                _iteratorStack.push_back(currentItem()->createIterator());
+        }
+    }
+    Term *currentItem() const { return _iteratorStack[_iteratorStack.size() - 1]->currentItem(); }
+    bool isDone() const { return _iteratorStack.empty(); };
+    Term *currentTerm() const { return _t; };
 
-//   private:
-//     DFSIterator(T *t) : _t(t) {}
-//     vector<Iterator<T>> iteratorStack;
-//     T *_t;
-// };
+  private:
+    DFSIterator(T *t) : _t(t) { _iteratorStack.push_back(_t->createIterator()); }
+    vector<Iterator<Term> *> _iteratorStack;
+    T *_t;
+};
 
 #endif

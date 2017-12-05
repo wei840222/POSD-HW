@@ -12,7 +12,7 @@ TEST(Iterator, nullIterator)
 {
     Number one(1);
     Iterator<Term> *itr = one.createIterator();
-    EXPECT_EQ("1", itr->currentItem()->symbol());
+    EXPECT_EQ("1", itr->currentTerm()->symbol());
     EXPECT_TRUE(itr->isDone());
 }
 
@@ -34,6 +34,10 @@ TEST(Iterator, structIterator)
 
     itr->next();
     EXPECT_EQ("Y", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
+
+    itr->next();
+    EXPECT_TRUE(itr->isDone());
 
     itr->next();
     EXPECT_TRUE(itr->isDone());
@@ -85,64 +89,66 @@ TEST(Iterator, listIterator)
 
     itr->next();
     EXPECT_TRUE(itr->isDone());
+
+    itr->next();
+    EXPECT_TRUE(itr->isDone());
 }
 
 //s(1, t(2, 3), X, [a, b], 4, Y)
-// TEST(DFSIterator, DFSStructIterator)
-// {
-//     Atom a("a"), b("b");
-//     Number one(1), two(2), three(3), four(4);
-//     Variable X("X"), Y("Y");
-//     Struct t(Atom("t"), {&two, &three});
-//     List l({&a, &b});
-//     Struct s(Atom("s"), {&one, &t, &X, &l, &four, &Y});
+TEST(DFSIterator, DFSStructIterator)
+{
+    Atom a("a"), b("b");
+    Number one(1), two(2), three(3), four(4);
+    Variable X("X"), Y("Y");
+    Struct t(Atom("t"), {&two, &three});
+    List l({&a, &b});
+    Struct s(Atom("s"), {&one, &t, &X, &l, &four, &Y});
 
-//     Iterator<Struct> *itr = s.createDFSIterator();
-//     EXPECT_EQ("s(1, t(2, 3), X, [a, b], 4, Y)", itr->currentItem()->symbol());
-//     EXPECT_FALSE(itr->isDone());
+    Iterator<Term> *itr = s.createDFSIterator();
+    EXPECT_EQ("1", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
 
-//     itr->next();
-//     EXPECT_EQ("1", itr->currentItem()->symbol());
-//     EXPECT_FALSE(itr->isDone());
+    itr->next();
+    EXPECT_EQ("t(2, 3)", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
 
-//     itr->next();
-//     EXPECT_EQ("t(2, 3)", itr->currentItem()->symbol());
-//     EXPECT_FALSE(itr->isDone());
+    itr->next();
+    EXPECT_EQ("2", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
 
-//     itr->next();
-//     EXPECT_EQ("2", itr->currentItem()->symbol());
-//     EXPECT_FALSE(itr->isDone());
+    itr->next();
+    EXPECT_EQ("3", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
 
-//     itr->next();
-//     EXPECT_EQ("3", itr->currentItem()->symbol());
-//     EXPECT_FALSE(itr->isDone());
+    itr->next();
+    EXPECT_EQ("X", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
 
-//     itr->next();
-//     EXPECT_EQ("X", itr->currentItem()->symbol());
-//     EXPECT_FALSE(itr->isDone());
+    itr->next();
+    EXPECT_EQ("[a, b]", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
 
-//     itr->next();
-//     EXPECT_EQ("[a, b]", itr->currentItem()->symbol());
-//     EXPECT_FALSE(itr->isDone());
+    itr->next();
+    EXPECT_EQ("a", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
 
-//     itr->next();
-//     EXPECT_EQ("a", itr->currentItem()->symbol());
-//     EXPECT_FALSE(itr->isDone());
+    itr->next();
+    EXPECT_EQ("b", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
 
-//     itr->next();
-//     EXPECT_EQ("b", itr->currentItem()->symbol());
-//     EXPECT_FALSE(itr->isDone());
+    itr->next();
+    EXPECT_EQ("4", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
 
-//     itr->next();
-//     EXPECT_EQ("4", itr->currentItem()->symbol());
-//     EXPECT_FALSE(itr->isDone());
+    itr->next();
+    EXPECT_EQ("Y", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
 
-//     itr->next();
-//     EXPECT_EQ("Y", itr->currentItem()->symbol());
-//     EXPECT_FALSE(itr->isDone());
-
-//     itr->next();
-//     EXPECT_TRUE(itr->isDone());
-// }
+    itr->next();
+    EXPECT_TRUE(itr->isDone());
+    
+    itr->next();
+    EXPECT_TRUE(itr->isDone());
+}
 
 #endif
