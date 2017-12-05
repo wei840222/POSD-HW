@@ -104,7 +104,7 @@ TEST(DFSIterator, DFSStructIterator)
     List l({&a, &b});
     Struct s(Atom("s"), {&one, &t, &X, &l, &four, &Y});
 
-    Iterator<Term> *itr = s.createDFSIterator();
+    DFSIterator<Term> *itr = s.createDFSIterator();
     EXPECT_EQ("1", itr->currentItem()->symbol());
     EXPECT_FALSE(itr->isDone());
 
@@ -161,7 +161,7 @@ TEST(DFSIterator, DFSListIterator)
     List l({&a, &b});
     List l2({&one, &t, &X, &l, &four, &Y});
 
-    Iterator<Term> *itr = l2.createDFSIterator();
+    DFSIterator<Term> *itr = l2.createDFSIterator();
     EXPECT_EQ("1", itr->currentItem()->symbol());
     EXPECT_FALSE(itr->isDone());
 

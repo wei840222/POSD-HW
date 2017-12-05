@@ -10,6 +10,8 @@ using std::vector;
 
 template <class T>
 class Iterator;
+template <class T>
+class DFSIterator;
 
 class Struct : public Term
 {
@@ -97,7 +99,7 @@ public:
   Term *args(int index) { return _args[index]; }
 
   Iterator<Term> *createIterator();
-  Iterator<Term> *createDFSIterator();
+  DFSIterator<Term> *createDFSIterator();
 
 private:
   Atom _name;

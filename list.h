@@ -10,6 +10,8 @@ using std::vector;
 
 template<class T>
 class Iterator;
+template <class T>
+class DFSIterator;
 
 class List : public Term
 {
@@ -107,7 +109,7 @@ public:
   }
 
   Iterator<Term> *createIterator();
-  Iterator<Term> *createDFSIterator();
+  DFSIterator<Term> *createDFSIterator();
 
 private:
   vector<Term *> _elements;
