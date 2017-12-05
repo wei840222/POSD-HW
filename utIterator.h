@@ -87,4 +87,16 @@ TEST(Iterator, listIterator)
     EXPECT_TRUE(itr->isDone());
 }
 
+//s(1, t(2, 3), X, [a, b], 4, Y)
+TEST(DFSIterator, DFSStructIterator)
+{
+    Atom a("a"), b("b");
+    Number one(1), two(2), three(3), four(4);
+    Variable X("X"), Y("Y");
+    Struct t(Atom("t"), {&two, &three});
+    List l({&a, &b});
+    Struct s(Atom("s"), {&one, &t, &X, &l, &four, &Y});
+    cout << s.symbol() <<"\n";
+}
+
 #endif
