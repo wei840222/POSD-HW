@@ -107,6 +107,7 @@ public:
   }
 
   Iterator<Term> *createIterator();
+  Iterator<Term> *createDFSIterator();
 
 private:
   vector<Term *> _elements;
