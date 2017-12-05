@@ -106,7 +106,7 @@ public:
     }
   }
 
-  Iterator<List> *createIterator();
+  Iterator<Term> *createIterator();
 
 private:
   vector<Term *> _elements;

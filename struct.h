@@ -96,7 +96,7 @@ public:
   int arity() const { return _args.size(); }
   Term *args(int index) { return _args[index]; }
 
-  Iterator<Struct> *createIterator();
+  Iterator<Term> *createIterator();
 
 private:
   Atom _name;

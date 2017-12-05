@@ -1,4 +1,4 @@
 #include "struct.h"
 #include "iterator.h"
 
-Iterator<Struct> *Struct::createIterator() { return new Iterator<Struct>(this); }
+Iterator<Term> *Struct::createIterator() { return new StructIterator<Term>(this); }
