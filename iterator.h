@@ -4,14 +4,11 @@
 #include "term.h"
 #include "struct.h"
 #include "list.h"
-
-#include <vector>
-using std::vector;
+#include <stack>
+using std::stack;
 #include <queue>
 using std::queue;
 
-#include <iostream>
-using std::cout;
 
 template <class T>
 class Iterator
@@ -105,8 +102,9 @@ class DFSIterator : public Iterator<T>
 
     void first()
     {
-        _iteratorStack.clear();
-        _iteratorStack.push_back(_t->createIterator());
+        while (!_iteratorStack.empty())
+            _iteratorStack.pop();
+        _iteratorStack.push(_t->createIterator());
     }
     void next()
     {
@@ -114,25 +112,25 @@ class DFSIterator : public Iterator<T>
         {
             if (currentItem()->createIterator()->isDone())
             {
-                _iteratorStack.back()->next();
-                if (_iteratorStack.back()->isDone())
+                _iteratorStack.top()->next();
+                if (_iteratorStack.top()->isDone())
                 {
-                    _iteratorStack.pop_back();
+                    _iteratorStack.pop();
                     if (!isDone())
-                        _iteratorStack.back()->next();
+                        _iteratorStack.top()->next();
                 }
             }
             else
-                _iteratorStack.push_back(currentItem()->createIterator());
+                _iteratorStack.push(currentItem()->createIterator());
         }
     }
-    Term *currentItem() const { return _iteratorStack[_iteratorStack.size() - 1]->currentItem(); }
+    Term *currentItem() const { return _iteratorStack.top()->currentItem(); }
     bool isDone() const { return _iteratorStack.empty(); };
     Term *currentTerm() const { return _t; };
 
   private:
-    DFSIterator(T *t) : _t(t) { _iteratorStack.push_back(_t->createIterator()); }
-    vector<Iterator<Term> *> _iteratorStack;
+    DFSIterator(T *t) : _t(t) { _iteratorStack.push(_t->createIterator()); }
+    stack<Iterator<Term> *> _iteratorStack;
     T *_t;
 };
 
