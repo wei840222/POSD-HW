@@ -12,6 +12,8 @@ template<class T>
 class Iterator;
 template <class T>
 class DFSIterator;
+template <class T>
+class BFSIterator;
 
 class List : public Term
 {
@@ -110,6 +112,7 @@ public:
 
   Iterator<Term> *createIterator();
   DFSIterator<Term> *createDFSIterator();
+  BFSIterator<Term> *createBFSIterator();
 
 private:
   vector<Term *> _elements;
