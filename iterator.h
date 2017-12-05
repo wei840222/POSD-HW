@@ -6,6 +6,10 @@
 #include "list.h"
 
 #include <vector>
+using std::vector;
+#include <queue>
+using std::queue;
+
 #include <iostream>
 using std::cout;
 
@@ -129,6 +133,46 @@ class DFSIterator : public Iterator<T>
   private:
     DFSIterator(T *t) : _t(t) { _iteratorStack.push_back(_t->createIterator()); }
     vector<Iterator<Term> *> _iteratorStack;
+    T *_t;
+};
+
+template <class T>
+class BFSIterator : public Iterator<T>
+{
+  public:
+    friend class Struct;
+    friend class List;
+
+    void first()
+    {
+        while (!_iteratorQueue.empty())
+            _iteratorQueue.pop();
+        _iteratorQueue.push(_t->createIterator());
+    }
+    void next()
+    {
+        if (!isDone())
+        {
+            if (currentItem()->createIterator()->isDone())
+            {
+                _iteratorQueue.front()->next();
+                if (_iteratorQueue.front()->isDone())
+                    _iteratorQueue.pop();
+            }
+            else
+            {
+                _iteratorQueue.push(currentItem()->createIterator());
+                _iteratorQueue.front()->next();
+            }
+        }
+    }
+    Term *currentItem() const { return _iteratorQueue.front()->currentItem(); }
+    bool isDone() const { return _iteratorQueue.empty(); };
+    Term *currentTerm() const { return _t; };
+
+  private:
+    BFSIterator(T *t) : _t(t) { _iteratorQueue.push(_t->createIterator()); }
+    queue<Iterator<Term> *> _iteratorQueue;
     T *_t;
 };
 
