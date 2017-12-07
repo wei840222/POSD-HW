@@ -87,7 +87,6 @@ utIterator.o: utIterator.h iterator.h term.h atom.h number.h variable.h struct.h
 
 
 #####Object file#####
-
 term.o: term.cpp term.h 
 	g++ -std=gnu++0x -c term.cpp
 

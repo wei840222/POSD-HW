@@ -14,7 +14,7 @@ enum Operators
 class Node
 {
 public:
-  Node(Operators op, Term *t = 0, Node *l = 0, Node *r = 0) : payload(op), term(t), left(l), right(r) {}
+  Node(Operators op, Term *t = nullptr, Node *l = nullptr, Node *r = nullptr) : payload(op), term(t), left(l), right(r) {}
 
   bool evaluate()
   {

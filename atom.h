@@ -9,11 +9,7 @@ using std::string;
 class Atom : public Term
 {
 public:
-  Atom(string s) : _symbol(s) {}
-  string symbol() const { return _symbol; }
-
-private:
-  const string _symbol;
+  Atom(string s) : Term(s) {}
 };
 
 #endif

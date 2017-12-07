@@ -4,8 +4,8 @@
 #include "term.h"
 #include "variable.h"
 #include <string>
-#include <vector>
 using std::string;
+#include <vector>
 using std::vector;
 
 template <class T>
@@ -18,23 +18,7 @@ class BFSIterator;
 class List : public Term
 {
 public:
-  List() {}
-  List(vector<Term *> elements) : _elements(elements) {}
-
-  string symbol() const
-  {
-    if (_elements.empty())
-      return "[]";
-    else
-    {
-      string ret = "[";
-      for (int i = 0; i < _elements.size() - 1; i++)
-        ret += _elements[i]->symbol() + ", ";
-      ret += _elements[_elements.size() - 1]->symbol() + "]";
-      return ret;
-    }
-  }
-
+  List(vector<Term *> elements = {}) : Term(createSymbol(elements)), _elements(elements) {}
   string value() const
   {
     if (_elements.empty())
@@ -64,21 +48,10 @@ public:
         return true;
       }
     }
+    else if (term.isAssignable())
+      return term.match(*this);
     else
-      return false;
-  }
-
-  bool match(Variable &variable)
-  {
-    if (findBySymbol(variable.symbol()) != nullptr)
-      return false;
-    else if (variable.isAssignable())
-    {
-      variable.setValue(this);
-      return true;
-    }
-    else
-      return symbol() == variable.value();
+      return symbol() == term.value();
   }
 
   Term *findBySymbol(string symbol)
@@ -115,6 +88,20 @@ public:
   BFSIterator<Term *> *createBFSIterator();
 
 private:
+  string createSymbol(vector<Term *> elements) const
+  {
+    if (elements.empty())
+      return "[]";
+    else
+    {
+      string symbol = "[";
+      for (int i = 0; i < elements.size() - 1; i++)
+        symbol += elements[i]->symbol() + ", ";
+      symbol += elements.back()->symbol() + "]";
+      return symbol;
+    }
+  }
+
   vector<Term *> _elements;
 };
 

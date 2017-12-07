@@ -8,8 +8,7 @@ using std::string;
 class Variable : public Term
 {
   public:
-    Variable(string s) : _symbol(s), _value(NULL) {}
-    string symbol() const { return _symbol; }
+    Variable(string s) : Term(s), _value(nullptr) {}
     string value() const
     {
         if (!_value)
@@ -17,6 +16,8 @@ class Variable : public Term
         else
             return _value->value();
     }
+    
+    bool isAssignable() { return !_value; }
 
     bool match(Term &term)
     {
@@ -38,11 +39,7 @@ class Variable : public Term
         }
     }
 
-    bool isAssignable() { return !_value; }
-    void setValue(Term *term) { _value = term; }
-
   private:
-    const string _symbol;
     Term *_value;
 };
 

@@ -9,8 +9,7 @@ using std::string;
 class Number : public Term
 {
   public:
-    Number(double d) : _symbol(numToString(d)) {}
-    string symbol() const { return _symbol; }
+    Number(double d) : Term(numToString(d)) {}
 
   private:
     string numToString(double d)
@@ -24,8 +23,6 @@ class Number : public Term
         num.resize(i + 1);
         return num;
     }
-
-    const string _symbol;
 };
 
 #endif

@@ -3,10 +3,9 @@
 
 #include "atom.h"
 #include <vector>
-#include <string>
-
-using std::string;
 using std::vector;
+#include <string>
+using std::string;
 
 template <class T>
 class Iterator;
@@ -18,39 +17,18 @@ class BFSIterator;
 class Struct : public Term
 {
 public:
-  Struct(Atom name, vector<Term *> args) : _name(name), _args(args) {}
-
-  string symbol() const
-  {
-    string ret = _name.symbol() + "(";
-    if (arity() == 0)
-    {
-      ret += ")";
-      return ret;
-    }
-    else
-    {
-      for (int i = 0; i < _args.size() - 1; i++)
-        ret += _args[i]->symbol() + ", ";
-      ret += _args[_args.size() - 1]->symbol() + ")";
-      return ret;
-    }
-  }
-
+  Struct(Atom name, vector<Term *> args) : Term(createSymbol(name, args)), _name(name), _args(args) {}
   string value() const
   {
-    string ret = _name.value() + "(";
     if (arity() == 0)
-    {
-      ret += ")";
-      return ret;
-    }
+      return _name.symbol() + "()";
     else
     {
+      string value = _name.symbol() + "(";
       for (int i = 0; i < _args.size() - 1; i++)
-        ret += _args[i]->value() + ", ";
-      ret += _args[_args.size() - 1]->value() + ")";
-      return ret;
+        value += _args[i]->value() + ", ";
+      value += _args[_args.size() - 1]->value() + ")";
+      return value;
     }
   }
 
@@ -71,21 +49,10 @@ public:
         return true;
       }
     }
+    else if (term.isAssignable())
+      return term.match(*this);
     else
-      return false;
-  }
-
-  bool match(Variable &variable)
-  {
-    if (variable.isAssignable())
-    {
-      variable.setValue(this);
-      return true;
-    }
-    else
-    {
-      return symbol() == variable.value();
-    }
+      return symbol() == term.value();
   }
 
   Term *findBySymbol(string symbol)
@@ -96,17 +63,31 @@ public:
     return nullptr;
   }
 
-  Atom name() { return _name; }
+  Atom name() const { return _name; }
   int arity() const { return _args.size(); }
-  Term *args(int index) { return _args[index]; }
+  Term *args(int index) const { return _args[index]; }
 
   Iterator<Term *> *createIterator();
   DFSIterator<Term *> *createDFSIterator();
   BFSIterator<Term *> *createBFSIterator();
 
 private:
+  string createSymbol(Atom name, vector<Term *> args) const
+  {
+    if (args.empty())
+      return name.symbol() + "()";
+    else
+    {
+      string symbol = name.symbol() + "(";
+      for (int i = 0; i < args.size() - 1; i++)
+        symbol += args[i]->symbol() + ", ";
+      symbol += args.back()->symbol() + ")";
+      return symbol;
+    }
+  }
+
   Atom _name;
-  vector<Term *> _args;
+  const vector<Term *> _args;
 };
 
 #endif

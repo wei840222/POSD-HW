@@ -10,9 +10,8 @@ class Iterator;
 class Term
 {
 public:
-  virtual string symbol() const = 0;
+  virtual string symbol() const { return _symbol; }
   virtual string value() const { return symbol(); }
-  virtual void setValue(Term *term) { throw string("unacceptable set value to Term"); }
   virtual bool isAssignable() { return false; }
 
   virtual bool match(Term &term)
@@ -32,6 +31,10 @@ public:
   }
 
   virtual Iterator<Term *> *createIterator();
+
+protected:
+  Term(string s) : _symbol(s) {}
+  string _symbol;
 };
 
 #endif
