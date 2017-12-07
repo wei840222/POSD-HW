@@ -1,7 +1,7 @@
 hw7: struct.o list.o term.o utIterator.h iterator.h atom.h number.h variable.h
 ifeq (${OS}, Windows_NT) 
-	g++ -std=gnu++0x -c hw7.cpp 
-	g++ -o hw7 hw7.o struct.o list.o term.o -lgtest 
+	g++ -std=gnu++0x -c hw.cpp 
+	g++ -o hw7 hw.o struct.o list.o term.o -lgtest 
 else
 	make utIterator.o
 	g++ -o hw7 utIterator.o struct.o list.o term.o -lgtest -lpthread
@@ -89,13 +89,13 @@ utIterator.o: utIterator.h iterator.h term.h atom.h number.h variable.h struct.h
 #####Object file#####
 
 term.o: term.cpp term.h 
-	g++ -c term.cpp
+	g++ -std=gnu++0x -c term.cpp
 
 struct.o: struct.cpp struct.h 
-	g++ -c struct.cpp
+	g++ -std=gnu++0x -c struct.cpp
 
 list.o: list.cpp list.h 
-	g++ -c list.cpp
+	g++ -std=gnu++0x -c list.cpp
 
 
 clean:	
