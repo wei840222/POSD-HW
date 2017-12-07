@@ -8,7 +8,7 @@
 using std::string;
 using std::vector;
 
-template<class T>
+template <class T>
 class Iterator;
 template <class T>
 class DFSIterator;
@@ -110,9 +110,9 @@ public:
     }
   }
 
-  Iterator<Term> *createIterator();
-  DFSIterator<Term> *createDFSIterator();
-  BFSIterator<Term> *createBFSIterator();
+  Iterator<Term *> *createIterator();
+  DFSIterator<Term *> *createDFSIterator();
+  BFSIterator<Term *> *createBFSIterator();
 
 private:
   vector<Term *> _elements;

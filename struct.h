@@ -100,9 +100,9 @@ public:
   int arity() const { return _args.size(); }
   Term *args(int index) { return _args[index]; }
 
-  Iterator<Term> *createIterator();
-  DFSIterator<Term> *createDFSIterator();
-  BFSIterator<Term> *createBFSIterator();
+  Iterator<Term *> *createIterator();
+  DFSIterator<Term *> *createDFSIterator();
+  BFSIterator<Term *> *createBFSIterator();
 
 private:
   Atom _name;

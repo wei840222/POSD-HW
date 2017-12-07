@@ -9,7 +9,6 @@ using std::stack;
 #include <queue>
 using std::queue;
 
-
 template <class T>
 class Iterator
 {
@@ -34,8 +33,8 @@ class NullIterator : public Iterator<T>
     Term *currentTerm() const { return _t; };
 
   private:
-    NullIterator(T *t) : _t(t) {}
-    Term *_t;
+    NullIterator(T t) : _t(t) {}
+    T _t;
 };
 
 template <class T>
@@ -129,9 +128,9 @@ class DFSIterator : public Iterator<T>
     Term *currentTerm() const { return _t; };
 
   private:
-    DFSIterator(T *t) : _t(t) { _iteratorStack.push(_t->createIterator()); }
-    stack<Iterator<Term> *> _iteratorStack;
-    T *_t;
+    DFSIterator(T t) : _t(t) { _iteratorStack.push(_t->createIterator()); }
+    stack<Iterator<Term *> *> _iteratorStack;
+    T _t;
 };
 
 template <class T>
@@ -169,9 +168,9 @@ class BFSIterator : public Iterator<T>
     Term *currentTerm() const { return _t; };
 
   private:
-    BFSIterator(T *t) : _t(t) { _iteratorQueue.push(_t->createIterator()); }
-    queue<Iterator<Term> *> _iteratorQueue;
-    T *_t;
+    BFSIterator(T t) : _t(t) { _iteratorQueue.push(_t->createIterator()); }
+    queue<Iterator<Term *> *> _iteratorQueue;
+    T _t;
 };
 
 #endif

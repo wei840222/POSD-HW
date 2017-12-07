@@ -33,8 +33,8 @@ public:
     else
       return nullptr;
   }
-  
-  virtual Iterator<Term> *createIterator();
+
+  virtual Iterator<Term *> *createIterator();
 };
 
 #endif
