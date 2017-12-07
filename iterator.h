@@ -155,7 +155,7 @@ class BFSIterator : public Iterator<T>
     {
         if (!isDone())
         {
-            if (currentItem()->createIterator()->isDone())
+            if (isLeaf())
             {
                 _iteratorQueue.front()->next();
                 if (_iteratorQueue.front()->isDone())
@@ -165,6 +165,8 @@ class BFSIterator : public Iterator<T>
             {
                 _iteratorQueue.push(currentItem()->createIterator());
                 _iteratorQueue.front()->next();
+                if (_iteratorQueue.front()->isDone())
+                    _iteratorQueue.pop();
             }
         }
     }
@@ -174,6 +176,8 @@ class BFSIterator : public Iterator<T>
 
   private:
     BFSIterator(T t) : _t(t) { _iteratorQueue.push(_t->createIterator()); }
+    bool isLeaf() const { return currentItem()->createIterator()->isDone(); }
+
     queue<Iterator<Term *> *> _iteratorQueue;
     T _t;
 };
