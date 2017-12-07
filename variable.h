@@ -23,7 +23,7 @@ class Variable : public Term
         if (term.findBySymbol(symbol()) != nullptr && term.findBySymbol(symbol()) != &term)
             return false;
         else if (&term == this)
-            return true; 
+            return true;
         else if (!_value)
         {
             _value = &term;
@@ -32,10 +32,7 @@ class Variable : public Term
         else
         {
             if (term.isAssignable())
-            {
-                term.setValue(_value);
-                return true;
-            }
+                return term.match(*this);
             else
                 return _value->match(term);
         }
