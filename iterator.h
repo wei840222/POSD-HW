@@ -9,6 +9,9 @@ using std::stack;
 #include <queue>
 using std::queue;
 
+#include <iostream>
+using std::cout;
+
 template <class T>
 class Iterator
 {
@@ -109,10 +112,10 @@ class DFSIterator : public Iterator<T>
     {
         if (!isDone())
         {
-            if (currentItem()->createIterator()->isDone())
+            if (isLeaf())
             {
                 _iteratorStack.top()->next();
-                if (_iteratorStack.top()->isDone())
+                while (!isDone() && _iteratorStack.top()->isDone())
                 {
                     _iteratorStack.pop();
                     if (!isDone())
@@ -129,6 +132,8 @@ class DFSIterator : public Iterator<T>
 
   private:
     DFSIterator(T t) : _t(t) { _iteratorStack.push(_t->createIterator()); }
+    bool isLeaf() const { return currentItem()->createIterator()->isDone(); }
+
     stack<Iterator<Term *> *> _iteratorStack;
     T _t;
 };

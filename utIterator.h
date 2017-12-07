@@ -140,8 +140,89 @@ TEST(DFSIterator, DFSStructIterator)
     EXPECT_EQ("4", itr->currentItem()->symbol());
     EXPECT_FALSE(itr->isDone());
 
+     itr->next();
+     EXPECT_EQ("Y", itr->currentItem()->symbol());
+     EXPECT_FALSE(itr->isDone());
+
+     itr->next();
+     EXPECT_TRUE(itr->isDone());
+
+     itr->next();
+     EXPECT_TRUE(itr->isDone());
+}
+
+//combo1(bigMac(bun, beefPatty, shreddedLettuce, sauce, cheese, [pickleSlice1, pickleSlice2], [onions1, onions2]), coke, [fries1, fries2])
+TEST(DFSIterator, DFSBigMacStructIterator)
+{
+    Atom bun("bun"), beefPatty("beefPatty"), shreddedLettuce("shreddedLettuce"), sauce("sauce"), cheese("cheese"), pickleSlice1("pickleSlice1"), pickleSlice2("pickleSlice2"), onions1("onions1"), onions2("onions2"), coke("coke"), fries1("fries1"), fries2("fries2");
+    List pickleSlice({&pickleSlice1, &pickleSlice2});
+    List onions({&onions1, &onions2});
+    Struct bigMac(Atom("bigMac"), {&bun, &beefPatty, &shreddedLettuce, &sauce, &cheese, &pickleSlice, &onions});
+    List fries({&fries1, &fries2});
+    Struct combo1(Atom("Combo1"), {&bigMac, &coke, &fries});
+
+    Iterator<Term *> *itr = combo1.createDFSIterator();
+    EXPECT_EQ("bigMac(bun, beefPatty, shreddedLettuce, sauce, cheese, [pickleSlice1, pickleSlice2], [onions1, onions2])", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
+
     itr->next();
-    EXPECT_EQ("Y", itr->currentItem()->symbol());
+    EXPECT_EQ("bun", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
+
+    itr->next();
+    EXPECT_EQ("beefPatty", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
+
+    itr->next();
+    EXPECT_EQ("shreddedLettuce", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
+
+    itr->next();
+    EXPECT_EQ("sauce", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
+
+    itr->next();
+    EXPECT_EQ("cheese", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
+
+    itr->next();
+    EXPECT_EQ("[pickleSlice1, pickleSlice2]", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
+
+    itr->next();
+    EXPECT_EQ("pickleSlice1", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
+
+    itr->next();
+    EXPECT_EQ("pickleSlice2", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
+
+    itr->next();
+    EXPECT_EQ("[onions1, onions2]", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
+
+    itr->next();
+    EXPECT_EQ("onions1", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
+
+    itr->next();
+    EXPECT_EQ("onions2", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
+
+    itr->next();
+    EXPECT_EQ("coke", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
+
+    itr->next();
+    EXPECT_EQ("[fries1, fries2]", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
+
+    itr->next();
+    EXPECT_EQ("fries1", itr->currentItem()->symbol());
+    EXPECT_FALSE(itr->isDone());
+
+    itr->next();
+    EXPECT_EQ("fries2", itr->currentItem()->symbol());
     EXPECT_FALSE(itr->isDone());
 
     itr->next();
