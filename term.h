@@ -18,10 +18,7 @@ public:
   virtual bool match(Term &term)
   {
     if (term.isAssignable())
-    {
-      term.setValue(this);
-      return true;
-    }
+      return term.match(*this);
     else
       return symbol() == term.value();
   }

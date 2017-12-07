@@ -102,5 +102,5 @@ clean:
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
 else
-	rm -f *.o ut*[!.h] hw*
+	rm -f *.o ut*[!.h] hw*[!.cpp]
 endif
