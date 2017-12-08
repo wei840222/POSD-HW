@@ -17,7 +17,19 @@ class BFSIterator;
 class Struct : public Term
 {
 public:
-  Struct(Atom name, vector<Term *> args) : Term(createSymbol(name, args)), _name(name), _args(args) {}
+  Struct(Atom name, vector<Term *> args) : Term([&] {
+                                             if (args.empty())
+                                               return name.symbol() + "()";
+                                             else
+                                             {
+                                               string symbol = name.symbol() + "(";
+                                               for (int i = 0; i < args.size() - 1; i++)
+                                                 symbol += args[i]->symbol() + ", ";
+                                               symbol += args.back()->symbol() + ")";
+                                               return symbol;
+                                             }
+                                           }()),
+                                           _name(name), _args(args) {}
   string value() const
   {
     if (arity() == 0)
@@ -72,20 +84,6 @@ public:
   Iterator<Term *> *createBFSIterator();
 
 private:
-  string createSymbol(Atom name, vector<Term *> args) const
-  {
-    if (args.empty())
-      return name.symbol() + "()";
-    else
-    {
-      string symbol = name.symbol() + "(";
-      for (int i = 0; i < args.size() - 1; i++)
-        symbol += args[i]->symbol() + ", ";
-      symbol += args.back()->symbol() + ")";
-      return symbol;
-    }
-  }
-
   Atom _name;
   const vector<Term *> _args;
 };

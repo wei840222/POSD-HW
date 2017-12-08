@@ -18,7 +18,19 @@ class BFSIterator;
 class List : public Term
 {
 public:
-  List(vector<Term *> elements = {}) : Term(createSymbol(elements)), _elements(elements) {}
+  List(vector<Term *> elements = {}) : Term([&]() -> string {
+                                         if (elements.empty())
+                                           return "[]";
+                                         else
+                                         {
+                                           string symbol = "[";
+                                           for (int i = 0; i < elements.size() - 1; i++)
+                                             symbol += elements[i]->symbol() + ", ";
+                                           symbol += elements.back()->symbol() + "]";
+                                           return symbol;
+                                         }
+                                       }()),
+                                       _elements(elements) {}
   string value() const
   {
     if (_elements.empty())
@@ -88,20 +100,6 @@ public:
   Iterator<Term *> *createBFSIterator();
 
 private:
-  string createSymbol(vector<Term *> elements) const
-  {
-    if (elements.empty())
-      return "[]";
-    else
-    {
-      string symbol = "[";
-      for (int i = 0; i < elements.size() - 1; i++)
-        symbol += elements[i]->symbol() + ", ";
-      symbol += elements.back()->symbol() + "]";
-      return symbol;
-    }
-  }
-
   vector<Term *> _elements;
 };
 
