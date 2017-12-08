@@ -68,8 +68,8 @@ public:
   Term *args(int index) const { return _args[index]; }
 
   Iterator<Term *> *createIterator();
-  DFSIterator<Term *> *createDFSIterator();
-  BFSIterator<Term *> *createBFSIterator();
+  Iterator<Term *> *createDFSIterator();
+  Iterator<Term *> *createBFSIterator();
 
 private:
   string createSymbol(Atom name, vector<Term *> args) const

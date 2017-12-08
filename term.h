@@ -6,6 +6,10 @@ using std::string;
 
 template <class T>
 class Iterator;
+template <class T>
+class DFSIterator;
+template <class T>
+class BFSIterator;
 
 class Term
 {
@@ -31,6 +35,8 @@ public:
   }
 
   virtual Iterator<Term *> *createIterator();
+  virtual Iterator<Term *> *createDFSIterator();
+  virtual Iterator<Term *> *createBFSIterator();
 
 protected:
   Term(string s) : _symbol(s) {}

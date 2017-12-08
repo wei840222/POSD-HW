@@ -84,8 +84,8 @@ public:
   }
 
   Iterator<Term *> *createIterator();
-  DFSIterator<Term *> *createDFSIterator();
-  BFSIterator<Term *> *createBFSIterator();
+  Iterator<Term *> *createDFSIterator();
+  Iterator<Term *> *createBFSIterator();
 
 private:
   string createSymbol(vector<Term *> elements) const
