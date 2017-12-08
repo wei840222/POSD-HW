@@ -9,20 +9,16 @@ using std::string;
 class Number : public Term
 {
   public:
-    Number(double d) : Term(numToString(d)) {}
-
-  private:
-    string numToString(double d)
-    {
-        string num = std::to_string(d);
-        int i = num.size();
-        while (num[--i] == '0')
-            ;
-        if (num[i] == '.')
-            i--;
-        num.resize(i + 1);
-        return num;
-    }
+    Number(double d) : Term([&] {
+                           string symbol = std::to_string(d);
+                           int i = symbol.size();
+                           while (symbol[--i] == '0')
+                               ;
+                           if (symbol[i] == '.')
+                               i--;
+                           symbol.resize(i + 1);
+                           return symbol;
+                       }()) {}
 };
 
 #endif
