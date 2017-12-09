@@ -1,16 +1,16 @@
-hw7: struct.o list.o term.o utIterator.h iterator.h atom.h number.h variable.h
+hw7: term.o struct.o list.o utIterator.h iterator.h atom.h number.h variable.h
 ifeq (${OS}, Windows_NT) 
 	g++ -std=gnu++0x -c hw.cpp 
-	g++ -o hw7 hw.o struct.o list.o term.o -lgtest 
+	g++ -o hw7 hw.o term.o struct.o list.o -lgtest 
 else
 	make utIterator.o
-	g++ -o hw7 utIterator.o struct.o list.o term.o -lgtest -lpthread
+	g++ -o hw7 utIterator.o term.o struct.o list.o -lgtest -lpthread
 	./hw7
 	make clean
 endif
 
 #######UnitTest#######
-allTestAndClean: utAtom utTerm utVariable utStruct utList utScanner utParser utIterator
+allTestRunAndClean: utAtom utTerm utVariable utStruct utList utScanner utParser utIterator
 	./utAtom && ./utTerm && ./utVariable && ./utStruct && ./utList && ./utScanner && ./utParser && ./utIterator
 	make clean
 
