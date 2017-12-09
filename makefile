@@ -11,90 +11,61 @@ endif
 
 #######UnitTest#######
 allTestAndClean: utAtom utTerm utVariable utStruct utList utScanner utParser utIterator
-	./utAtom
-	./utTerm
-	./utVariable
-	./utStruct
-	./utList
-	./utScanner
-	./utParser
-	./utIterator
+	./utAtom && ./utTerm && ./utVariable && ./utStruct && ./utList && ./utScanner && ./utParser && ./utIterator
 	make clean
 
 utAtom: utAtom.o term.o
-	g++ -o utAtom utAtom.o term.o -lgtest -lpthread
+	g++ -o $@ $^ -lgtest -lpthread
 utAtom.o: utAtom.h atom.h
-	touch utAtom.cpp
-	echo '#include "utAtom.h"' > utAtom.cpp
-	cat utTemplate.h >> utAtom.cpp
-	g++ -c utAtom.cpp
+	touch $*.cpp && echo "#include \"$*.h\"" > $*.cpp && cat utTemplate.h >> $*.cpp
+	g++ -c $*.cpp
 
 utTerm: utTerm.o term.o
-	g++ -o utTerm utTerm.o term.o -lgtest -lpthread
-utTerm.o: utTerm.h term.h
-	touch utTerm.cpp
-	echo '#include "utTerm.h"' > utTerm.cpp
-	cat utTemplate.h >> utTerm.cpp
-	g++ -c utTerm.cpp
+	g++ -o $@ $^ -lgtest -lpthread
+utTerm.o: utTerm.h atom.h number.h variable.h
+	touch $*.cpp && echo "#include \"$*.h\"" > $*.cpp && cat utTemplate.h >> $*.cpp
+	g++ -c $*.cpp
 
 utVariable: utVariable.o term.o struct.o list.o
-	g++ -o utVariable utVariable.o term.o struct.o list.o -lgtest -lpthread
-utVariable.o: utVariable.h term.h atom.h number.h variable.h struct.h
-	touch utVariable.cpp
-	echo '#include "utVariable.h"' > utVariable.cpp
-	cat utTemplate.h >> utVariable.cpp
-	g++ -c utVariable.cpp
+	g++ -o $@ $^ -lgtest -lpthread
+utVariable.o: utVariable.h atom.h number.h variable.h
+	touch $*.cpp && echo "#include \"$*.h\"" > $*.cpp && cat utTemplate.h >> $*.cpp
+	g++ -c $*.cpp
 
 utStruct: utStruct.o term.o struct.o
-	g++ -o utStruct utStruct.o term.o struct.o -lgtest -lpthread
-utStruct.o: utStruct.h term.h atom.h number.h variable.h struct.h
-	touch utStruct.cpp
-	echo '#include "utStruct.h"' > utStruct.cpp
-	cat utTemplate.h >> utStruct.cpp
-	g++ -c utStruct.cpp
+	g++ -o $@ $^ -lgtest -lpthread
+utStruct.o: utStruct.h atom.h number.h variable.h
+	touch $*.cpp && echo "#include \"$*.h\"" > $*.cpp && cat utTemplate.h >> $*.cpp
+	g++ -c $*.cpp
 
 utList: utList.o term.o struct.o list.o
-	g++ -o utList utList.o term.o struct.o list.o -lgtest -lpthread
-utList.o: utList.h term.h atom.h number.h variable.h struct.h list.h
-	touch utList.cpp
-	echo '#include "utList.h"' > utList.cpp
-	cat utTemplate.h >> utList.cpp
-	g++ -c utList.cpp
+	g++ -o $@ $^ -lgtest -lpthread
+utList.o: utList.h atom.h number.h variable.h
+	touch $*.cpp && echo "#include \"$*.h\"" > $*.cpp && cat utTemplate.h >> $*.cpp
+	g++ -c $*.cpp
 
 utScanner: utScanner.o
-	g++ -o utScanner utScanner.o -lgtest -lpthread
+	g++ -o $@ $^ -lgtest -lpthread
 utScanner.o: utScanner.h scanner.h
-	touch utScanner.cpp
-	echo '#include "utScanner.h"' > utScanner.cpp
-	cat utTemplate.h >> utScanner.cpp
-	g++ -c utScanner.cpp
+	touch $*.cpp && echo "#include \"$*.h\"" > $*.cpp && cat utTemplate.h >> $*.cpp
+	g++ -c $*.cpp
 
 utParser: utParser.o term.o struct.o list.o
-	g++ -o utParser utParser.o term.o struct.o list.o -lgtest -lpthread
-utParser.o: utParser.h parser.h scanner.h node.h term.h atom.h number.h variable.h struct.h list.h
-	touch utParser.cpp
-	echo '#include "utParser.h"' > utParser.cpp
-	cat utTemplate.h >> utParser.cpp
-	g++ -c utParser.cpp
+	g++ -o $@ $^ -lgtest -lpthread
+utParser.o: utParser.h parser.h scanner.h node.h atom.h number.h variable.h
+	touch $*.cpp && echo "#include \"$*.h\"" > $*.cpp && cat utTemplate.h >> $*.cpp
+	g++ -c $*.cpp
 
 utIterator: utIterator.o term.o struct.o list.o
-	g++ -o utIterator utIterator.o term.o struct.o list.o -lgtest -lpthread
-utIterator.o: utIterator.h iterator.h term.h atom.h number.h variable.h struct.h list.h
-	touch utIterator.cpp
-	echo '#include "utIterator.h"' > utIterator.cpp
-	cat utTemplate.h >> utIterator.cpp
-	g++ -c utIterator.cpp
-
+	g++ -o $@ $^ -lgtest -lpthread
+utIterator.o: utIterator.h iterator.h atom.h number.h variable.h
+	touch $*.cpp && echo "#include \"$*.h\"" > $*.cpp && cat utTemplate.h >> $*.cpp
+	g++ -c $*.cpp
 
 #####Object file#####
-term.o: term.cpp term.h 
-	g++ -std=gnu++0x -c term.cpp
-
-struct.o: struct.cpp struct.h 
-	g++ -std=gnu++0x -c struct.cpp
-
-list.o: list.cpp list.h 
-	g++ -std=gnu++0x -c list.cpp
+term.o: term.h
+struct.o: struct.h
+list.o: list.h 
 
 
 clean:	
