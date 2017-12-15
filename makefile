@@ -9,7 +9,6 @@ else
 	make clean
 endif
 
-
 #######UnitTest#######
 allTestRunAndClean: utAtom utTerm utVariable utStruct utList utScanner utParser utIterator
 	./utAtom && ./utTerm && ./utVariable && ./utStruct && ./utList && ./utScanner && ./utParser && ./utIterator
