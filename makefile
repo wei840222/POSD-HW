@@ -70,7 +70,6 @@ struct.o: struct.h
 list.o: list.h
 	g++ -c -std=gnu++0x $*.cpp
 
-
 clean:	
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
