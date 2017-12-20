@@ -5,10 +5,12 @@
 #include "term.h"
 using std::string;
 
-class Variable : public Term {
- public:
+class Variable : public Term
+{
+public:
   Variable(string s) : Term(s), _value(nullptr) {}
-  string value() const {
+  string value() const
+  {
     if (!_value)
       return symbol();
     else
@@ -17,16 +19,20 @@ class Variable : public Term {
 
   bool isAssignable() { return !_value; }
 
-  bool match(Term &term) {
+  bool match(Term &term)
+  {
     if (term.findBySymbol(symbol()) != nullptr &&
         term.findBySymbol(symbol()) != &term)
       return false;
     else if (&term == this)
       return true;
-    else if (!_value) {
+    else if (!_value)
+    {
       _value = &term;
       return true;
-    } else {
+    }
+    else
+    {
       if (term.isAssignable())
         return term.match(*this);
       else
@@ -34,7 +40,7 @@ class Variable : public Term {
     }
   }
 
- private:
+private:
   Term *_value;
 };
 

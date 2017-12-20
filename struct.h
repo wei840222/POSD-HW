@@ -14,13 +14,15 @@ class DFSIterator;
 template <class T>
 class BFSIterator;
 
-class Struct : public Term {
- public:
+class Struct : public Term
+{
+public:
   Struct(Atom name, vector<Term *> args)
       : Term([&] {
           if (args.empty())
             return name.symbol() + "()";
-          else {
+          else
+          {
             string symbol = name.symbol() + "(";
             for (int i = 0; i < args.size() - 1; i++)
               symbol += args[i]->symbol() + ", ";
@@ -30,10 +32,12 @@ class Struct : public Term {
         }()),
         _name(name),
         _args(args) {}
-  string value() const {
+  string value() const
+  {
     if (arity() == 0)
       return _name.symbol() + "()";
-    else {
+    else
+    {
       string value = _name.symbol() + "(";
       for (int i = 0; i < _args.size() - 1; i++)
         value += _args[i]->value() + ", ";
@@ -42,25 +46,31 @@ class Struct : public Term {
     }
   }
 
-  bool match(Term &term) {
+  bool match(Term &term)
+  {
     Struct *ps = dynamic_cast<Struct *>(&term);
-    if (ps) {
+    if (ps)
+    {
       if (!_name.match(ps->_name))
         return false;
       else if (_args.size() != ps->_args.size())
         return false;
-      else {
+      else
+      {
         for (int i = 0; i < _args.size(); i++)
-          if (_args[i]->symbol() != ps->_args[i]->symbol()) return false;
+          if (_args[i]->symbol() != ps->_args[i]->symbol())
+            return false;
         return true;
       }
-    } else if (term.isAssignable())
+    }
+    else if (term.isAssignable())
       return term.match(*this);
     else
       return symbol() == term.value();
   }
 
-  Term *findBySymbol(string symbol) {
+  Term *findBySymbol(string symbol)
+  {
     for (int i = 0; i < _args.size(); i++)
       if (_args[i]->findBySymbol(symbol) != nullptr)
         return _args[i]->findBySymbol(symbol);
@@ -75,7 +85,7 @@ class Struct : public Term {
   Iterator<Term *> *createDFSIterator();
   Iterator<Term *> *createBFSIterator();
 
- private:
+private:
   Atom _name;
   const vector<Term *> _args;
 };

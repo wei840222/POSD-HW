@@ -4,12 +4,14 @@
 #include <gtest/gtest.h>
 #include "scanner.h"
 
-class ScannerTest : public ::testing::Test {
- protected:
+class ScannerTest : public ::testing::Test
+{
+protected:
   void SetUp() { symtable.clear(); }
 };
 
-TEST_F(ScannerTest, position) {
+TEST_F(ScannerTest, position)
+{
   // one, two, three spaces
   //---------------012345678901234567890
   Scanner scanner(" 12345,  tom,   Date");
@@ -37,7 +39,8 @@ TEST_F(ScannerTest, position) {
   EXPECT_EQ(20, scanner.position());
 }
 
-TEST_F(ScannerTest, nextTokenEOS) {
+TEST_F(ScannerTest, nextTokenEOS)
+{
   //---------------01234
   Scanner scanner("    ");
   EXPECT_EQ(0, scanner.position());
@@ -47,7 +50,8 @@ TEST_F(ScannerTest, nextTokenEOS) {
   EXPECT_EQ(4, scanner.position());
 }
 
-TEST_F(ScannerTest, nextTokenEOS2) {
+TEST_F(ScannerTest, nextTokenEOS2)
+{
   //---------------0
   Scanner scanner("");
   EXPECT_EQ(0, scanner.position());
@@ -57,7 +61,8 @@ TEST_F(ScannerTest, nextTokenEOS2) {
   EXPECT_EQ(0, scanner.position());
 }
 
-TEST_F(ScannerTest, nextTokenNumber) {
+TEST_F(ScannerTest, nextTokenNumber)
+{
   //---------------0123
   Scanner scanner("135");
   EXPECT_EQ(0, scanner.position());
@@ -67,7 +72,8 @@ TEST_F(ScannerTest, nextTokenNumber) {
   EXPECT_TRUE(symtable.empty());
 }
 
-TEST_F(ScannerTest, nextTokenAtom) {
+TEST_F(ScannerTest, nextTokenAtom)
+{
   //---------------0123
   Scanner scanner("tom");
   EXPECT_EQ(0, scanner.position());
@@ -79,7 +85,8 @@ TEST_F(ScannerTest, nextTokenAtom) {
   EXPECT_EQ(ATOM, symtable[0].second);
 }
 
-TEST_F(ScannerTest, nextTokenVar) {
+TEST_F(ScannerTest, nextTokenVar)
+{
   //---------------01234
   Scanner scanner("Date");
   EXPECT_EQ(0, scanner.position());
@@ -91,7 +98,8 @@ TEST_F(ScannerTest, nextTokenVar) {
   EXPECT_EQ(VAR, symtable[0].second);
 }
 
-TEST_F(ScannerTest, nextTokenChar) {
+TEST_F(ScannerTest, nextTokenChar)
+{
   //---------------01234
   Scanner scanner("   (");
   int token = scanner.nextToken();
@@ -104,7 +112,8 @@ TEST_F(ScannerTest, nextTokenChar) {
   EXPECT_EQ(4, scanner.position());
 }
 
-TEST_F(ScannerTest, nextTokenChar2) {
+TEST_F(ScannerTest, nextTokenChar2)
+{
   //---------------01234
   Scanner scanner("   []");
   int token = scanner.nextToken();
@@ -121,7 +130,8 @@ TEST_F(ScannerTest, nextTokenChar2) {
   EXPECT_EQ(5, scanner.position());
 }
 
-TEST_F(ScannerTest, nextTokenAtomSC) {
+TEST_F(ScannerTest, nextTokenAtomSC)
+{
   //---------------01234567-890
   Scanner scanner(".*-><&$@\\?");
   EXPECT_EQ(0, scanner.position());

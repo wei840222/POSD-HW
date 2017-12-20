@@ -8,7 +8,8 @@
 #include "variable.h"
 
 // 1
-TEST(Iterator, nullIterator) {
+TEST(Iterator, nullIterator)
+{
   Number one(1);
   Iterator<Term *> *itr = one.createIterator();
   EXPECT_EQ("1", itr->currentTerm()->symbol());
@@ -16,7 +17,8 @@ TEST(Iterator, nullIterator) {
 }
 
 // s(1, t(X, 2), Y)
-TEST(Iterator, structIterator) {
+TEST(Iterator, structIterator)
+{
   Number one(1), two(2);
   Variable X("X"), Y("Y");
   Struct t(Atom("t"), {&X, &two});
@@ -42,7 +44,8 @@ TEST(Iterator, structIterator) {
 }
 
 // s(1, t(X, 2), Y)
-TEST(Iterator, nestedStructIterator) {
+TEST(Iterator, nestedStructIterator)
+{
   Number one(1), two(2);
   Variable X("X"), Y("Y");
   Struct t(Atom("t"), {&X, &two});
@@ -65,7 +68,8 @@ TEST(Iterator, nestedStructIterator) {
 }
 
 //[1, t(X, 2), Y]
-TEST(Iterator, listIterator) {
+TEST(Iterator, listIterator)
+{
   Number one(1), two(2);
   Variable X("X"), Y("Y");
   Struct t(Atom("t"), {&X, &two});
@@ -91,7 +95,8 @@ TEST(Iterator, listIterator) {
 }
 
 // s(1, t(2, 3), X, [a, b], 4, Y)
-TEST(DFSIterator, DFSStructIterator) {
+TEST(DFSIterator, DFSStructIterator)
+{
   Atom a("a"), b("b");
   Number one(1), two(2), three(3), four(4);
   Variable X("X"), Y("Y");
@@ -148,7 +153,8 @@ TEST(DFSIterator, DFSStructIterator) {
 
 // combo1(bigMac(bun, beefPatty, shreddedLettuce, sauce, cheese, [pickleSlice1,
 // pickleSlice2], [onions1, onions2]), coke, [fries1, fries2])
-TEST(DFSIterator, DFSBigMacStructIterator) {
+TEST(DFSIterator, DFSBigMacStructIterator)
+{
   Atom bun("bun"), beefPatty("beefPatty"), shreddedLettuce("shreddedLettuce"),
       sauce("sauce"), cheese("cheese"), pickleSlice1("pickleSlice1"),
       pickleSlice2("pickleSlice2"), onions1("onions1"), onions2("onions2"),
@@ -235,7 +241,8 @@ TEST(DFSIterator, DFSBigMacStructIterator) {
 }
 
 //[1, t(2, 3), X, [a, b], 4, Y]
-TEST(DFSIterator, DFSListIterator) {
+TEST(DFSIterator, DFSListIterator)
+{
   Atom a("a"), b("b");
   Number one(1), two(2), three(3), four(4);
   Variable X("X"), Y("Y");
@@ -292,7 +299,8 @@ TEST(DFSIterator, DFSListIterator) {
 
 //[bigMac(bun, beefPatty, shreddedLettuce, sauce, cheese, [pickleSlice1,
 //pickleSlice2], [onions1, onions2]), coke, [fries1, fries2]]
-TEST(DFSIterator, DFSBigMacListIterator) {
+TEST(DFSIterator, DFSBigMacListIterator)
+{
   Atom bun("bun"), beefPatty("beefPatty"), shreddedLettuce("shreddedLettuce"),
       sauce("sauce"), cheese("cheese"), pickleSlice1("pickleSlice1"),
       pickleSlice2("pickleSlice2"), onions1("onions1"), onions2("onions2"),
@@ -379,7 +387,8 @@ TEST(DFSIterator, DFSBigMacListIterator) {
 }
 
 // s(1, t(2, 3), X, [a, b], 4, Y)
-TEST(BFSIterator, BFSStructIterator) {
+TEST(BFSIterator, BFSStructIterator)
+{
   Atom a("a"), b("b");
   Number one(1), two(2), three(3), four(4);
   Variable X("X"), Y("Y");
@@ -436,7 +445,8 @@ TEST(BFSIterator, BFSStructIterator) {
 
 // combo1(bigMac(bun, beefPatty, shreddedLettuce, sauce, cheese, [pickleSlice1,
 // pickleSlice2], [onions1, onions2]), coke, [fries1, fries2])
-TEST(BFSIterator, BFSBigMacStructIterator) {
+TEST(BFSIterator, BFSBigMacStructIterator)
+{
   Atom bun("bun"), beefPatty("beefPatty"), shreddedLettuce("shreddedLettuce"),
       sauce("sauce"), cheese("cheese"), pickleSlice1("pickleSlice1"),
       pickleSlice2("pickleSlice2"), onions1("onions1"), onions2("onions2"),
@@ -523,7 +533,8 @@ TEST(BFSIterator, BFSBigMacStructIterator) {
 }
 
 //[1, t(2, 3), X, [a, b], 4, Y]
-TEST(BFSIterator, BFSListIterator) {
+TEST(BFSIterator, BFSListIterator)
+{
   Atom a("a"), b("b");
   Number one(1), two(2), three(3), four(4);
   Variable X("X"), Y("Y");
@@ -580,7 +591,8 @@ TEST(BFSIterator, BFSListIterator) {
 
 //[bigMac(bun, beefPatty, shreddedLettuce, sauce, cheese, [pickleSlice1,
 //pickleSlice2], [onions1, onions2]), coke, [fries1, fries2]]
-TEST(BFSIterator, BFSBigMacListIterator) {
+TEST(BFSIterator, BFSBigMacListIterator)
+{
   Atom bun("bun"), beefPatty("beefPatty"), shreddedLettuce("shreddedLettuce"),
       sauce("sauce"), cheese("cheese"), pickleSlice1("pickleSlice1"),
       pickleSlice2("pickleSlice2"), onions1("onions1"), onions2("onions2"),

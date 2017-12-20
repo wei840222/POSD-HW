@@ -23,30 +23,41 @@ const int VAR = 259;
 vector<pair<string, int>> symtable;
 ////////////////////Global////////////////////
 
-class Scanner {
- public:
+class Scanner
+{
+public:
   Scanner(string in = "") : buffer(in), pos(0), _tokenValue(NONE) {}
   void setInput(string in) { buffer = in; }
 
-  int nextToken() {
+  int nextToken()
+  {
     if (skipLeadingWhiteSpace() >= buffer.length())
       return EOS;
-    else if (isdigit(currentChar())) {
+    else if (isdigit(currentChar()))
+    {
       _tokenValue = extractNumber();
       return NUMBER;
-    } else if (islower(currentChar())) {
+    }
+    else if (islower(currentChar()))
+    {
       string s = extractAtom();
       processToken<ATOM>(s);
       return ATOM;
-    } else if (isSpecialCh(currentChar())) {
+    }
+    else if (isSpecialCh(currentChar()))
+    {
       string s = extractAtomSC();
       processToken<ATOMSC>(s);
       return ATOMSC;
-    } else if (isupper(currentChar()) || currentChar() == '_') {
+    }
+    else if (isupper(currentChar()) || currentChar() == '_')
+    {
       string s = extractVar();
       processToken<VAR>(s);
       return VAR;
-    } else {
+    }
+    else
+    {
       _tokenValue = NONE;
       return extractChar();
     }
@@ -56,56 +67,65 @@ class Scanner {
   int position() const { return pos; }
   char currentChar() const { return buffer[pos]; }
 
- private:
+private:
   // case-based populating symtable and setting _tokenValue
   template <int TokenType>
-  void processToken(string const &s) {
+  void processToken(string const &s)
+  {
     int val = -1;
     if (symbolExist(s, val))
       _tokenValue = val;
-    else {
+    else
+    {
       symtable.push_back(pair<string, int>(s, TokenType));
-      _tokenValue = symtable.size() - 1;  // index to symtable
+      _tokenValue = symtable.size() - 1; // index to symtable
     }
   }
 
   // extractX: extract X and set position right after X
-  int extractNumber() {
+  int extractNumber()
+  {
     int posBegin = position();
     while (isdigit(buffer[++pos]))
       ;
     return stoi(buffer.substr(posBegin, pos - posBegin));
   }
 
-  string extractAtom() {
+  string extractAtom()
+  {
     int posBegin = position();
     while (isalnum(buffer[++pos]))
       ;
     return buffer.substr(posBegin, pos - posBegin);
   }
 
-  string extractAtomSC() {
+  string extractAtomSC()
+  {
     int posBegin = position();
     while (isSpecialCh(buffer[++pos]))
       ;
     return buffer.substr(posBegin, pos - posBegin);
   }
 
-  string extractVar() {
+  string extractVar()
+  {
     int posBegin = position();
-    while (isalnum(buffer[pos]) || buffer[pos] == '_') ++pos;
+    while (isalnum(buffer[pos]) || buffer[pos] == '_')
+      ++pos;
     return buffer.substr(posBegin, pos - posBegin);
   }
 
   char extractChar() { return buffer[pos++]; }
 
-  int skipLeadingWhiteSpace() {
+  int skipLeadingWhiteSpace()
+  {
     while ((buffer[pos] == ' ' || buffer[pos] == '\t') && pos < buffer.length())
       ++pos;
     return position();
   }
 
-  bool isSpecialCh(char c) {
+  bool isSpecialCh(char c)
+  {
     return c == '+'
            //|| c == '=' // ... the matching operator
            || c == '-' || c == '*' || c == '/' || c == '<' || c == '>' ||
@@ -113,14 +133,16 @@ class Scanner {
            c == '$' || c == '#' || c == '@' || c == '?' || c == ':';
   }
 
-  bool symbolExist(string s, int &val) {
+  bool symbolExist(string s, int &val)
+  {
     bool found = false;
     val = -1;
     vector<pair<string, int>>::iterator it =
         find_if(symtable.begin(), symtable.end(),
                 [s](pair<string, int> ele) { return ele.first == s; });
     found = symtable.end() != it;
-    if (found) val = it - symtable.begin();
+    if (found)
+      val = it - symtable.begin();
     return found;
   }
 

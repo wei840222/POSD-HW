@@ -6,8 +6,9 @@
 #include "variable.h"
 using std::string;
 
-class Atom : public Term {
- public:
+class Atom : public Term
+{
+public:
   Atom(string s) : Term(s) {}
 };
 

@@ -13,7 +13,8 @@ using std::string;
 
 // When create a new list without any item
 // Then #symbol() of the list should return "[]"
-TEST(List, constructor) {
+TEST(List, constructor)
+{
   List l;
   EXPECT_EQ("[]", l.symbol());
 }
@@ -21,7 +22,8 @@ TEST(List, constructor) {
 // Given there are two perfect Numbers: 8128, 496
 // When create a new list with the perfect Number
 // Then #symbol() of the list should return "[496, 8128]"
-TEST(List, Numbers) {
+TEST(List, Numbers)
+{
   Number n1(496), n2(8128);
   List l(vector<Term *>{&n1, &n2});
   EXPECT_EQ("[496, 8128]", l.symbol());
@@ -31,7 +33,8 @@ TEST(List, Numbers) {
 // When create a new list with the Atoms
 // Then #symbol() of the list should return "[terence_tao,
 // alan_mathison_turing]"
-TEST(List, Atoms) {
+TEST(List, Atoms)
+{
   Atom a1("terence_tao"), a2("alan_mathison_turing");
   List l(vector<Term *>{&a1, &a2});
   EXPECT_EQ("[terence_tao, alan_mathison_turing]", l.symbol());
@@ -40,7 +43,8 @@ TEST(List, Atoms) {
 // Given there are two variables: X, Y
 // When create a new list with the variables
 // Then #symbol() of the list should return "[X, Y]"
-TEST(List, Vars) {
+TEST(List, Vars)
+{
   Variable X("X"), Y("Y");
   List l(vector<Term *>{&X, &Y});
   EXPECT_EQ("[X, Y]", l.symbol());
@@ -48,7 +52,8 @@ TEST(List, Vars) {
 
 // ?- tom = [496, X, terence_tao].
 // false.
-TEST(List, matchToAtomShouldFail) {
+TEST(List, matchToAtomShouldFail)
+{
   Atom tom("tom"), terence_tao("terence_tao");
   Number n(496);
   Variable X("X");
@@ -58,7 +63,8 @@ TEST(List, matchToAtomShouldFail) {
 
 // ?- 8128 = [496, X, terence_tao].
 // false.
-TEST(List, matchToNumberShouldFail) {
+TEST(List, matchToNumberShouldFail)
+{
   Atom terence_tao("terence_tao");
   Number n1(8128), n2(496);
   Variable X("X");
@@ -68,7 +74,8 @@ TEST(List, matchToNumberShouldFail) {
 
 // ?- s(X) = [496, X, terence_tao].
 // false.
-TEST(List, matchToStructShouldFail) {
+TEST(List, matchToStructShouldFail)
+{
   Atom terence_tao("terence_tao");
   Number n(496);
   Variable X("X");
@@ -79,7 +86,8 @@ TEST(List, matchToStructShouldFail) {
 
 // ?- Y = [496, X, terence_tao].
 // Y = [496, X, terence_tao].
-TEST(List, matchToVarShouldSucceed) {
+TEST(List, matchToVarShouldSucceed)
+{
   Atom terence_tao("terence_tao");
   Number n(496);
   Variable X("X"), Y("Y");
@@ -91,7 +99,8 @@ TEST(List, matchToVarShouldSucceed) {
 
 // ?- X = [496, X, terence_tao].
 // false.
-TEST(List, matchToVarOccuredInListShouldFail) {
+TEST(List, matchToVarOccuredInListShouldFail)
+{
   Atom terence_tao("terence_tao");
   Number n(496);
   Variable X("X");
@@ -102,7 +111,8 @@ TEST(List, matchToVarOccuredInListShouldFail) {
 
 // ?- [496, X, terence_tao] = [496, X, terence_tao].
 // true.
-TEST(List, matchToSameListShouldSucceed) {
+TEST(List, matchToSameListShouldSucceed)
+{
   Atom terence_tao("terence_tao");
   Number n(496);
   Variable X("X");
@@ -112,7 +122,8 @@ TEST(List, matchToSameListShouldSucceed) {
 
 // ?- [496, X, terence_tao] = [496, Y, terence_tao].
 // true.
-TEST(List, matchToSameListWithDiffVarNameShouldSucceed) {
+TEST(List, matchToSameListWithDiffVarNameShouldSucceed)
+{
   Atom terence_tao("terence_tao");
   Number n(496);
   Variable X("X"), Y("Y");
@@ -123,7 +134,8 @@ TEST(List, matchToSameListWithDiffVarNameShouldSucceed) {
 
 // ?- [496, X, terence_tao] = [496, 8128, terence_tao].
 // X = 8128.
-TEST(List, matchToVarToAtominListShouldSucceed) {
+TEST(List, matchToVarToAtominListShouldSucceed)
+{
   Atom terence_tao("terence_tao");
   Number n(496), n2(8128);
   Variable X("X");
@@ -136,7 +148,8 @@ TEST(List, matchToVarToAtominListShouldSucceed) {
 // ?- Y = [496, X, terence_tao], X = alan_mathison_turing.
 // Y = [496, alan_mathison_turing, terence_tao],
 // X = alan_mathison_turing.
-TEST(List, matchVarinListToAtomShouldSucceed) {
+TEST(List, matchVarinListToAtomShouldSucceed)
+{
   Number n(496);
   Atom a1("terence_tao"), a2("alan_mathison_turing");
   Variable X("X"), Y("Y");
@@ -151,7 +164,8 @@ TEST(List, matchVarinListToAtomShouldSucceed) {
 // Example:
 // ?- [first, second, third] = [H|T].
 // H = first, T = [second, third].
-TEST(List, headAndTailMatching1) {
+TEST(List, headAndTailMatching1)
+{
   Atom f("first"), s("second"), t("third");
   vector<Term *> args = {&f, &s, &t};
   List l(args);
@@ -163,7 +177,8 @@ TEST(List, headAndTailMatching1) {
 // Example:
 // ?- [first, second, third] = [first, H|T].
 // H = second, T = [third].
-TEST(List, headAndTailMatching2) {
+TEST(List, headAndTailMatching2)
+{
   Atom f("first"), s("second"), t("third");
   vector<Term *> args = {&f, &s, &t};
   List l(args);
@@ -174,7 +189,8 @@ TEST(List, headAndTailMatching2) {
 
 // ?- [[first], second, third] = [H|T].
 // H = [first], T = [second, third].
-TEST(List, headAndTailMatching3) {
+TEST(List, headAndTailMatching3)
+{
   Atom f("first"), s("second"), t("third");
   List l1(vector<Term *>{&f}), l2(vector<Term *>{&l1, &s, &t});
   EXPECT_EQ("[first]", l2.head()->symbol());
@@ -183,7 +199,8 @@ TEST(List, headAndTailMatching3) {
 
 // ?- [first, second, third] = [first, second, H|T].
 // H = third, T = [].
-TEST(List, headAndTailMatching4) {
+TEST(List, headAndTailMatching4)
+{
   Atom f("first"), s("second"), t("third");
   List l(vector<Term *>{&f, &s, &t});
   EXPECT_EQ("third", l.tail()->tail()->head()->value());
@@ -194,11 +211,15 @@ TEST(List, headAndTailMatching4) {
 // When client still want to get the head of list
 // Then it should throw a string: "Accessing head in an empty list" as an
 // exception.
-TEST(List, emptyExecptionOfHead) {
+TEST(List, emptyExecptionOfHead)
+{
   List l(vector<Term *>{});
-  try {
+  try
+  {
     l.head();
-  } catch (string e) {
+  }
+  catch (string e)
+  {
     EXPECT_EQ("Accessing head in an empty list", e);
   }
 }
@@ -207,11 +228,15 @@ TEST(List, emptyExecptionOfHead) {
 // When client still want to get the head of list
 // Then it should throw a string: "Accessing tail in an empty list" as an
 // exception.
-TEST(List, emptyExecptionOfTail) {
+TEST(List, emptyExecptionOfTail)
+{
   List l(vector<Term *>{});
-  try {
+  try
+  {
     l.tail();
-  } catch (string e) {
+  }
+  catch (string e)
+  {
     EXPECT_EQ("Accessing tail in an empty list", e);
   }
 }
