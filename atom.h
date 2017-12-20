@@ -1,14 +1,13 @@
 #ifndef ATOM_H
 #define ATOM_H
 
+#include <string>
 #include "term.h"
 #include "variable.h"
-#include <string>
 using std::string;
 
-class Atom : public Term
-{
-public:
+class Atom : public Term {
+ public:
   Atom(string s) : Term(s) {}
 };
 

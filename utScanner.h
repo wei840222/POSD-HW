@@ -1,17 +1,15 @@
 #ifndef UTSCANNER_H
 #define UTSCANNER_H
 
-#include "scanner.h"
 #include <gtest/gtest.h>
+#include "scanner.h"
 
 class ScannerTest : public ::testing::Test {
-protected:
-  void SetUp() {
-    symtable.clear();
-  }
+ protected:
+  void SetUp() { symtable.clear(); }
 };
 
-TEST_F (ScannerTest, position) {
+TEST_F(ScannerTest, position) {
   // one, two, three spaces
   //---------------012345678901234567890
   Scanner scanner(" 12345,  tom,   Date");
