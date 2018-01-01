@@ -160,25 +160,21 @@ TEST(Shell, conjunctionMatching_diffExp)
   }
 }
 
-  // TEST(Shell, conjunctionMatching_sameExp)
-  // {
-  //   Scanner s("X=1, X=1.");
-  //   Parser p(s);
-  //   try
-  //   {
-  //     p.buildExpression();
-
-  //     /**
-  //      *  maybe your implementation here.
-  //      */
-
-  //     ASSERT_EQ("X = 1.", result);
-  //   }
-  //   catch (std::string &msg)
-  //   {
-  //     FAIL() << msg;
-  //   }
-  // }
+TEST(Shell, conjunctionMatching_sameExp)
+{
+  Scanner s("X=1, X=1.");
+  Parser p(s);
+  try
+  {
+    p.buildExpression();
+    string result = p.getExpressionTree()->getResult() + '.';
+    ASSERT_EQ("X = 1.", result);
+  }
+  catch (std::string &msg)
+  {
+    FAIL() << msg;
+  }
+}
 
   // TEST(Shell, conjunctionMatching_true)
   // {
