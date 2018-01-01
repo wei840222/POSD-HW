@@ -27,20 +27,20 @@ TEST(Shell, exception_OnlyVariable)
     }
 }
 
-    // TEST_F(Shell, exceptionMissingPeriodToken)
-    // {
-    //   Scanner s("X=1");
-    //   Parser p(s);
-    //   try
-    //   {
-    //     p.buildExpression();
-    //     FAIL() << "It should throw an exception: Missing token '.'";
-    //   }
-    //   catch (std::string &msg)
-    //   {
-    //     ASSERT_EQ("Missing token '.'", msg);
-    //   }
-    // }
+TEST(Shell, exceptionMissingPeriodToken2)
+{
+    Scanner s("X=1");
+    Parser p(s);
+    try
+    {
+        string result = p.buildExpression()->getResult() + '.';
+        FAIL() << "It should throw an exception: Missing token '.'";
+    }
+    catch (std::string &msg)
+    {
+        ASSERT_EQ("Missing token '.'", msg);
+    }
+}
 
     // TEST(Shell, exception_UnexpectedDisjTokenBeforePeriod)
     // {
