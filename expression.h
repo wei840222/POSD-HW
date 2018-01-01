@@ -224,25 +224,21 @@ TEST(Shell, conjunctionMatching_expAndtrue)
   }
 }
 
-  // TEST(Shell, conjunctionMatching_trueAndfalse)
-  // {
-  //   Scanner s("X=X, 1=2.");
-  //   Parser p(s);
-  //   try
-  //   {
-  //     p.buildExpression();
-
-  //     /**
-  //      *  maybe your implementation here.
-  //      */
-
-  //     ASSERT_EQ("false.", result);
-  //   }
-  //   catch (std::string &msg)
-  //   {
-  //     FAIL() << msg;
-  //   }
-  // }
+TEST(Shell, conjunctionMatching_trueAndfalse)
+{
+  Scanner s("X=X, 1=2.");
+  Parser p(s);
+  try
+  {
+    p.buildExpression();
+    string result = p.getExpressionTree()->getResult() + '.';
+    ASSERT_EQ("false.", result);
+  }
+  catch (std::string &msg)
+  {
+    FAIL() << msg;
+  }
+}
 
   // TEST(Shell, conjunctionMatching_falseAndtrue)
   // {
