@@ -62,6 +62,12 @@ utIterator.o: utIterator.h iterator.h atom.h number.h variable.h
 	touch $*.cpp && echo "#include \"$*.h\"" > $*.cpp && cat utTemplate.h >> $*.cpp
 	g++ -c -std=gnu++0x $*.cpp
 
+shellTest: shellTest.cpp term.o struct.o list.o
+	g++ -o $@ -std=gnu++0x $^ -lgtest -lpthread
+shellTest.o: shellTest.cpp expression.h exception.h parser.h scanner.h node.h atom.h number.h variable.h
+	g++ -c -std=gnu++0x $*.cpp
+
+
 #####Object file#####
 term.o: term.h
 	g++ -c -std=gnu++0x $*.cpp
