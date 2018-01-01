@@ -22,7 +22,7 @@ TEST(Shell, varMatchAtomSuc)
     p.buildExpression();
     string result;
     if (p.getExpressionTree()->evaluate())
-      result = p.getExpressionTree()->getTreeContext();
+      result = p.getExpressionTree()->getResult();
     result += '.';
     ASSERT_EQ("FILCO = awesome.", result);
   }
@@ -39,12 +39,7 @@ TEST(Shell, atomMatchAtomFail)
   try
   {
     p.buildExpression();
-    string result;
-    if (p.getExpressionTree()->evaluate())
-      result = p.getExpressionTree()->getTreeContext();
-    else
-      result = "false";
-    result += '.';
+    string result = p.getExpressionTree()->getResult() + '.';
     ASSERT_EQ("false.", result);
   }
   catch (std::string &msg)
@@ -60,12 +55,7 @@ TEST(Shell, varMatchList)
   try
   {
     p.buildExpression();
-    string result;
-    if (p.getExpressionTree()->evaluate())
-      result = p.getExpressionTree()->getTreeContext();
-    else
-      result = "false";
-    result += '.';
+    string result = p.getExpressionTree()->getResult() + '.';
     ASSERT_EQ("Painful = [Clerk, forgot, pipette].", result);
   }
   catch (std::string &msg)
@@ -81,12 +71,7 @@ TEST(Shell, varMatchStruct)
   try
   {
     p.buildExpression();
-    string result;
-    if (p.getExpressionTree()->evaluate())
-      result = p.getExpressionTree()->getTreeContext();
-    else
-      result = "false";
-    result += '.';
+    string result = p.getExpressionTree()->getResult() + '.';
     ASSERT_EQ("Pitiful = binding([rope, rope, rope], Turtle, oil).", result);
   }
   catch (std::string &msg)
@@ -95,25 +80,21 @@ TEST(Shell, varMatchStruct)
   }
 }
 
-  // TEST(Shell, varMatchItself)
-  // {
-  //   Scanner s("Taiwan=Taiwan.");
-  //   Parser p(s);
-  //   try
-  //   {
-  //     p.buildExpression();
-
-  //     /**
-  //      *  maybe your implementation here.
-  //      */
-
-  //     ASSERT_EQ("true.", result);
-  //   }
-  //   catch (std::string &msg)
-  //   {
-  //     FAIL() << msg;
-  //   }
-  // }
+TEST(Shell, varMatchItself)
+{
+  Scanner s("Taiwan=Taiwan.");
+  Parser p(s);
+  try
+  {
+    p.buildExpression();
+    string result = p.getExpressionTree()->getResult() + '.';
+    ASSERT_EQ("true.", result);
+  }
+  catch (std::string &msg)
+  {
+    FAIL() << msg;
+  }
+}
 
   // TEST(Shell, varMachingListThatIncludeVar)
   // {

@@ -10,7 +10,10 @@ class Exp
 {
 public:
   virtual bool evaluate() = 0;
-  virtual string getTreeContext() const = 0;
+  virtual string getResult() = 0;
+
+protected:
+  const string _true = "true", _false = "false";
 };
 
 class MatchExp : public Exp
@@ -18,7 +21,15 @@ class MatchExp : public Exp
 public:
   MatchExp(Term *left, Term *right) : _left(left), _right(right) {}
   bool evaluate() { return _left->match(*_right); }
-  string getTreeContext() const { return _left->symbol() + " = " + _right->symbol(); }
+  string getResult()
+  {
+    if (evaluate() && _left->symbol() == _right->symbol())
+      return _true;
+    else if (!evaluate())
+      return _false;
+    else
+      return _left->symbol() + " = " + _right->symbol();
+  }
 
 private:
   Term *_left;
@@ -30,7 +41,7 @@ class ConjExp : public Exp
 public:
   ConjExp(Exp *left, Exp *right) : _left(left), _right(right) {}
   bool evaluate() { return (_left->evaluate() && _right->evaluate()); }
-  string getTreeContext() const { return _left->getTreeContext() + "; " + _right->getTreeContext(); }
+  string getResult() { return _left->getResult() + "; " + _right->getResult(); }
 
 private:
   Exp *_left;
@@ -42,7 +53,7 @@ class DisjExp : public Exp
 public:
   DisjExp(Exp *left, Exp *right) : _left(left), _right(right) {}
   bool evaluate() { return (_left->evaluate() || _right->evaluate()); }
-  string getTreeContext() const { return _left->getTreeContext() + ", " + _right->getTreeContext(); }
+  string getResult() { return _left->getResult() + ", " + _right->getResult(); }
 
 private:
   Exp *_left;
