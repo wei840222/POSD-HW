@@ -156,6 +156,8 @@ private:
       Term *right = createTerm();
       _expStack.push(new MatchExp(left, right));
     }
+    else
+      throw string(left->symbol() + " does never get assignment");
   }
 
   Scanner _scanner;
