@@ -63,6 +63,7 @@ public:
     }
   }
 
+  string getContext() const { return buffer; }
   int tokenValue() const { return _tokenValue; }
   int position() const { return pos; }
   char currentChar() const { return buffer[pos]; }

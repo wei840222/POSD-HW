@@ -42,20 +42,20 @@ TEST(Shell, exceptionMissingPeriodToken2)
     }
 }
 
-    // TEST(Shell, exception_UnexpectedDisjTokenBeforePeriod)
-    // {
-    //   Scanner s("X;.");
-    //   Parser p(s);
-    //   try
-    //   {
-    //     p.buildExpression();
-    //     FAIL() << "It should throw an exception: Unexpected ';' before '.'";
-    //   }
-    //   catch (std::string &msg)
-    //   {
-    //     ASSERT_EQ("Unexpected ';' before '.'", msg);
-    //   }
-    // }
+TEST(Shell, exception_UnexpectedDisjTokenBeforePeriod)
+{
+    Scanner s("X;.");
+    Parser p(s);
+    try
+    {
+        p.buildExpression();
+        FAIL() << "It should throw an exception: Unexpected ';' before '.'";
+    }
+    catch (std::string &msg)
+    {
+        ASSERT_EQ("Unexpected ';' before '.'", msg);
+    }
+}
 
     // TEST(Shell, exception_UnexpectedConjTokenBeforePeriod1)
     // {

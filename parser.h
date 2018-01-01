@@ -59,6 +59,8 @@ public:
 
   Exp *buildExpression()
   {
+    if (_scanner.getContext().find(";.") != string::npos)
+      throw string("Unexpected ';' before '.'");
     disjunctionMatch();
     restDisjunctionMatch();
     if (createTerm() != nullptr || _currentToken != '.')
