@@ -53,25 +53,26 @@ TEST(Shell, atomMatchAtomFail)
   }
 }
 
-  // TEST(Shell, varMatchList)
-  // {
-  //   Scanner s("Painful=[Clerk,forgot,pipette].");
-  //   Parser p(s);
-  //   try
-  //   {
-  //     p.buildExpression();
-
-  //     /**
-  //      *  maybe your implementation here.
-  //      */
-
-  //     ASSERT_EQ("Painful = [Clerk, forgot, pipette].", result);
-  //   }
-  //   catch (std::string &msg)
-  //   {
-  //     FAIL() << msg;
-  //   }
-  // }
+TEST(Shell, varMatchList)
+{
+  Scanner s("Painful=[Clerk,forgot,pipette].");
+  Parser p(s);
+  try
+  {
+    p.buildExpression();
+    string result;
+    if (p.getExpressionTree()->evaluate())
+      result = p.getExpressionTree()->getTreeContext();
+    else
+      result = "false";
+    result += '.';
+    ASSERT_EQ("Painful = [Clerk, forgot, pipette].", result);
+  }
+  catch (std::string &msg)
+  {
+    FAIL() << msg;
+  }
+}
 
   // TEST(Shell, varMatchStruct)
   // {
