@@ -44,7 +44,7 @@ public:
       processToken<ATOM>(s);
       return ATOM;
     }
-    else if (isSpecialCh(currentChar()))
+    else if (isSpecialCh(currentChar()) && position() < buffer.length() - 1)
     {
       string s = extractAtomSC();
       processToken<ATOMSC>(s);
@@ -126,11 +126,7 @@ private:
 
   bool isSpecialCh(char c)
   {
-    return c == '+'
-           //|| c == '=' // ... the matching operator
-           || c == '-' || c == '*' || c == '/' || c == '<' || c == '>' ||
-           c == '.' || c == '&' || c == '\\' || c == '~' || c == '^' ||
-           c == '$' || c == '#' || c == '@' || c == '?' || c == ':';
+    return c == '+' || c == '.' || c == '-' || c == '*' || c == '/' || c == '<' || c == '>' || c == '&' || c == '\\' || c == '~' || c == '^' || c == '$' || c == '#' || c == '@' || c == '?' || c == ':';
   }
 
   bool symbolExist(string s, int &val)

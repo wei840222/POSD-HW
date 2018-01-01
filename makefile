@@ -10,8 +10,8 @@ else
 endif
 
 #######UnitTest#######
-allTestRunAndClean: utAtom utTerm utVariable utStruct utList utScanner utParser utIterator utShell
-	./utAtom && ./utTerm && ./utVariable && ./utStruct && ./utList && ./utScanner && ./utParser && ./utIterator && ./utShell
+allTestRunAndClean: utAtom utTerm utVariable utStruct utList utScanner utParser utIterator utExp utShell
+	./utAtom && ./utTerm && ./utVariable && ./utStruct && ./utList && ./utScanner && ./utParser && ./utIterator && ./utExp && ./utShell
 	make clean
 
 utAtom: utAtom.o term.o
@@ -52,7 +52,7 @@ utScanner.o: utScanner.h scanner.h
 
 utParser: utParser.o term.o struct.o list.o
 	g++ -o $@ $^ -lgtest -lpthread
-utParser.o: utParser.h parser.h scanner.h node.h atom.h number.h variable.h
+utParser.o: utParser.h parser.h scanner.h atom.h number.h variable.h
 	touch $*.cpp && echo "#include \"$*.h\"" > $*.cpp && cat utTemplate.h >> $*.cpp
 	g++ -c -std=gnu++0x $*.cpp
 
@@ -62,9 +62,15 @@ utIterator.o: utIterator.h iterator.h atom.h number.h variable.h
 	touch $*.cpp && echo "#include \"$*.h\"" > $*.cpp && cat utTemplate.h >> $*.cpp
 	g++ -c -std=gnu++0x $*.cpp
 
+utExp: utExp.o term.o struct.o list.o
+	g++ -o $@ $^ -lgtest -lpthread
+utExp.o: utExp.h parser.h scanner.h exp.h atom.h number.h variable.h
+	touch $*.cpp && echo "#include \"$*.h\"" > $*.cpp && cat utTemplate.h >> $*.cpp
+	g++ -c -std=gnu++0x $*.cpp
+
 utShell: utShell.o term.o struct.o list.o
 	g++ -o $@ $^ -lgtest -lpthread
-utShell.o: expression.h exception.h parser.h scanner.h exp.h node.h atom.h number.h variable.h
+utShell.o: expression.h exception.h parser.h scanner.h exp.h atom.h number.h variable.h
 	touch $*.cpp && echo "#include \"expression.h\"" > $*.cpp && echo "#include \"exception.h\"" >> $*.cpp && cat utTemplate.h >> $*.cpp
 	g++ -c -std=gnu++0x $*.cpp
 
