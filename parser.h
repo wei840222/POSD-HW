@@ -113,6 +113,8 @@ private:
       _terms.erase(_terms.begin() + startIndexOfListArgs, _terms.end());
       return new List(args);
     }
+    else if (_currentToken == ';')
+      throw string("Unbalanced operator");
     else
       throw string("unexpected token");
   }

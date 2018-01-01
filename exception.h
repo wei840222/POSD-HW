@@ -102,19 +102,19 @@ TEST(Shell, exception_UnbalancedOperator1)
     }
 }
 
-    // TEST(Shell, exception_UnbalancedOperator2)
-    // {
-    //   Scanner s("X = [tom, marry ;]");
-    //   Parser p(s);
-    //   try
-    //   {
-    //     p.buildExpression();
-    //     FAIL() << "It should throw an exception: Unbalanced operator";
-    //   }
-    //   catch (std::string &msg)
-    //   {
-    //     ASSERT_EQ("Unbalanced operator", msg);
-    //   }
-    // }
+TEST(Shell, exception_UnbalancedOperator2)
+{
+    Scanner s("X = [tom, marry ;]");
+    Parser p(s);
+    try
+    {
+        p.buildExpression();
+        FAIL() << "It should throw an exception: Unbalanced operator";
+    }
+    catch (std::string &msg)
+    {
+        ASSERT_EQ("Unbalanced operator", msg);
+    }
+}
 
 #endif
