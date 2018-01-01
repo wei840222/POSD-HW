@@ -71,9 +71,9 @@ public:
   string getResult()
   {
     evaluate();
-    if (_left->getResult() == _false)
+    if (_left->getResult() == _true || _left->getResult() == _false)
       return _right->getResult();
-    else if (_right->getResult() == _false)
+    else if (_right->getResult() == _true || _right->getResult() == _false)
       return _left->getResult();
     else
       return _left->getResult() + "; " + _right->getResult();
