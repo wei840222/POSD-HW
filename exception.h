@@ -72,20 +72,20 @@ TEST(Shell, exception_UnexpectedConjTokenBeforePeriod1)
     }
 }
 
-    // TEST(Shell, exception_UnexpectedConjTokenBeforePeriod2)
-    // {
-    //   Scanner s("X=1,.");
-    //   Parser p(s);
-    //   try
-    //   {
-    //     p.buildExpression();
-    //     FAIL() << "It should throw an exception: Unbalanced operator";
-    //   }
-    //   catch (std::string &msg)
-    //   {
-    //     ASSERT_EQ("Unexpected ',' before '.'", msg);
-    //   }
-    // }
+TEST(Shell, exception_UnexpectedConjTokenBeforePeriod2)
+{
+    Scanner s("X=1,.");
+    Parser p(s);
+    try
+    {
+        p.buildExpression();
+        FAIL() << "It should throw an exception: Unbalanced operator";
+    }
+    catch (std::string &msg)
+    {
+        ASSERT_EQ("Unexpected ',' before '.'", msg);
+    }
+}
 
     // TEST(Shell, exception_UnbalancedOperator1)
     // {
