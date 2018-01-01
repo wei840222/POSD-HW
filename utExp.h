@@ -3,8 +3,9 @@
 
 #include "atom.h"
 #include "variable.h"
-#include "exp.h"
 #include "parser.h"
+#include "scanner.h"
+#include "exp.h"
 
 
 TEST(Exp, matchExp) {

@@ -70,8 +70,8 @@ utExp.o: utExp.h parser.h scanner.h exp.h atom.h number.h variable.h
 
 utShell: utShell.o term.o struct.o list.o
 	g++ -o $@ $^ -lgtest -lpthread
-utShell.o: expression.h exception.h parser.h scanner.h exp.h atom.h number.h variable.h
-	touch $*.cpp && echo "#include \"expression.h\"" > $*.cpp && echo "#include \"exception.h\"" >> $*.cpp && cat utTemplate.h >> $*.cpp
+utShell.o: utShell.h parser.h scanner.h exp.h atom.h number.h variable.h
+	touch $*.cpp && echo "#include \"$*.h\"" > $*.cpp && cat utTemplate.h >> $*.cpp
 	g++ -c -std=gnu++0x $*.cpp
 
 
