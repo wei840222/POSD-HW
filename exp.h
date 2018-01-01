@@ -71,7 +71,12 @@ public:
   string getResult()
   {
     evaluate();
-    return _left->getResult() + "; " + _right->getResult();
+    if (_left->getResult() == _false)
+      return _right->getResult();
+    else if (_right->getResult() == _false)
+      return _left->getResult();
+    else
+      return _left->getResult() + "; " + _right->getResult();
   }
 
 private:
