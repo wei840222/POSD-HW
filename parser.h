@@ -97,6 +97,8 @@ private:
       _terms.erase(_terms.begin() + startIndexOfStructArgs, _terms.end());
       return new Struct(structName, args);
     }
+    else if (_currentToken == ';')
+      throw string("Unbalanced operator");
     else
       throw string("unexpected token");
   }

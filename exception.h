@@ -87,20 +87,20 @@ TEST(Shell, exception_UnexpectedConjTokenBeforePeriod2)
     }
 }
 
-    // TEST(Shell, exception_UnbalancedOperator1)
-    // {
-    //   Scanner s("X = match(tom, marry;)");
-    //   Parser p(s);
-    //   try
-    //   {
-    //     p.buildExpression();
-    //     FAIL() << "It should throw an exception: Unbalanced operator";
-    //   }
-    //   catch (std::string &msg)
-    //   {
-    //     ASSERT_EQ("Unbalanced operator", msg);
-    //   }
-    // }
+TEST(Shell, exception_UnbalancedOperator1)
+{
+    Scanner s("X = match(tom, marry;)");
+    Parser p(s);
+    try
+    {
+        p.buildExpression();
+        FAIL() << "It should throw an exception: Unbalanced operator";
+    }
+    catch (std::string &msg)
+    {
+        ASSERT_EQ("Unbalanced operator", msg);
+    }
+}
 
     // TEST(Shell, exception_UnbalancedOperator2)
     // {
