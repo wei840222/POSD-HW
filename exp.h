@@ -44,7 +44,10 @@ public:
   string getResult()
   {
     evaluate();
-    return _left->getResult() + ", " + _right->getResult();
+    if (_left->getResult() == _false || _right->getResult() == _false)
+      return _false;
+    else
+      return _left->getResult() + ", " + _right->getResult();
   }
 
 private:

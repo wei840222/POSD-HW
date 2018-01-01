@@ -128,25 +128,21 @@ TEST(Shell, varMachingStructThatIncludeVar)
   }
 }
 
-  // TEST(Shell, conjunctionMatching_false)
-  // {
-  //   Scanner s("X=1, X=2.");
-  //   Parser p(s);
-  //   try
-  //   {
-  //     p.buildExpression();
-
-  //     /**
-  //      *  maybe your implementation here.
-  //      */
-
-  //     ASSERT_EQ("false.", result);
-  //   }
-  //   catch (std::string &msg)
-  //   {
-  //     FAIL() << msg;
-  //   }
-  // }
+TEST(Shell, conjunctionMatching_false)
+{
+  Scanner s("X=1, X=2.");
+  Parser p(s);
+  try
+  {
+    p.buildExpression();
+    string result = p.getExpressionTree()->getResult() + '.';
+    ASSERT_EQ("false.", result);
+  }
+  catch (std::string &msg)
+  {
+    FAIL() << msg;
+  }
+}
 
   // TEST(Shell, conjunctionMatching_diffExp)
   // {
