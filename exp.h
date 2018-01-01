@@ -48,6 +48,10 @@ public:
       return _true;
     else if (_left->getResult() == _false || _right->getResult() == _false)
       return _false;
+    else if (_left->getResult() == _true)
+      return _right->getResult();
+    else if (_right->getResult() == _true)
+      return _left->getResult();
     else if (_left->getResult() == _right->getResult())
       return _left->getResult();
     else
