@@ -1,4 +1,3 @@
-#include <gtest/gtest.h>
 #include "expression.h"
 #include "exception.h"
 
