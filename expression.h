@@ -22,7 +22,8 @@ TEST(Shell, varMatchAtomSuc)
     p.buildExpression();
     string result;
     if (p.getExpressionTree()->evaluate())
-      result = p.getExpressionTree()->getTreeContext() + ".";
+      result = p.getExpressionTree()->getTreeContext();
+    result += '.';
     ASSERT_EQ("FILCO = awesome.", result);
   }
   catch (std::string &msg)
@@ -31,25 +32,26 @@ TEST(Shell, varMatchAtomSuc)
   }
 }
 
-  // TEST(Shell, atomMatchAtomFail)
-  // {
-  //   Scanner s("smog=natural_disaster.");
-  //   Parser p(s);
-  //   try
-  //   {
-  //     p.buildExpression();
-
-  //     /**
-  //      *  maybe your implementation here.
-  //      */
-
-  //     ASSERT_EQ("false.", result);
-  //   }
-  //   catch (std::string &msg)
-  //   {
-  //     FAIL() << msg;
-  //   }
-  // }
+TEST(Shell, atomMatchAtomFail)
+{
+  Scanner s("smog=natural_disaster.");
+  Parser p(s);
+  try
+  {
+    p.buildExpression();
+    string result;
+    if (p.getExpressionTree()->evaluate())
+      result = p.getExpressionTree()->getTreeContext();
+    else
+      result = "false";
+    result += '.';
+    ASSERT_EQ("false.", result);
+  }
+  catch (std::string &msg)
+  {
+    FAIL() << msg;
+  }
+}
 
   // TEST(Shell, varMatchList)
   // {

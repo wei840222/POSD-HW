@@ -94,8 +94,8 @@ private:
   string extractAtom()
   {
     int posBegin = position();
-    while (isalnum(buffer[++pos]))
-      ;
+    while (isalnum(buffer[pos]) || buffer[pos] == '_')
+      ++pos;
     return buffer.substr(posBegin, pos - posBegin);
   }
 

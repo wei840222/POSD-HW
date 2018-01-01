@@ -18,6 +18,9 @@ using std::stack;
 using std::string;
 using std::vector;
 
+#include <iostream>
+using std::cout;
+
 class Parser
 {
 public:
@@ -52,7 +55,11 @@ public:
     disjunctionMatch();
     restDisjunctionMatch();
     if (createTerm() != nullptr || _currentToken != '.')
+    {
+      cout << _currentToken << '\n'
+           << symtable[_scanner.tokenValue()].first << '\n';
       throw string("expected token.");
+    }
     return _expStack.top();
   }
 
