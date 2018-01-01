@@ -52,7 +52,7 @@ public:
       return _right->getResult();
     else if (_right->getResult() == _true)
       return _left->getResult();
-    else if (_left->getResult() == _right->getResult())
+    else if (_left->getResult().find(_right->getResult()) != string::npos)
       return _left->getResult();
     else
       return _left->getResult() + ", " + _right->getResult();
