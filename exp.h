@@ -28,7 +28,7 @@ public:
     else if (!evaluate())
       return _false;
     else
-      return _left->symbol() + " = " + _right->symbol();
+      return _left->symbol() + " = " + _right->value();
   }
 
 private:
@@ -41,7 +41,11 @@ class ConjExp : public Exp
 public:
   ConjExp(Exp *left, Exp *right) : _left(left), _right(right) {}
   bool evaluate() { return (_left->evaluate() && _right->evaluate()); }
-  string getResult() { return _left->getResult() + "; " + _right->getResult(); }
+  string getResult()
+  {
+    evaluate();
+    return _left->getResult() + ", " + _right->getResult();
+  }
 
 private:
   Exp *_left;
@@ -53,7 +57,11 @@ class DisjExp : public Exp
 public:
   DisjExp(Exp *left, Exp *right) : _left(left), _right(right) {}
   bool evaluate() { return (_left->evaluate() || _right->evaluate()); }
-  string getResult() { return _left->getResult() + ", " + _right->getResult(); }
+  string getResult()
+  {
+    evaluate();
+    return _left->getResult() + "; " + _right->getResult();
+  }
 
 private:
   Exp *_left;

@@ -24,14 +24,21 @@ using std::cout;
 class Parser
 {
 public:
-  Parser(Scanner scanner) : _scanner(scanner) {}
+  Parser(Scanner scanner) : _scanner(scanner), _scopeStartIndex(0) {}
 
   Term *createTerm()
   {
     int token = _scanner.nextToken();
     _currentToken = token;
     if (token == VAR)
-      return new Variable(symtable[_scanner.tokenValue()].first);
+    {
+      for (int i = _scopeStartIndex; i < _varTable.size(); i++)
+        if (symtable[_scanner.tokenValue()].first == _varTable[i]->symbol())
+          return _varTable[i];
+      Variable *variable = new Variable(symtable[_scanner.tokenValue()].first);
+      _varTable.push_back(variable);
+      return variable;
+    }
     else if (token == NUMBER)
       return new Number(_scanner.tokenValue());
     else if (token == ATOM || token == ATOMSC)
@@ -112,6 +119,7 @@ private:
   {
     if (_scanner.currentChar() == ';')
     {
+      _scopeStartIndex = _varTable.size();
       createTerm();
       disjunctionMatch();
       Exp *right = _expStack.top();
@@ -154,9 +162,11 @@ private:
     }
   }
 
-  vector<Term *> _terms;
   Scanner _scanner;
   int _currentToken;
+  vector<Term *> _terms;
+  vector<Variable *> _varTable;
+  int _scopeStartIndex;
   stack<Exp *> _expStack;
 
   FRIEND_TEST(ParserTest, createArgs);
