@@ -303,25 +303,20 @@ TEST(Shell, conjunctionMatching)
   }
 }
 
-  // TEST(Shell, disjunctionMatching1)
-  // {
-  //   Scanner s("X=1; X=2.");
-  //   Parser p(s);
-  //   try
-  //   {
-  //     p.buildExpression();
-
-  //     /**
-  //      *  maybe your implementation here.
-  //      */
-
-  //     ASSERT_EQ("X = 1; X = 2.", result);
-  //   }
-  //   catch (std::string &msg)
-  //   {
-  //     FAIL() << msg;
-  //   }
-  // }
+TEST(Shell, disjunctionMatching1)
+{
+  Scanner s("X=1; X=2.");
+  Parser p(s);
+  try
+  {
+    string result = p.buildExpression()->getResult() + '.';
+    ASSERT_EQ("X = 1; X = 2.", result);
+  }
+  catch (std::string &msg)
+  {
+    FAIL() << msg;
+  }
+}
 
   // TEST(Shell, disjunctionMatching2)
   // {
