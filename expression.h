@@ -74,25 +74,26 @@ TEST(Shell, varMatchList)
   }
 }
 
-  // TEST(Shell, varMatchStruct)
-  // {
-  //   Scanner s("Pitiful=binding([rope,rope,rope], Turtle, oil).");
-  //   Parser p(s);
-  //   try
-  //   {
-  //     p.buildExpression();
-
-  //     /**
-  //      *  maybe your implementation here.
-  //      */
-
-  //     ASSERT_EQ("Pitiful = binding([rope, rope, rope], Turtle, oil).", result);
-  //   }
-  //   catch (std::string &msg)
-  //   {
-  //     FAIL() << msg;
-  //   }
-  // }
+TEST(Shell, varMatchStruct)
+{
+  Scanner s("Pitiful=binding([rope,rope,rope], Turtle, oil).");
+  Parser p(s);
+  try
+  {
+    p.buildExpression();
+    string result;
+    if (p.getExpressionTree()->evaluate())
+      result = p.getExpressionTree()->getTreeContext();
+    else
+      result = "false";
+    result += '.';
+    ASSERT_EQ("Pitiful = binding([rope, rope, rope], Turtle, oil).", result);
+  }
+  catch (std::string &msg)
+  {
+    FAIL() << msg;
+  }
+}
 
   // TEST(Shell, varMatchItself)
   // {
