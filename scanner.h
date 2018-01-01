@@ -44,7 +44,7 @@ public:
       processToken<ATOM>(s);
       return ATOM;
     }
-    else if (isSpecialCh(currentChar()))
+    else if (isSpecialCh(currentChar()) && position() < buffer.length() - 1)
     {
       string s = extractAtomSC();
       processToken<ATOMSC>(s);
@@ -63,6 +63,7 @@ public:
     }
   }
 
+  string getContext() const { return buffer; }
   int tokenValue() const { return _tokenValue; }
   int position() const { return pos; }
   char currentChar() const { return buffer[pos]; }
@@ -94,8 +95,8 @@ private:
   string extractAtom()
   {
     int posBegin = position();
-    while (isalnum(buffer[++pos]))
-      ;
+    while (isalnum(buffer[pos]) || buffer[pos] == '_')
+      ++pos;
     return buffer.substr(posBegin, pos - posBegin);
   }
 
@@ -126,11 +127,7 @@ private:
 
   bool isSpecialCh(char c)
   {
-    return c == '+'
-           //|| c == '=' // ... the matching operator
-           || c == '-' || c == '*' || c == '/' || c == '<' || c == '>' ||
-           c == '.' || c == '&' || c == '\\' || c == '~' || c == '^' ||
-           c == '$' || c == '#' || c == '@' || c == '?' || c == ':';
+    return c == '+' || c == '.' || c == '-' || c == '*' || c == '/' || c == '<' || c == '>' || c == '&' || c == '\\' || c == '~' || c == '^' || c == '$' || c == '#' || c == '@' || c == '?' || c == ':';
   }
 
   bool symbolExist(string s, int &val)

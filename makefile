@@ -1,17 +1,26 @@
-hw7: term.o struct.o list.o utIterator.h iterator.h atom.h number.h variable.h
+hw8: term.o struct.o list.o utShell.h parser.h scanner.h exp.h atom.h number.h variable.h
 ifeq (${OS}, Windows_NT) 
 	g++ -c -std=gnu++0x hw.cpp 
-	g++ -o hw7 hw.o term.o struct.o list.o -lgtest 
+	g++ -o hw8 hw.o term.o struct.o list.o -lgtest 
 else
-	make utIterator.o
-	g++ -o hw7 utIterator.o term.o struct.o list.o -lgtest -lpthread
-	./hw7
+	make utShell.o
+	g++ -o hw8 utShell.o term.o struct.o list.o -lgtest -lpthread
+	./hw8
 	make clean
 endif
 
+shell: term.o struct.o list.o shell.cpp parser.h scanner.h exp.h atom.h number.h variable.h
+ifeq (${OS}, Windows_NT) 
+	g++ -c -std=gnu++0x shell.cpp
+	g++ -o shell shell.o term.o struct.o list.o -lgtest
+else
+	g++ -c -std=gnu++0x shell.cpp
+	g++ -o shell shell.o term.o struct.o list.o -lgtest -lpthread
+endif
+
 #######UnitTest#######
-allTestRunAndClean: utAtom utTerm utVariable utStruct utList utScanner utParser utIterator
-	./utAtom && ./utTerm && ./utVariable && ./utStruct && ./utList && ./utScanner && ./utParser && ./utIterator
+allTestRunAndClean: utAtom utTerm utVariable utStruct utList utScanner utParser utIterator utExp utShell
+	./utAtom && ./utTerm && ./utVariable && ./utStruct && ./utList && ./utScanner && ./utParser && ./utIterator && ./utExp && ./utShell
 	make clean
 
 utAtom: utAtom.o term.o
@@ -52,7 +61,7 @@ utScanner.o: utScanner.h scanner.h
 
 utParser: utParser.o term.o struct.o list.o
 	g++ -o $@ $^ -lgtest -lpthread
-utParser.o: utParser.h parser.h scanner.h node.h atom.h number.h variable.h
+utParser.o: utParser.h parser.h scanner.h atom.h number.h variable.h
 	touch $*.cpp && echo "#include \"$*.h\"" > $*.cpp && cat utTemplate.h >> $*.cpp
 	g++ -c -std=gnu++0x $*.cpp
 
@@ -61,6 +70,19 @@ utIterator: utIterator.o term.o struct.o list.o
 utIterator.o: utIterator.h iterator.h atom.h number.h variable.h
 	touch $*.cpp && echo "#include \"$*.h\"" > $*.cpp && cat utTemplate.h >> $*.cpp
 	g++ -c -std=gnu++0x $*.cpp
+
+utExp: utExp.o term.o struct.o list.o
+	g++ -o $@ $^ -lgtest -lpthread
+utExp.o: utExp.h parser.h scanner.h exp.h atom.h number.h variable.h
+	touch $*.cpp && echo "#include \"$*.h\"" > $*.cpp && cat utTemplate.h >> $*.cpp
+	g++ -c -std=gnu++0x $*.cpp
+
+utShell: utShell.o term.o struct.o list.o
+	g++ -o $@ $^ -lgtest -lpthread
+utShell.o: utShell.h parser.h scanner.h exp.h atom.h number.h variable.h
+	touch $*.cpp && echo "#include \"$*.h\"" > $*.cpp && cat utTemplate.h >> $*.cpp
+	g++ -c -std=gnu++0x $*.cpp
+
 
 #####Object file#####
 term.o: term.h
@@ -74,5 +96,5 @@ clean:
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
 else
-	rm -f *.o ut*[!.h] hw*[!.cpp]
+	rm -f shell *.o ut*[!.h] hw*[!.cpp]
 endif

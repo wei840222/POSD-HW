@@ -4,16 +4,20 @@
 #include <gtest/gtest.h>
 #include <string>
 #include <vector>
+#include <stack>
 #include "atom.h"
 #include "list.h"
-#include "node.h"
 #include "number.h"
 #include "scanner.h"
 #include "struct.h"
 #include "term.h"
 #include "variable.h"
+#include "exp.h"
 
+using std::stack;
 using std::string;
+using std::vector;
+
 
 class Parser
 {
@@ -25,7 +29,14 @@ public:
     int token = _scanner.nextToken();
     _currentToken = token;
     if (token == VAR)
-      return new Variable(symtable[_scanner.tokenValue()].first);
+    {
+      for (int i = _scopeStartIndex; i < _varTable.size(); i++)
+        if (symtable[_scanner.tokenValue()].first == _varTable[i]->symbol())
+          return _varTable[i];
+      Variable *variable = new Variable(symtable[_scanner.tokenValue()].first);
+      _varTable.push_back(variable);
+      return variable;
+    }
     else if (token == NUMBER)
       return new Number(_scanner.tokenValue());
     else if (token == ATOM || token == ATOMSC)
@@ -42,47 +53,22 @@ public:
       return nullptr;
   }
 
-  void matchings()
+  vector<Term *> &getTerms() { return _terms; }
+
+  Exp *buildExpression()
   {
-    Term *term = createTerm();
-    if (term != nullptr)
-    {
-      _terms.push_back(term);
-      while ((_currentToken = _scanner.nextToken()) == '=' ||
-             _currentToken == ',' || _currentToken == ';')
-      {
-        if (_currentToken == '=')
-        {
-          Node *l = new Node(TERM, _terms.back());
-          _terms.push_back(createTerm());
-          Node *r = new Node(TERM, _terms.back());
-          _expressionTree = new Node(EQUALITY, 0, l, r);
-        }
-        else if (_currentToken == ',')
-        {
-          Node *l = _expressionTree;
-          matchings();
-          Node *r = _expressionTree;
-          _expressionTree = new Node(COMMA, 0, l, r);
-          setAsSameScope();
-        }
-        else if (_currentToken == ';')
-        {
-          Node *l = _expressionTree;
-          _scopeStartIndex = _terms.size();
-          matchings();
-          Node *r = _expressionTree;
-          _expressionTree = new Node(SEMICOLON, 0, l, r);
-        }
-      }
-    }
-    // remove symtable .
-    if (symtable.back().first == ".")
-      symtable.pop_back();
+    if (_scanner.getContext().find(";.") != string::npos)
+      throw string("Unexpected ';' before '.'");
+    if (_scanner.getContext().find(",.") != string::npos)
+      throw string("Unexpected ',' before '.'");
+    disjunctionMatch();
+    restDisjunctionMatch();
+    if (createTerm() != nullptr || _currentToken != '.')
+      throw string("Missing token '.'");
+    return _expStack.top();
   }
 
-  vector<Term *> &getTerms() { return _terms; }
-  Node *expressionTree() { return _expressionTree; }
+  Exp *getExpressionTree() { return _expStack.top(); }
 
 private:
   void createTerms()
@@ -109,6 +95,8 @@ private:
       _terms.erase(_terms.begin() + startIndexOfStructArgs, _terms.end());
       return new Struct(structName, args);
     }
+    else if (_currentToken == ';')
+      throw string("Unbalanced operator");
     else
       throw string("unexpected token");
   }
@@ -123,47 +111,67 @@ private:
       _terms.erase(_terms.begin() + startIndexOfListArgs, _terms.end());
       return new List(args);
     }
+    else if (_currentToken == ';')
+      throw string("Unbalanced operator");
     else
       throw string("unexpected token");
   }
 
-  void setAsSameScope()
+  void restDisjunctionMatch()
   {
-    for (int i = _scopeStartIndex; i < _terms.size(); i++)
+    if (_scanner.currentChar() == ';')
     {
-      Variable *currentVar = dynamic_cast<Variable *>(_terms[i]);
-      if (currentVar != nullptr)
-        for (int j = _scopeStartIndex; j < _terms.size(); j++)
-        {
-          Struct *currentStruct = dynamic_cast<Struct *>(_terms[j]);
-          List *currentList = dynamic_cast<List *>(_terms[j]);
-          if (currentStruct != nullptr &&
-              currentStruct->findBySymbol(currentVar->symbol()) != nullptr &&
-              currentStruct->findBySymbol(currentVar->symbol()) != currentVar)
-          {
-            currentVar->match(
-                *(currentStruct->findBySymbol(currentVar->symbol())));
-          }
-          else if (currentList != nullptr &&
-                   currentList->findBySymbol(currentVar->symbol()) !=
-                       nullptr &&
-                   currentList->findBySymbol(currentVar->symbol()) !=
-                       currentVar)
-          {
-            currentVar->match(
-                *(currentList->findBySymbol(currentVar->symbol())));
-          }
-          else if (currentVar->symbol() == _terms[j]->symbol() && j > i)
-            currentVar->match(*(_terms[j]));
-        }
+      _scopeStartIndex = _varTable.size();
+      createTerm();
+      disjunctionMatch();
+      Exp *right = _expStack.top();
+      _expStack.pop();
+      Exp *left = _expStack.top();
+      _expStack.pop();
+      _expStack.push(new DisjExp(left, right));
+      restDisjunctionMatch();
     }
   }
 
-  vector<Term *> _terms;
+  void disjunctionMatch()
+  {
+    conjunctionMatch();
+    restConjunctionMatch();
+  }
+
+  void restConjunctionMatch()
+  {
+    if (_scanner.currentChar() == ',')
+    {
+      createTerm();
+      conjunctionMatch();
+      Exp *right = _expStack.top();
+      _expStack.pop();
+      Exp *left = _expStack.top();
+      _expStack.pop();
+      _expStack.push(new ConjExp(left, right));
+      restConjunctionMatch();
+    }
+  }
+
+  void conjunctionMatch()
+  {
+    Term *left = createTerm();
+    if (createTerm() == nullptr && _currentToken == '=')
+    {
+      Term *right = createTerm();
+      _expStack.push(new MatchExp(left, right));
+    }
+    else
+      throw string(left->symbol() + " does never get assignment");
+  }
+
   Scanner _scanner;
   int _currentToken;
+  vector<Term *> _terms;
+  vector<Variable *> _varTable;
   int _scopeStartIndex;
-  Node *_expressionTree;
+  stack<Exp *> _expStack;
 
   FRIEND_TEST(ParserTest, createArgs);
   FRIEND_TEST(ParserTest, ListOfTermsEmpty);
