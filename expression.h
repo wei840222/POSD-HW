@@ -144,25 +144,21 @@ TEST(Shell, conjunctionMatching_false)
   }
 }
 
-  // TEST(Shell, conjunctionMatching_diffExp)
-  // {
-  //   Scanner s("X=1, Y=2.");
-  //   Parser p(s);
-  //   try
-  //   {
-  //     p.buildExpression();
-
-  //     /**
-  //      *  maybe your implementation here.
-  //      */
-
-  //     ASSERT_EQ("X = 1, Y = 2.", result);
-  //   }
-  //   catch (std::string &msg)
-  //   {
-  //     FAIL() << msg;
-  //   }
-  // }
+TEST(Shell, conjunctionMatching_diffExp)
+{
+  Scanner s("X=1, Y=2.");
+  Parser p(s);
+  try
+  {
+    p.buildExpression();
+    string result = p.getExpressionTree()->getResult() + '.';
+    ASSERT_EQ("X = 1, Y = 2.", result);
+  }
+  catch (std::string &msg)
+  {
+    FAIL() << msg;
+  }
+}
 
   // TEST(Shell, conjunctionMatching_sameExp)
   // {
