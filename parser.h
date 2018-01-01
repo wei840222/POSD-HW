@@ -61,6 +61,8 @@ public:
   {
     if (_scanner.getContext().find(";.") != string::npos)
       throw string("Unexpected ';' before '.'");
+    if (_scanner.getContext().find(",.") != string::npos)
+      throw string("Unexpected ',' before '.'");
     disjunctionMatch();
     restDisjunctionMatch();
     if (createTerm() != nullptr || _currentToken != '.')
