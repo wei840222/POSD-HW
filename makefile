@@ -9,6 +9,7 @@ else
 	make clean
 endif
 
+
 shell: term.o struct.o list.o shell.cpp parser.h scanner.h exp.h atom.h number.h variable.h
 ifeq (${OS}, Windows_NT) 
 	g++ -c -std=gnu++0x shell.cpp
