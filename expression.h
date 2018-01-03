@@ -20,9 +20,9 @@ TEST(Shell, varMatchAtomSuc)
   try
   {
     p.buildExpression();
-    string result;
-    if (p.getExpressionTree()->evaluate())
-      result = p.getExpressionTree()->getTreeContext() + ".";
+    /**
+    *  maybe your implementation here.
+    */
     ASSERT_EQ("FILCO = awesome.", result);
   }
   catch (std::string &msg)
