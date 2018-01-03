@@ -13,23 +13,23 @@
 #include "scanner.h"
 #include "exp.h"
 
-TEST(Shell, varMatchAtomSuc)
-{
-  Scanner s("FILCO=awesome.");
-  Parser p(s);
-  try
-  {
-    p.buildExpression();
-    /**
-    *  maybe your implementation here.
-    */
-    ASSERT_EQ("FILCO = awesome.", result);
-  }
-  catch (std::string &msg)
-  {
-    FAIL() << msg;
-  }
-}
+// TEST(Shell, varMatchAtomSuc)
+// {
+//   Scanner s("FILCO=awesome.");
+//   Parser p(s);
+//   try
+//   {
+//     p.buildExpression();
+//     /**
+//     *  maybe your implementation here.
+//     */
+//     ASSERT_EQ("FILCO = awesome.", result);
+//   }
+//   catch (std::string &msg)
+//   {
+//     FAIL() << msg;
+//   }
+// }
 
   // TEST(Shell, atomMatchAtomFail)
   // {
