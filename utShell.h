@@ -369,7 +369,7 @@ TEST(Shell, disjunctionMatching5)
   try
   {
     string result = p.buildExpression()->getResult() + '.';
-    ASSERT_EQ("X = 1; Y = 2.", result);
+    ASSERT_EQ("X = 1; true; Y = 2.", result);
   }
   catch (std::string &msg)
   {
