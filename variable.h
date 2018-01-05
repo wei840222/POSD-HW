@@ -21,8 +21,7 @@ public:
 
   bool match(Term &term)
   {
-    if (term.findBySymbol(symbol()) != nullptr &&
-        term.findBySymbol(symbol()) != &term)
+    if (term.findBySymbol(symbol()) != nullptr && term.findBySymbol(symbol()) != &term)
       return false;
     else if (&term == this)
       return true;

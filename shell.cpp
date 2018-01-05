@@ -26,7 +26,7 @@ int main(int argc, char **argv)
         parser = new Parser(Scanner(context));
         try
         {
-            cout << parser->buildExpression()->getResult() << endl;
+            cout << parser->buildExpression()->getResult() << '.' << endl;
         }
         catch (string &msg)
         {
